@@ -4,6 +4,8 @@
 > 受众定位：完全没有编程背景、没有接触过 Prompt Engineering 的初学者。  
 > 讲课原则：少讲术语，先用生活例子建立直觉，再过渡到 AI Coding。
 
+> 课堂结构：主课聚焦 Token、Prompt、Context、Harness 和一个小项目；工具与模型、Skill/MCP 细节、Profile 全文及 Loop Engineering 作为课后附录，需要时再展开。
+
 ## 0. 课程主线
 
 这门课不从“怎么写代码”开始讲。
