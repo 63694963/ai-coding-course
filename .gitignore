@@ -1,0 +1,11 @@
+# Generated support directories — local machine, not part of deliverable
+.codegraph/
+.reasonix/
+.playwright-mcp/
+.serena/
+
+# macOS system files
+.DS_Store
+
+# Temporary screenshot artifacts
+/tmp/
