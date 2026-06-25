@@ -1157,7 +1157,7 @@ input[type="range"] {
       <div class="num reveal">04</div>
       <div class="content-stack">
         <h2 class="reveal">Prompt Engineering：把话说清楚</h2>
-        <p class="lead reveal">它不是背模板，而是训练自己把模糊想法变成可执行任务。</p>
+        <p class="lead reveal">它不是背模板，而是减少 AI 必须替你猜的地方。先看错误产物，再补最关键的条件。</p>
         <div class="grid-3 reveal">
           <div class="card"><span class="tag">01</span><h3>目标与场景</h3><p>让 AI 知道你在做什么、要完成什么，而不是只丢一句孤立的话。</p></div>
           <div class="card"><span class="tag">02</span><h3>边界与材料</h3><p>明确不要做什么，只给它真正相关的材料，不把所有东西都倒进去。</p></div>
@@ -1180,27 +1180,56 @@ input[type="range"] {
     <div class="inner chapter">
       <div class="num reveal">05</div>
       <div class="content-stack">
-        <h2 class="reveal">课堂练习：把模糊需求拆开</h2>
-        <p class="lead reveal">让学生先判断哪里没说清，再动手补条件。这个环节的目标不是背模板，而是训练“发现缺口”。</p>
+        <h2 class="reveal">课堂练习：先看 AI 做错了什么</h2>
+        <p class="lead reveal">同一句模糊需求，也可能得到一份看似专业、实际没人愿意用的结果。</p>
 
         <div class="stage-card reveal">
-          <h3>这句话最缺什么？</h3>
-          <p class="body">先不要急着改。让学生投票：这个需求最大的问题是什么？</p>
+          <h3>第一步：模糊输入</h3>
           <div class="prompt-box bad">
             <div class="prompt-title"><span class="red">待诊断需求</span><span>30 秒</span></div>
             <pre>帮我做一个客户回访表，简单一点，方便销售用。</pre>
           </div>
+          <p class="mini-label">AI 可能交付的“完整方案”</p>
+          <div class="prompt-box bad">
+            <div class="prompt-title"><span class="red">方向错误的输出</span><span>看起来很专业</span></div>
+            <pre>客户回访管理系统
+
+字段：客户编号、客户等级、来源渠道、销售阶段、满意度、
+NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
+
+功能：销售登录、主管权限、自动提醒、回访评分、
+趋势看板、客户分层、CRM 数据同步、月度报表导出。</pre>
+          </div>
+          <h3>第二步：这份结果为什么不能直接用？</h3>
+          <p class="body">先选一个最明显的问题。答案揭晓后，再看它在错误输出里造成了什么后果。</p>
           <div class="choice-grid" id="diagnosisChoices">
-            <button class="choice-btn" data-answer="goal">目标：回访表要解决什么问题</button>
-            <button class="choice-btn" data-answer="context">背景：客户类型和销售流程</button>
-            <button class="choice-btn" data-answer="boundary">边界：第一版不做哪些功能</button>
-            <button class="choice-btn" data-answer="format">格式：最后输出成什么样</button>
-            <button class="choice-btn" data-answer="check">验证：怎样算方便销售用</button>
-            <button class="choice-btn" data-answer="all">以上都缺</button>
+            <button class="choice-btn" data-answer="goal">没有说表格要解决什么问题</button>
+            <button class="choice-btn" data-answer="context">没有说客户和销售的实际情况</button>
+            <button class="choice-btn" data-answer="boundary">没有说第一版不要做什么</button>
+            <button class="choice-btn" data-answer="format">没有说要普通表格还是系统</button>
+            <button class="choice-btn" data-answer="check">“简单方便”无法检查</button>
+            <button class="choice-btn" data-answer="all">这些缺口共同造成了错误</button>
           </div>
           <div class="result-panel" id="diagnosisResult">
             <strong>先让学生选，再揭晓</strong>
-            <p>这句话的问题不在“短”，而在关键条件都需要 AI 猜。课堂上可以追问：销售每天看什么？谁来填写？需要导出吗？第一版只做表格还是要做页面？</p>
+            <p>这份输出不是“不完整”，而是替用户做了太多未经确认的决定。</p>
+          </div>
+          <div id="promptImprovement" hidden>
+            <h3>第三步：只补完成任务所需的条件</h3>
+            <div class="prompt-box good">
+              <div class="prompt-title"><span class="accent">最小修正版 Prompt</span><span>不堆模板</span></div>
+              <pre>请为销售做一张企业老客户回访记录表。
+目标是记录本周联系结果和下一步跟进。
+第一版只做可复制到 Excel 的表格，不做登录、提醒、评分或 CRM。
+保留 5 列：客户名称、联系人、回访日期、客户反馈、下一步与日期。
+销售应能在 3 分钟内填完一行。</pre>
+            </div>
+            <p class="mini-label">改善后的输出</p>
+            <div class="prompt-box good">
+              <div class="prompt-title"><span class="accent">方向正确</span><span>可以直接试用</span></div>
+              <pre>| 客户名称 | 联系人 | 回访日期 | 客户反馈 | 下一步与日期 |
+| 华星科技 | 王经理 | 6 月 24 日 | 计划第三季度增购 | 7 月 3 日发送方案 |</pre>
+            </div>
           </div>
         </div>
       </div>
@@ -1212,12 +1241,12 @@ input[type="range"] {
       <div class="num reveal">06</div>
       <div class="content-stack">
         <h2 class="reveal">Context Engineering：把背景给清楚</h2>
-        <p class="lead reveal">Prompt 是“我想让你做什么”。Context 是“你需要知道哪些背景”。</p>
+        <p class="lead reveal">Prompt 是“要做什么”，Context 是“这次任务的真实情况”。背景缺了或错了，AI 就会写出看似通顺、实际不能用的结果。</p>
         <div class="grid-4 reveal">
           <div class="card"><span class="tag red">缺背景</span><h3>通用答案</h3><p>AI 只能按常识猜，输出容易空泛。</p></div>
           <div class="card"><span class="tag red">错背景</span><h3>认真地错</h3><p>你说价格问题，它就围绕价格认真生成。</p></div>
           <div class="card"><span class="tag gold">太多背景</span><h3>重点淹没</h3><p>资料不是越多越好，关键是告诉它最重要的三点。</p></div>
-          <div class="card"><span class="tag green">反馈背景</span><h3>越改越准</h3><p>说清哪里不对，下一轮才会变成有效上下文。</p></div>
+          <div class="card"><span class="tag green">关键背景</span><h3>结果可用</h3><p>只给会影响结果的事实：对象、原因、下一步和不能承诺什么。</p></div>
         </div>
         <div class="split reveal">
           <div class="prompt-box bad">
@@ -1241,28 +1270,27 @@ input[type="range"] {
     <div class="inner chapter">
       <div class="num reveal">07</div>
       <div class="content-stack">
-        <h2 class="reveal">Context 模拟器：同一任务，结果为什么变</h2>
-        <p class="lead reveal">不要只告诉学生“要给背景”。让他们看到：背景缺、背景错、背景太多、反馈清楚，AI 的方向会完全不同。</p>
+        <h2 class="reveal">Context 模拟器：直接看错在哪里</h2>
+        <p class="lead reveal">任务始终是“写客户道歉邮件”。点击一个错误例子，看 AI 会写出什么，以及哪一句错了。</p>
         <div class="stage-card reveal">
           <div class="context-stage">
             <div>
-              <p class="mini-label">选择给 AI 的背景</p>
+              <p class="mini-label">选择一个例子</p>
               <div class="scenario-list" id="contextScenarios">
-                <button class="scenario-btn active" data-context="missing"><strong>缺背景</strong>只说“帮我写客户道歉邮件”</button>
-                <button class="scenario-btn" data-context="wrong"><strong>错背景</strong>说客户不满是因为价格，实际是交付延迟</button>
-                <button class="scenario-btn" data-context="tooMuch"><strong>背景太多</strong>塞进公司历史、产品介绍、聊天记录</button>
-                <button class="scenario-btn" data-context="focused"><strong>关键背景</strong>对象、原因、限制和希望结果都清楚</button>
-                <button class="scenario-btn" data-context="feedback"><strong>反馈背景</strong>指出上一版哪里不对，再让它重写</button>
+                <button class="scenario-btn active" data-context="missing"><strong>错误 1：什么都没说</strong>“帮我写一封客户道歉邮件。”</button>
+                <button class="scenario-btn" data-context="wrong"><strong>错误 2：原因说错了</strong>实际是延迟，却告诉 AI 是价格问题。</button>
+                <button class="scenario-btn" data-context="tooMuch"><strong>错误 3：资料全塞进去</strong>公司历史、产品介绍和聊天记录全部粘贴。</button>
+                <button class="scenario-btn" data-context="focused"><strong>正确例子</strong>客户是谁、延迟几天、下一步和承诺边界。</button>
               </div>
             </div>
             <div class="output-box">
-              <p class="mini-label">课堂可展示输出</p>
+              <p class="mini-label">AI 写出的邮件</p>
               <pre id="contextOutput"></pre>
               <div class="result-panel" id="contextLesson"></div>
             </div>
           </div>
         </div>
-        <div class="quote reveal">Context 的重点不是把资料堆满，而是让 AI 知道“这次任务真正影响结果的事实”。</div>
+        <div class="quote reveal">判断 Context 好不好，只问一句：<strong>这条背景会不会改变结果？</strong>不会改变，就先不要放进去。</div>
       </div>
     </div>
   </section>
@@ -2030,31 +2058,32 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
   var diagnosisCopy = {
     all: {
-      title: "正确：这句话几乎所有关键条件都缺",
-      body: "它听起来像一个需求，但目标、背景、边界、格式、验证都不清楚。AI 只能自己补脑，补错了你还要返工。"
+      title: "正确：这些缺口共同把一张表推成了一个系统",
+      body: "AI 同时猜了用途、客户类型、产品形态和验收标准，于是加出十多个字段、权限、看板和 CRM。问题不是它没做完，而是做得太多、方向又未经确认。"
     },
     goal: {
       title: "目标确实缺，但不是唯一问题",
-      body: "“方便销售用”不是可检查目标。还要继续补客户类型、第一版边界、输出格式和判断标准。"
+      body: "没有“记录本周联系结果和下一步”这个目标，AI 就把回访扩展成客户全生命周期管理，所以加入销售阶段、流失风险和复购概率。"
     },
     context: {
       title: "背景确实缺，但不是唯一问题",
-      body: "AI 不知道销售怎么跟进客户，也不知道客户类型。除此之外，边界、格式和验证也需要补。"
+      body: "AI 不知道这是企业老客户，也不知道销售只想快速记录一次联系，因此套用了通用 CRM 的客户等级、来源渠道和 NPS 字段。"
     },
     boundary: {
       title: "边界确实缺，但不是唯一问题",
-      body: "如果不说第一版不做什么，AI 可能会加登录、提醒、权限、CRM 对接。还要补目标和背景。"
+      body: "没有“第一版只做表格”，AI 就继续增加登录、权限、自动提醒、看板和 CRM 同步，把一天能试用的表格变成了长期项目。"
     },
     format: {
       title: "格式确实缺，但不是唯一问题",
-      body: "表格、页面、字段清单、Excel 模板会导向不同输出。除此之外，目标、背景、边界也不清楚。"
+      body: "“做一个表”既可能是 Excel 表格，也可能被理解成网页管理系统。错误输出选择了最重的形式，销售无法马上复制试用。"
     },
     check: {
       title: "验证确实缺，但不是唯一问题",
-      body: "“简单”“方便”都需要检查标准。比如销售看完字段不需要再问、3 分钟内能填完。"
+      body: "“简单”“方便”无法验收，所以十多个字段也能被包装成“完整”。改成“5 列、3 分钟填完一行”，才能判断结果是否合格。"
     }
   };
   var diagnosisResult = document.getElementById("diagnosisResult");
+  var promptImprovement = document.getElementById("promptImprovement");
   function setPanel(panel, title, body) {
     panel.innerHTML = "";
     var strong = document.createElement("strong");
@@ -2074,34 +2103,30 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
       var correct = document.querySelector('#diagnosisChoices .choice-btn[data-answer="all"]');
       if (correct) correct.classList.add("correct");
       setPanel(diagnosisResult, diagnosisCopy[answer].title, diagnosisCopy[answer].body);
+      promptImprovement.hidden = false;
     });
   });
 
   var contextData = {
     missing: {
       output: "亲爱的客户，非常抱歉给您带来不便。我们会尽快处理相关问题，并持续优化服务质量。感谢您的理解与支持。",
-      title: "问题：输出很礼貌，但很空",
-      lesson: "AI 不知道客户为什么不满，也不知道能承诺什么，只能生成通用道歉话术。"
+      title: "错在：客户看完仍然不知道发生了什么",
+      lesson: "“相关问题”“尽快处理”都是空话。缺少投诉原因和明确时间。"
     },
     wrong: {
       output: "关于价格问题，我们理解您的顾虑。后续会结合您的采购规模，尽量提供更有竞争力的方案。",
-      title: "问题：AI 会认真沿着错误背景写",
-      lesson: "如果真实原因是交付延迟，这封邮件方向就错了。错背景比缺背景更危险。"
+      title: "错在：道歉对象说的是延迟，邮件却在谈价格",
+      lesson: "AI 会认真使用你给的错误背景。背景错了，文字写得再好也没有用。"
     },
     tooMuch: {
       output: "结合贵司多年合作历史、我司产品体系、近期市场环境和双方沟通记录，我们建议从多方面提升协作体验。",
-      title: "问题：重点被淹没",
-      lesson: "材料很多，但重点不清。AI 可能写得很全面，却没有解决这一次具体投诉。"
+      title: "错在：说了很多，但没有回应这次延迟",
+      lesson: "公司历史和市场环境没有帮助客户解决眼前问题，反而把“延迟几天、何时回复”淹没了。"
     },
     focused: {
       output: "王经理，抱歉这批货比原计划晚到 2 天。今天 17:00 前我们会给您准确物流节点。现在不承诺补偿金额，但会在确认责任后给出处理方案。",
-      title: "效果：方向更稳，承诺边界清楚",
-      lesson: "对象、原因、下一步、不能承诺的内容都清楚，AI 更容易写出可用版本。"
-    },
-    feedback: {
-      output: "上一版太像模板，且承诺了“尽快补偿”。请改成更具体：说明延迟 2 天、今天 17:00 前同步物流、不承诺未知补偿、语气负责但不要过度道歉。",
-      title: "效果：反馈也变成了上下文",
-      lesson: "告诉 AI 哪一句不对、为什么不对、下一版要怎么改，下一轮才会更准。"
+      title: "对在：每一句都有明确作用",
+      lesson: "客户是谁、延迟多久、几点回复、暂时不能承诺什么，都直接影响邮件内容。"
     }
   };
   var contextOutput = document.getElementById("contextOutput");
