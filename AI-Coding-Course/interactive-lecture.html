@@ -835,7 +835,23 @@ input[type="range"] {
   background: rgba(255,255,255,.04);
   padding: 12px;
 }
+.sort-item.correct {
+  border-color: rgba(116,216,137,.55);
+  background: rgba(116,216,137,.08);
+}
+.sort-item.wrong {
+  border-color: rgba(255,111,97,.55);
+  background: rgba(255,111,97,.08);
+}
 .sort-item span { color: var(--text); }
+.sort-feedback {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.sort-feedback strong { color: var(--text); }
 .sort-actions {
   display: flex;
   flex-wrap: wrap;
@@ -891,6 +907,14 @@ input[type="range"] {
   border-color: rgba(183,144,255,.58);
   background: rgba(183,144,255,.13);
 }
+.project-option.correct.active {
+  border-color: rgba(116,216,137,.62);
+  background: rgba(116,216,137,.12);
+}
+.project-option.wrong.active {
+  border-color: rgba(255,111,97,.58);
+  background: rgba(255,111,97,.1);
+}
 .lesson-mode .topbar, .lesson-mode .progress { opacity: 0; pointer-events: none; }
 .lesson-mode .section { min-height: 100vh; }
 .lesson-mode main { padding-top: 0; }
@@ -918,6 +942,9 @@ input[type="range"] {
   .stack-flow { grid-template-columns: 1fr; }
   .stack-arrow { transform: rotate(90deg); }
   .num { position: static; }
+  .sort-item { grid-template-columns: 1fr; }
+  .sort-item span { overflow-wrap: anywhere; }
+  .sort-actions { justify-content: flex-start; }
   .token-visual { min-height: 330px; }
   .token-ring { inset: 32px; }
   .float-chip { position: static; display: inline-flex; margin: 5px; }
@@ -1355,16 +1382,13 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
         <h2 class="reveal">Harness Engineering：把 AI 驾驭起来</h2>
         <p class="lead reveal">更通俗的说法：给 AI 准备一套可以工作的工程系统。</p>
         <div class="grid-4 reveal">
-          <div class="card"><span class="tag">项目文件夹</span><p>让 AI 知道材料、输出和备份在哪里。</p></div>
-          <div class="card"><span class="tag green">规则文档</span><p>让 AI 知道哪些做法必须遵守。</p></div>
-          <div class="card"><span class="tag gold">工具连接</span><p>让 AI 能读文件、改文件、预览、运行、搜索。</p></div>
-          <div class="card"><span class="tag violet">Skill</span><p>把常用工作方法沉淀成可复用能力。</p></div>
-          <div class="card"><span class="tag">MCP</span><p>把外部工具和数据源连接给 AI 使用。</p></div>
-          <div class="card"><span class="tag green">验证流程</span><p>检查目标是否完成，页面是否可用。</p></div>
-          <div class="card"><span class="tag gold">权限边界</span><p>知道什么能动，什么不能动。</p></div>
-          <div class="card"><span class="tag red">回退路径</span><p>重要文件先备份，不满意能撤回。</p></div>
+          <div class="card"><span class="tag">放哪里</span><h3>材料和成果分开</h3><p>原始材料放 input，当前成果放 output，旧版本放 backup。</p></div>
+          <div class="card"><span class="tag green">按什么做</span><h3>规则写清楚</h3><p>受众、边界和不能改的内容，放进项目规则。</p></div>
+          <div class="card"><span class="tag gold">怎么确认</span><h3>要求验证证据</h3><p>让 AI 说明改了什么、检查了什么、还有什么没验证。</p></div>
+          <div class="card"><span class="tag red">出错怎么办</span><h3>保留回退路径</h3><p>重要文件先备份；不满意时能恢复到修改前。</p></div>
         </div>
-        <div class="stage-card reveal">
+        <div class="quote reveal">Profile、Skill、MCP 只需先知道：它们分别保存长期习惯、重复方法和工具连接；这堂课不展开术语。</div>
+        <div class="stage-card reveal" hidden>
           <h3>把 Harness 做成学生能操作的界面</h3>
           <p class="body">从产品思路看，Harness 不只是概念，而是一组判断、模板和验收动作。</p>
           <div class="grid-3">
@@ -1373,7 +1397,7 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
             <div class="card"><span class="tag gold">完成后看什么</span><h3>看证据</h3><p>让 AI 说明看了哪些文件、改了哪里、跑了什么检查、还有什么没验证。</p></div>
           </div>
         </div>
-        <div class="stage-card reveal">
+        <div class="stage-card reveal" hidden>
           <h3>三层规则：不要混成一团</h3>
           <div class="matrix">
             <table>
@@ -1486,7 +1510,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
           </div>
           <div class="quote">这就是 Harness Engineering 的一个小技巧：让 AI 不只是知道任务，还知道“做事的方法、边界和验收标准”。</div>
         </div>
-        <div class="stage-card reveal">
+        <div class="stage-card reveal" hidden>
           <h3>可复制的 Harness 启动语</h3>
           <p class="body">把目标、边界、验证和回退放进同一个请求里，学生更容易从聊天进入交付。</p>
           <div class="prompt-box good"><div class="prompt-title"><span class="accent">启动项目时可以直接用</span></div><pre>请先阅读项目文件和规则。
@@ -1504,7 +1528,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 4. 如果要回退，应该怎么做。</pre></div>
           <div class="quote">不要只问“做好了吗”，要问它的证据和未验证部分。</div>
         </div>
-        <div class="stage-card reveal">
+        <div class="stage-card reveal" hidden>
           <h3>一个容易踩的坑：规则太多</h3>
           <div class="split">
             <div class="prompt-box bad"><div class="prompt-title"><span class="red">过度规则</span></div><pre>每次回答都必须非常完整。
@@ -1516,7 +1540,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 如果不确定，先问，不要自己猜。</pre></div>
           </div>
         </div>
-        <div class="split reveal">
+        <div class="split reveal" hidden>
           <div class="prompt-box bad"><div class="prompt-title"><span class="red">混乱文件夹</span></div><pre>新建文件夹
 最终版
 最终版2
@@ -1549,12 +1573,12 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
           <p class="body">让学生逐项选择。选错没关系，重点是理解 input、output、backup、rules 各自的边界。</p>
           <div class="sort-grid">
             <div class="sort-board" id="sortBoard">
-              <div class="sort-item" data-correct="input"><span>课程大纲原文.md</span><div class="sort-actions"></div></div>
-              <div class="sort-item" data-correct="output"><span>interactive-lecture.html</span><div class="sort-actions"></div></div>
-              <div class="sort-item" data-correct="backup"><span>课程大纲-2026-06-09.md</span><div class="sort-actions"></div></div>
-              <div class="sort-item" data-correct="rules"><span>小白课程规则.md</span><div class="sort-actions"></div></div>
-              <div class="sort-item" data-correct="input"><span>个人项目案例.md</span><div class="sort-actions"></div></div>
-              <div class="sort-item" data-correct="output"><span>课堂练习页面.html</span><div class="sort-actions"></div></div>
+              <div class="sort-item" data-sort-id="outline" data-correct="input"><span>课程大纲原文.md</span><div class="sort-actions"></div><p class="sort-feedback" aria-live="polite">请选择它应该放的位置。</p></div>
+              <div class="sort-item" data-sort-id="lecture" data-correct="output"><span>interactive-lecture.html</span><div class="sort-actions"></div><p class="sort-feedback" aria-live="polite">请选择它应该放的位置。</p></div>
+              <div class="sort-item" data-sort-id="backup" data-correct="backup"><span>课程大纲-2026-06-09.md</span><div class="sort-actions"></div><p class="sort-feedback" aria-live="polite">请选择它应该放的位置。</p></div>
+              <div class="sort-item" data-sort-id="rules" data-correct="rules"><span>小白课程规则.md</span><div class="sort-actions"></div><p class="sort-feedback" aria-live="polite">请选择它应该放的位置。</p></div>
+              <div class="sort-item" data-sort-id="case" data-correct="input"><span>个人项目案例.md</span><div class="sort-actions"></div><p class="sort-feedback" aria-live="polite">请选择它应该放的位置。</p></div>
+              <div class="sort-item" data-sort-id="exercise" data-correct="output"><span>课堂练习页面.html</span><div class="sort-actions"></div><p class="sort-feedback" aria-live="polite">请选择它应该放的位置。</p></div>
             </div>
             <div class="output-box">
               <p class="mini-label">分类结果</p>
@@ -1567,20 +1591,20 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
           </div>
         </div>
         <div class="stage-card reveal">
-          <h3>练习：这条经验应该沉淀到哪里？</h3>
-          <p class="body">让学生从真实任务出发，判断应该写进个人 Profile、项目规则，还是沉淀成 Skill。</p>
+          <h3>练习：这些归类哪里对、哪里错？</h3>
+          <p class="body">有些归类听起来合理，但放错位置后会污染其他项目，或让真正需要的项目失去约束。逐项点击查看后果。</p>
           <div class="project-grid">
             <div>
               <p class="mini-label">选择一种情况</p>
               <div class="scenario-list" id="harnessChoices">
-                <button class="project-option active" data-harness="profile"><strong>我希望 AI 长期这样做</strong>比如不要讨好、先说明假设、遇到不确定就问。</button>
-                <button class="project-option" data-harness="rules"><strong>这个项目必须这样做</strong>比如面向小白、少用术语、案例必须真实。</button>
-                <button class="project-option" data-harness="skill"><strong>这类任务反复出现</strong>比如每周都要整理会议纪要或生成课程页面。</button>
-                <button class="project-option" data-harness="conflict"><strong>规则之间有冲突</strong>比如既要求少用术语，又要求保留专业名词。</button>
+                <button class="project-option active" data-harness="wrong-profile"><strong>“少用术语”放进个人 Profile</strong>看起来能长期保持简洁，所以似乎很合理。</button>
+                <button class="project-option" data-harness="right-rules"><strong>“本课程面向零基础”放进项目规则</strong>它只约束当前课程，不影响其他项目。</button>
+                <button class="project-option" data-harness="wrong-rules"><strong>“每周整理会议纪要”放进项目规则</strong>它发生在当前团队，所以似乎属于项目。</button>
+                <button class="project-option" data-harness="wrong-skill"><strong>“遇到歧义先说明假设”做成 Skill</strong>它有明确步骤，所以似乎像一套流程。</button>
               </div>
             </div>
             <div class="output-box">
-              <p class="mini-label">可以直接复制的 Harness 写法</p>
+              <p class="mini-label">判断与后果</p>
               <pre id="harnessOutput"></pre>
               <div class="result-panel" id="harnessLesson"></div>
             </div>
@@ -2145,6 +2169,20 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   updateContext("missing");
 
   var sortLabels = { input: "input", output: "output", backup: "backup", rules: "rules" };
+  var sortReasons = {
+    outline: "课程大纲原文是 AI 要读取和加工的原始材料。",
+    lecture: "interactive-lecture.html 是这次要检查和交付的当前成果。",
+    backup: "带日期的旧版用于恢复，不应该冒充当前成果。",
+    rules: "小白课程规则约束受众、语言和案例标准。",
+    case: "个人项目案例是生成课程内容时需要参考的材料。",
+    exercise: "课堂练习页面是 AI 生成并等待验收的成果。"
+  };
+  var wrongSortReasons = {
+    input: "误放 input，会被 AI 当成待加工材料，而不是它真正的用途。",
+    output: "误放 output，会被当成当前成果；备份放在这里尤其容易让旧版冒充最新版。",
+    backup: "误放 backup，会被当成历史版本，AI 可能不会把它用于当前任务。",
+    rules: "误放 rules，会把材料或成果误当成必须遵守的约束。"
+  };
   var sortItems = Array.prototype.slice.call(document.querySelectorAll("#sortBoard .sort-item"));
   var sortOutput = document.getElementById("sortOutput");
   var sortResult = document.getElementById("sortResult");
@@ -2156,9 +2194,17 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
       btn.textContent = sortLabels[key];
       btn.addEventListener("click", function () {
         item.setAttribute("data-choice", key);
+        var correctChoice = item.getAttribute("data-correct");
+        var isCorrect = key === correctChoice;
+        var feedback = item.querySelector(".sort-feedback");
         actions.querySelectorAll("button").forEach(function (other) {
           other.classList.toggle("active", other === btn);
         });
+        item.classList.toggle("correct", isCorrect);
+        item.classList.toggle("wrong", !isCorrect);
+        feedback.innerHTML = isCorrect
+          ? "<strong>正确。</strong>" + sortReasons[item.getAttribute("data-sort-id")]
+          : "<strong>不正确。</strong>" + wrongSortReasons[key] + " 正确位置是 " + correctChoice + "。";
         updateSort();
       });
       actions.appendChild(btn);
@@ -2167,41 +2213,47 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   function updateSort() {
     var groups = { input: [], output: [], backup: [], rules: [] };
     var correct = 0;
+    var selected = 0;
     sortItems.forEach(function (item) {
       var choice = item.getAttribute("data-choice");
       var name = item.querySelector("span").textContent;
       if (choice) groups[choice].push(name);
+      if (choice) selected += 1;
       if (choice && choice === item.getAttribute("data-correct")) correct += 1;
     });
     sortOutput.textContent = Object.keys(groups).map(function (key) {
       return key + "/\n  " + (groups[key].length ? groups[key].join("\n  ") : "未选择");
     }).join("\n\n");
-    var body = correct === sortItems.length ? "分类完成。这个结构让 AI 清楚读取材料、写入成果、遵守规则，并且保留回退路径。" :
-      "还有材料没有归类正确。课堂上可以追问：这是给 AI 看的输入，还是 AI 生成的输出？是规则，还是备份？";
+    var body = correct === sortItems.length ? "分类完成。AI 现在能分清读取什么、交付什么、遵守什么，以及从哪里恢复。" :
+      "已选择 " + selected + "/" + sortItems.length + "。每个错误项下方都会说明误放后的具体后果。";
     setPanel(sortResult, correct + "/" + sortItems.length + " 正确", body);
   }
   updateSort();
 
   var harnessData = {
-    profile: {
-      output: "写进个人 Profile：\n\n默认保持简洁、直接、讲逻辑。\n不要为了迎合我而隐藏问题。\n如果需求有歧义，先说明不同理解和取舍，再问我确认。\n如果任务很小，可以直接做，但完成后说明检查点。",
-      title: "放在个人 Profile",
-      lesson: "这是长期工作习惯，适合跨项目复用。它不规定某个业务怎么做，而是规定 AI 应该以什么方式做事。"
+    "wrong-profile": {
+      status: "wrong",
+      output: "不建议。\n\n正确位置：项目规则\n\n“本课程少用术语”只适用于零基础课程，不是所有工作的长期习惯。",
+      title: "看似合理，但归类错误",
+      lesson: "如果放进个人 Profile，AI 做技术报告、合同或专业分析时也会刻意回避术语，可能牺牲准确性。"
     },
-    rules: {
-      output: "写进项目规则：\n\n这个课程项目默认面向没有技术背景的人。\n少用术语，多用生活例子。\n反面案例要像真实用户会说的话。\n新增内容必须适合投屏展示，文字不能过密。",
-      title: "放在项目规则",
-      lesson: "这是当前项目的边界和风格。换一个项目，这些规则可能就不适用了。"
+    "right-rules": {
+      status: "correct",
+      output: "正确。\n\n写进项目规则：\n这个课程面向零基础学员；少用术语，专业词必须配通俗解释。",
+      title: "归类正确：项目规则",
+      lesson: "它约束当前课程的受众和表达方式。换到技术培训项目时，不会错误沿用。"
     },
-    skill: {
-      output: "沉淀成 Skill：\n\n当我让你生成课程展示页时：\n1. 先判断受众和课程主线。\n2. 每个概念配一个生活例子。\n3. 每个章节只表达一个重点。\n4. 生成后检查是否适合投屏。\n5. 最后列出我应该人工确认的地方。",
-      title: "沉淀成 Skill",
-      lesson: "这是某类重复任务的 SOP。判断标准很简单：第三次解释同一套流程，就该沉淀。"
+    "wrong-rules": {
+      status: "wrong",
+      output: "不建议。\n\n正确位置：Skill\n\n把“整理会议纪要”的读取、提炼、检查步骤保存成可重复方法。",
+      title: "归类错误：项目规则不是操作流程",
+      lesson: "放进某个项目规则后，这套方法只能困在当前项目；下次换项目仍要重新解释步骤。"
     },
-    conflict: {
-      output: "让 AI 暴露冲突：\n\n这里有两个要求冲突：\n1. 项目规则要求少用术语。\n2. 当前任务要求保留专业名词。\n\n我建议保留必要名词，但每个名词后面加一句通俗解释。\n是否按这个方向处理？",
-      title: "先暴露冲突，不要自己猜",
-      lesson: "好的 Harness 不是规则越多越好，而是让 AI 知道遇到冲突时该停下来说明。"
+    "wrong-skill": {
+      status: "wrong",
+      output: "不建议。\n\n正确位置：个人 Profile\n\n“遇到歧义先说明假设”应该成为 AI 跨项目的长期工作习惯。",
+      title: "归类错误：通用习惯不是 Skill",
+      lesson: "做成某类任务的 Skill 后，只有触发那套流程时才会生效；其他任务遇到歧义仍可能直接猜。"
     }
   };
   var harnessOutput = document.getElementById("harnessOutput");
@@ -2211,13 +2263,16 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     harnessOutput.textContent = item.output;
     setPanel(harnessLesson, item.title, item.lesson);
     document.querySelectorAll("#harnessChoices .project-option").forEach(function (button) {
-      button.classList.toggle("active", button.getAttribute("data-harness") === key);
+      var active = button.getAttribute("data-harness") === key;
+      button.classList.toggle("active", active);
+      button.classList.toggle("correct", active && item.status === "correct");
+      button.classList.toggle("wrong", active && item.status === "wrong");
     });
   }
   document.querySelectorAll("#harnessChoices .project-option").forEach(function (button) {
     button.addEventListener("click", function () { updateHarness(button.getAttribute("data-harness")); });
   });
-  updateHarness("profile");
+  updateHarness("wrong-profile");
 
   var projectData = {
     minutes: {
