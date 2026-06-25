@@ -1241,12 +1241,12 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
       <div class="num reveal">06</div>
       <div class="content-stack">
         <h2 class="reveal">Context Engineering：把背景给清楚</h2>
-        <p class="lead reveal">Prompt 说明任务，Context 提供会改变结果的事实。这里不再改任务，而是比较同一任务在不同背景下会怎样偏离。</p>
+        <p class="lead reveal">Prompt 是“要做什么”，Context 是“这次任务的真实情况”。背景缺了或错了，AI 就会写出看似通顺、实际不能用的结果。</p>
         <div class="grid-4 reveal">
           <div class="card"><span class="tag red">缺背景</span><h3>通用答案</h3><p>AI 只能按常识猜，输出容易空泛。</p></div>
           <div class="card"><span class="tag red">错背景</span><h3>认真地错</h3><p>你说价格问题，它就围绕价格认真生成。</p></div>
           <div class="card"><span class="tag gold">太多背景</span><h3>重点淹没</h3><p>资料不是越多越好，关键是告诉它最重要的三点。</p></div>
-          <div class="card"><span class="tag green">反馈背景</span><h3>越改越准</h3><p>说清哪里不对，下一轮才会变成有效上下文。</p></div>
+          <div class="card"><span class="tag green">关键背景</span><h3>结果可用</h3><p>只给会影响结果的事实：对象、原因、下一步和不能承诺什么。</p></div>
         </div>
         <div class="split reveal">
           <div class="prompt-box bad">
@@ -1270,28 +1270,27 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
     <div class="inner chapter">
       <div class="num reveal">07</div>
       <div class="content-stack">
-        <h2 class="reveal">Context 模拟器：同一任务，结果为什么变</h2>
-        <p class="lead reveal">任务始终是“写客户道歉邮件”。只改变背景，观察 AI 的依据、业务后果和改进方向。</p>
+        <h2 class="reveal">Context 模拟器：直接看错在哪里</h2>
+        <p class="lead reveal">任务始终是“写客户道歉邮件”。点击一个错误例子，看 AI 会写出什么，以及哪一句错了。</p>
         <div class="stage-card reveal">
           <div class="context-stage">
             <div>
-              <p class="mini-label">选择给 AI 的背景</p>
+              <p class="mini-label">选择一个例子</p>
               <div class="scenario-list" id="contextScenarios">
-                <button class="scenario-btn active" data-context="missing"><strong>缺背景</strong>只说“帮我写客户道歉邮件”</button>
-                <button class="scenario-btn" data-context="wrong"><strong>错背景</strong>说客户不满是因为价格，实际是交付延迟</button>
-                <button class="scenario-btn" data-context="tooMuch"><strong>背景太多</strong>塞进公司历史、产品介绍、聊天记录</button>
-                <button class="scenario-btn" data-context="focused"><strong>关键背景</strong>只给对象、原因、下一步和承诺边界</button>
-                <button class="scenario-btn" data-context="feedback"><strong>反馈背景</strong>指出上一版的具体错误后重写</button>
+                <button class="scenario-btn active" data-context="missing"><strong>错误 1：什么都没说</strong>“帮我写一封客户道歉邮件。”</button>
+                <button class="scenario-btn" data-context="wrong"><strong>错误 2：原因说错了</strong>实际是延迟，却告诉 AI 是价格问题。</button>
+                <button class="scenario-btn" data-context="tooMuch"><strong>错误 3：资料全塞进去</strong>公司历史、产品介绍和聊天记录全部粘贴。</button>
+                <button class="scenario-btn" data-context="focused"><strong>正确例子</strong>客户是谁、延迟几天、下一步和承诺边界。</button>
               </div>
             </div>
             <div class="output-box">
-              <p class="mini-label">课堂可展示输出</p>
+              <p class="mini-label">AI 写出的邮件</p>
               <pre id="contextOutput"></pre>
               <div class="result-panel" id="contextLesson"></div>
             </div>
           </div>
         </div>
-        <div class="quote reveal">Context 的重点不是把资料堆满，而是让 AI 知道“这次任务真正影响结果的事实”。</div>
+        <div class="quote reveal">判断 Context 好不好，只问一句：<strong>这条背景会不会改变结果？</strong>不会改变，就先不要放进去。</div>
       </div>
     </div>
   </section>
@@ -2111,28 +2110,23 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   var contextData = {
     missing: {
       output: "亲爱的客户，非常抱歉给您带来不便。我们会尽快处理相关问题，并持续优化服务质量。感谢您的理解与支持。",
-      title: "为什么错：没有可行动的信息",
-      lesson: "AI 只能依据通用礼貌话术来写。客户仍不知道出了什么事、何时有进展，客服还要再解释一遍。最小补充：投诉原因和明确的下一步。"
+      title: "错在：客户看完仍然不知道发生了什么",
+      lesson: "“相关问题”“尽快处理”都是空话。缺少投诉原因和明确时间。"
     },
     wrong: {
       output: "关于价格问题，我们理解您的顾虑。后续会结合您的采购规模，尽量提供更有竞争力的方案。",
-      title: "为什么错：依据本身就是假的",
-      lesson: "AI 忠实地回应了“价格”，但客户真正投诉的是交付延迟。结果会让客户觉得公司没有看懂问题。最小修正：先确认投诉事实，再让 AI 写。"
+      title: "错在：道歉对象说的是延迟，邮件却在谈价格",
+      lesson: "AI 会认真使用你给的错误背景。背景错了，文字写得再好也没有用。"
     },
     tooMuch: {
       output: "结合贵司多年合作历史、我司产品体系、近期市场环境和双方沟通记录，我们建议从多方面提升协作体验。",
-      title: "为什么错：相关事实被大量材料淹没",
-      lesson: "AI 抓住了公司历史和市场环境，却没有说交付晚了几天、下一步是什么。最小修正：只保留会改变这封邮件内容的事实。"
+      title: "错在：说了很多，但没有回应这次延迟",
+      lesson: "公司历史和市场环境没有帮助客户解决眼前问题，反而把“延迟几天、何时回复”淹没了。"
     },
     focused: {
       output: "王经理，抱歉这批货比原计划晚到 2 天。今天 17:00 前我们会给您准确物流节点。现在不承诺补偿金额，但会在确认责任后给出处理方案。",
-      title: "为什么更好：每个背景都改变了正文",
-      lesson: "对象决定称呼，延迟 2 天决定事实，17:00 决定下一步，不能承诺补偿决定边界。没有无关材料，客服可以据此继续处理。"
-    },
-    feedback: {
-      output: "王经理，抱歉这批货延迟了 2 天。我们正在核对物流，今天 17:00 前会向您同步准确节点。补偿方案需在责任确认后确定，有结果后我们会第一时间联系您。",
-      title: "为什么更好：反馈指出了具体错误",
-      lesson: "上一版的问题是“像模板”且承诺了未知补偿。把这两个错误变成下一轮背景后，结果更具体，也没有越权承诺。"
+      title: "对在：每一句都有明确作用",
+      lesson: "客户是谁、延迟多久、几点回复、暂时不能承诺什么，都直接影响邮件内容。"
     }
   };
   var contextOutput = document.getElementById("contextOutput");
