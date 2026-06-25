@@ -974,7 +974,6 @@ input[type="range"] {
     <a href="#bridge">桥接</a>
     <a href="#path">路径</a>
     <a href="#cases">案例</a>
-    <a href="#project-clinic">项目</a>
     <a href="#summary">总结</a>
     <a href="#tool-model">附录</a>
   </nav>
@@ -992,7 +991,6 @@ input[type="range"] {
         <p class="eyebrow reveal">From Token to Four Capabilities</p>
         <h1 class="reveal">AI Coding<br>不是从写代码开始</h1>
         <p class="lead reveal">先学会把 AI 当成一个可以协作的助手：说清目标，给对背景，把它放进可驾驭的工作系统。</p>
-        <p class="body reveal">适合零编程基础、没有 Prompt Engineering 经验的初学者。页面按“长滚动讲解 + 顶部导航 + 现场练习”的方式组织，方便投屏讲解，也方便学生跟着判断、选择和修改。</p>
         <div class="quote reveal" style="margin-top:12px;">你第一次让 AI 帮你做东西，它大概率会给出一个“看起来像，但实际不对”的结果。<br>这不是你问错了——是 AI 还在猜。<br>接下来你要做的不是关掉重来，而是补一句：<strong>这个不对，因为……我实际想要的是……</strong></div>
       </div>
       <div class="stage-card token-visual reveal" aria-label="Token 注意力视觉化">
@@ -1073,7 +1071,13 @@ input[type="range"] {
         <div class="split reveal">
           <div class="prompt-box bad">
             <div class="prompt-title"><span class="red">不够好</span><span>条件缺失</span></div>
-            <pre>这段客户通知语气有点不太合适，帮我改得专业一点。</pre>
+            <pre>这段通知语气有点不太合适，帮我改得专业一点。</pre>
+            <div class="prompt-title"><span class="red">AI 可能输出</span><span>只能自己猜</span></div>
+            <pre>尊敬的客户：
+您好！针对近期相关事项给您带来的不便，
+我司深表歉意，并将持续优化服务流程。
+感谢您的理解与支持。</pre>
+            <p class="body">问题：文字很正式，但 AI 不知道这是发给谁、通知什么，也不知道哪些内容不能承诺，只能写成空泛模板。</p>
           </div>
           <div class="prompt-box good">
             <div class="prompt-title"><span class="accent">更好</span><span>边界清楚</span></div>
@@ -1081,6 +1085,12 @@ input[type="range"] {
 对象是公司内部同事。
 不要太长，保持 200 字以内。
 语气要礼貌，但不要过度客套。</pre>
+            <div class="prompt-title"><span class="accent">AI 可能输出</span><span>方向明确</span></div>
+            <pre>各位同事：
+原定本周五下午举行的产品培训将调整至下周一 15:00，
+地点仍为三楼会议室。请提前安排好工作并准时参加。
+如有时间冲突，请于本周四前联系培训负责人。</pre>
+            <p class="body">区别：对象、语气和长度都明确，结果可以直接使用，不需要再猜这是客户通知还是内部通知。</p>
           </div>
         </div>
         <div class="quote reveal">AI Coding 也是一样。复杂任务都需要把目标、背景和检查标准讲清楚。</div>
@@ -1855,38 +1865,9 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     </div>
   </section>
 
-  <section class="section" id="project-clinic">
-    <div class="inner chapter">
-      <div class="num reveal">14</div>
-      <div class="content-stack">
-        <h2 class="reveal">个人项目拆解器</h2>
-        <p class="lead reveal">课程最后不要只讲道理。让学生选一个自己的真实任务，现场看到它如何变成第一步 AI Coding 需求。</p>
-        <div class="stage-card reveal">
-          <div class="project-grid">
-            <div>
-              <p class="mini-label">选择一个课堂项目</p>
-              <div class="scenario-list" id="projectChoices">
-                <button class="project-option active" data-project="minutes"><strong>会议纪要整理器</strong>适合行政、项目、销售复盘。</button>
-                <button class="project-option" data-project="customer"><strong>客户回访表单</strong>适合销售、客服、运营。</button>
-                <button class="project-option" data-project="course"><strong>课程页面生成器</strong>适合培训、讲师、内容团队。</button>
-                <button class="project-option" data-project="review"><strong>方案风险检查器</strong>适合活动、市场、管理汇报。</button>
-              </div>
-            </div>
-            <div class="output-box">
-              <p class="mini-label">可直接拿去问 AI 的第一版</p>
-              <pre id="projectOutput"></pre>
-              <div class="result-panel" id="projectLesson"></div>
-            </div>
-          </div>
-        </div>
-        <div class="quote reveal">把“我要做个东西”拆成“第一版只做什么、不做什么、怎样检查”，执行力就开始出现了。</div>
-      </div>
-    </div>
-  </section>
-
   <section class="section" id="summary">
     <div class="inner chapter">
-      <div class="num reveal">15</div>
+      <div class="num reveal">14</div>
       <div class="content-stack">
         <h2 class="reveal">一张图带走</h2>
         <p class="lead reveal">截图保存这页。下次不知道该怎么跟 AI 说的时候，先看这里。</p>
@@ -2273,43 +2254,6 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     button.addEventListener("click", function () { updateHarness(button.getAttribute("data-harness")); });
   });
   updateHarness("wrong-profile");
-
-  var projectData = {
-    minutes: {
-      output: "我想先做一个最简单的会议纪要整理工具。\n第一版只处理已经转成文字的会议记录，不处理录音。\n使用者把文字粘贴进去，点击按钮后，输出三部分：会议摘要、关键决定、待办事项。\n先不要做登录、上传、多人协作。\n判断标准：输出内容能直接发给参会人确认。",
-      title: "讲解重点：先砍掉录音和上传",
-      lesson: "这能让第一版从复杂系统变成一个文本整理工具，适合小白现场理解。"
-    },
-    customer: {
-      output: "我想先做一个客户回访表单。\n使用者是销售，目标是记录老客户状态和下一步跟进。\n第一版只包含字段、填写说明和示例记录，不接 CRM，不做自动提醒。\n判断标准：销售看完字段就知道怎么填，并能在 3 分钟内完成一条记录。",
-      title: "讲解重点：把“方便”变成检查标准",
-      lesson: "不要只说简单好用，要说谁用、多久填完、看完是否还需要解释。"
-    },
-    course: {
-      output: "我想先做一个课程展示页面。\n受众是完全没有编程基础的小白。\n页面要包含课程主线、生活案例、好坏 Prompt 对比、课堂互动和行动路径。\n先不要做登录、后台、数据保存。\n判断标准：投屏时 10 分钟内能讲清一个概念，并让学生完成一个小练习。",
-      title: "讲解重点：课程页面也可以是 AI Coding",
-      lesson: "这能把内容制作、案例设计和前端页面连接起来，贴合当前课堂本身。"
-    },
-    review: {
-      output: "我想先做一个方案风险检查器。\n使用者把活动方案粘贴进去，页面按三个角度输出问题：目标是否清楚、步骤是否可落地、明显风险。\n第一版不做文件上传、团队协作和历史记录。\n判断标准：输出必须直接指出问题，不要客套，并给出下一步修改建议。",
-      title: "讲解重点：让 AI 挑问题要明确标准",
-      lesson: "这对应 Prompt 章节的“给方案提建议”案例，可以自然过渡到小工具。"
-    }
-  };
-  var projectOutput = document.getElementById("projectOutput");
-  var projectLesson = document.getElementById("projectLesson");
-  function updateProject(key) {
-    var item = projectData[key];
-    projectOutput.textContent = item.output;
-    setPanel(projectLesson, item.title, item.lesson);
-    document.querySelectorAll("#projectChoices .project-option").forEach(function (button) {
-      button.classList.toggle("active", button.getAttribute("data-project") === key);
-    });
-  }
-  document.querySelectorAll("#projectChoices .project-option").forEach(function (button) {
-    button.addEventListener("click", function () { updateProject(button.getAttribute("data-project")); });
-  });
-  updateProject("minutes");
 
   document.getElementById("modeBtn").addEventListener("click", function () {
     document.body.classList.toggle("lesson-mode");
