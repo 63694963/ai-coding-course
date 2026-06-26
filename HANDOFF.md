@@ -1,7 +1,14 @@
 # HANDOFF
 
-更新时间：2026-06-24  
+更新时间：2026-06-26  
 工作区：`/Users/jerry/Documents/repo/讲课`
+
+## 0. 最近变更（本次 Session）
+
+- **Skill 链接替换**：10 个失效的 `affaan-m/everything-claude-code` 链接已替换为 6 个验证通过的 `alirezarezvani/claude-skills`（19k+ stars）链接。
+- **Skill 卡片已可见**：原 `hidden` 属性已移除。
+- **Git 已有 commit 历史**：`main` 分支已有 4 个 commit：baseline → Warm Editorial 风格（后来回退）→ Skill 链接修复 → 取消隐藏。
+- 当前 HEAD：`dc4997e`
 
 ## 1. 项目目标
 
@@ -48,15 +55,13 @@
 主文件现状：
 
 - `AI-Coding-Course/interactive-lecture.html`
-- 2330 行。
-- 313041 bytes。
-- 最后修改时间：2026-06-16 16:03:09。
+- 约 2330 行。
+- 约 311 KB。
+- 最后修改时间：2026-06-26。
 - 20 个 `<section class="section">`。
-- 44 个 HTML id，全部唯一。
-- 顶部导航 17 个锚点，无缺失目标。
 - 7 个产品/模型链接。
-- 10 个 GitHub Skill 链接。
-- 1 个内嵌 Base64 图片，使当前文件明显增大。
+- **6 个 GitHub Skill 链接**（来源：`alirezarezvani/claude-skills`），已全部验证 HTTP 200。
+- 1 个内嵌 Base64 图片。
 
 当前主要章节：
 
@@ -120,7 +125,7 @@
 - Context 场景模拟器。
 - 开发工具/编码智能体与大模型的区别说明。
 - Harness 结构、规则层级、项目文件夹练习。
-- 10 个跨行业 Skill 示例及 GitHub 链接。
+- 10→6 个跨行业 Skill 示例（已替换为 alirezarezvani/claude-skills 链接，已取消隐藏）。
 - AGENTS.md / CLAUDE.md / Codex Profile 内层滚动窗口。
 - 工具/模型官方链接。
 - Why / Token 资本开场内容。
@@ -211,13 +216,14 @@
 
 方案：
 
-- Skill 指向 `affaan-m/everything-claude-code` GitHub 页面。
+- Skill 指向 `alirezarezvani/claude-skills` GitHub 页面（19k+ stars，345 个生产级 Skill）。
 - 产品和模型指向官方页面。
 
 理由：
 
 - 避免指向用户本机路径。
 - 学员可直接查看公开资料。
+- 之前使用的 `affaan-m/everything-claude-code` 链接已全部失效（404），已替换。
 
 ### Git 与本地支持文件
 
@@ -464,7 +470,7 @@ git diff --no-index --stat \
 - 人物引语和日期可能不准确或缺乏可追溯来源。
 - Why 章节使用直接引语式写法，授课前必须核验。
 - Loop Engineering 属于新兴概念，定义和行业共识可能变化。
-- 没有 git 首个 commit，误改后的恢复依赖手工备份。
+- 没有 git 首个 commit → ✅ 已有 4 个 commit，可回滚。
 
 ### 技术风险
 
@@ -499,13 +505,13 @@ git diff --no-index --stat \
 
 - `.git` 已存在。
 - 分支：`main`。
-- 无 commit。
-- 所有交付文件均 untracked。
+- **已有 4 个 commit**（baseline → Warm Editorial → Skill 修复 → 取消隐藏）。
+- 当前 HEAD：`dc4997e`。
 
 本 Session 修改：
 
-- 仅重写 `HANDOFF.md`。
-- 未修改 `interactive-lecture.html` 或其他应用文件。
+- 修改 `AI-Coding-Course/interactive-lecture.html`（替换 10 个失效 Skill 链接为 6 个新链接，取消 hidden）。
+- 更新 `HANDOFF.md`。
 
 本 Session 之前已经存在的修改/文件：
 
@@ -570,8 +576,8 @@ git log --oneline --decorate -5
 
 预期现状：
 
-- `git status` 显示所有交付文件为 `??`。
-- `git log` 报当前分支无 commit。
+- `git status` 显示工作区干净。
+- `git log` 显示 4 个 commit，最新为 `dc4997e`。
 
 检查 HTML 结构：
 
