@@ -191,6 +191,44 @@ main > .section:not([hidden]):not(.intro-section):not(.hero):not(.finale-section
     radial-gradient(circle at 88% 76%, rgba(240,184,79,.12), transparent 28rem),
     linear-gradient(145deg, #070a10 0%, #0b111a 52%, #08090d 100%);
 }
+.education-section {
+  overflow: hidden;
+  align-items: center;
+  background:
+    radial-gradient(circle at 78% 24%, rgba(240,184,79,.18), transparent 24rem),
+    radial-gradient(circle at 22% 82%, rgba(78,215,197,.12), transparent 25rem),
+    linear-gradient(145deg, #090b12 0%, #0d1119 54%, #08090d 100%);
+}
+.education-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(360px, .94fr);
+  gap: clamp(30px, 6vw, 86px);
+  align-items: center;
+}
+.education-copy { min-width: 0; }
+.education-kicker { margin: 0 0 16px; color: var(--gold); font-size: 14px; font-weight: 850; letter-spacing: .14em; }
+.education-title { max-width: 720px; margin-bottom: 20px; font-size: clamp(52px, 7vw, 104px); line-height: .94; letter-spacing: -.04em; }
+.education-title em { color: var(--gold); font-style: normal; }
+.education-lead { max-width: 650px; margin: 0; color: var(--text); font-size: clamp(22px, 2.3vw, 34px); line-height: 1.35; font-weight: 780; }
+.education-quote { margin-top: 30px; border-left-color: var(--gold); background: linear-gradient(90deg, rgba(240,184,79,.14), transparent); }
+.education-quote strong { color: #fff5dc; font-size: clamp(24px, 2.5vw, 38px); }
+.education-contrast { display: grid; gap: 12px; }
+.education-card {
+  padding: clamp(20px, 2.8vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.045);
+  box-shadow: 0 22px 60px rgba(0,0,0,.22);
+}
+.education-card.passive { border-color: rgba(255,111,97,.48); }
+.education-card.active { border-color: rgba(78,215,197,.58); background: linear-gradient(145deg, rgba(78,215,197,.12), rgba(255,255,255,.045)); }
+.education-card h3 { margin: 14px 0 18px; font-size: clamp(22px, 2.2vw, 30px); }
+.education-card p { margin: 0; color: var(--muted); line-height: 1.65; }
+.education-flow { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; }
+.education-flow span { flex: 1; padding: 10px 8px; border: 1px solid rgba(255,255,255,.12); border-radius: 7px; text-align: center; }
+.education-flow i { color: var(--gold); font-style: normal; }
+.education-bridge { display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--gold); font-size: 13px; font-weight: 800; letter-spacing: .12em; }
+.education-bridge b { font-size: 22px; line-height: 1; }
 .intro-inner { width: min(100%, var(--max)); margin: 0 auto; }
 .intro-kicker { margin-bottom: 12px; color: var(--cyan); font-size: 13px; font-weight: 800; letter-spacing: .16em; }
 .intro-heading { max-width: 760px; margin-bottom: 10px; }
@@ -1161,7 +1199,7 @@ input[type="range"] {
   .brand { display: none; }
   .nav { order: 1; }
   .tools { order: 2; }
-  .hero-grid, .grid-2, .grid-3, .grid-4, .split, .pillars, .token-lab, .checklist, .naval-profile,
+  .hero-grid, .grid-2, .grid-3, .grid-4, .split, .pillars, .token-lab, .checklist, .naval-profile, .education-layout,
   .choice-grid, .builder-grid, .sort-grid, .project-grid, .context-stage, .bridge-row {
     grid-template-columns: 1fr;
   }
@@ -1215,6 +1253,7 @@ input[type="range"] {
     <a href="#intro-videos">开场案例</a>
     <a href="#hero">首页</a>
     <a href="#why">Why</a>
+    <a href="#education">教育</a>
     <a href="#map">地图</a>
     <a href="#token">Token</a>
     <a href="#capability">四力</a>
@@ -1314,6 +1353,30 @@ input[type="range"] {
         </div>
 
         <div class="quote reveal">你可以把任务交给 AI，但不能把<strong>自己的学习</strong>也一起外包。<br><br><span style="color: var(--gold);">这场交流，就是你建立自己第一笔 Token 资本的起点。</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section education-section" id="education">
+    <div class="inner education-layout">
+      <div class="education-copy">
+        <p class="education-kicker reveal">给家长的一句话 · 2026</p>
+        <h2 class="education-title reveal">2026 年最划算的<br><em>教育投资</em></h2>
+        <p class="education-lead reveal">拿走手机，给他 Vibe coding。</p>
+        <div class="quote education-quote reveal"><strong>从被“算法喂养”，变成定算法。</strong></div>
+      </div>
+      <div class="education-contrast reveal">
+        <div class="education-card passive">
+          <span class="tag red">被算法喂养</span>
+          <h3>刷短视频 · 玩游戏 · 即时反馈</h3>
+          <div class="education-flow"><span>刷</span><i>→</i><span>被推荐</span><i>→</i><span>继续刷</span></div>
+        </div>
+        <div class="education-bridge"><span>换一条路径</span><b>↓</b></div>
+        <div class="education-card active">
+          <span class="tag green">定算法</span>
+          <h3>提问 · 创造 · 验证 · 沉淀</h3>
+          <div class="education-flow"><span>想法</span><i>→</i><span>工具</span><i>→</i><span>能力</span></div>
+        </div>
       </div>
     </div>
   </section>
@@ -2100,7 +2163,6 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
           <div class="prompt-box good"><div class="prompt-title"><span class="accent">先为自己创造，不要先为市场创造</span></div><p class="body">第一个应用就做自己每天都会用的东西。真实的正向反馈，会让你持续迭代，也会让你真正理解 Vibe coding 的价值。</p></div>
         </div>
 
-        <div class="quote reveal"><strong>把被算法喂养的时间，换成定算法的时间。</strong></div>
       </div>
     </div>
   </section>
