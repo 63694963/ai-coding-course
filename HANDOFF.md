@@ -3,7 +3,7 @@
 更新时间：2026-07-15  
 仓库：`/Users/jerry/Documents/repo/讲课`  
 分支：`main`  
-功能基线：`feca494 fix(course): bundle finale portraits locally`
+功能基线：`c2a6443 refactor(course): turn summary into one-page reference`
 
 ## 1. 交接目标
 
@@ -22,7 +22,16 @@
 clean — nothing to commit
 ```
 
-当前主文件约 318 KB，包含 20 个章节 section，脚本和样式均内联。
+当前主文件约 320 KB，包含 22 个章节 section（含 1 个隐藏关系页和多个附录页），脚本和样式均内联。
+
+### 课程主线重构
+
+- Prompt 开场只保留“不了解具体情况的实习助手”比喻；Prompt 正课保留目标与场景、边界与材料、格式与标准三个组成部分；Prompt Lab 的诊断互动完整保留。
+- Context 主课只保留初学者需要的背景判断；上下文成本、子智能体保持主对话干净、用户级 `CLAUDE.md` 成本已移到工具与模型附录。
+- “桥接”和“上手路径”已合并为一页五步流程：选动作、说清需求、生成第一版、发现问题、修改成功。
+- Harness 主课只保留材料、规则、验证、回退、`CLAUDE.md` 宪法和一个 `financial-analyst` Skill 示例；提示词/Skill 对比和六个跨行业 Skill 已移入 `#harness-appendix`。
+- “一张图带走”只保留好 Prompt 六个零件、三种 Engineering 一句话和安全红线；四能力自检留在前面的互动页，急救话术移入效率附录。
+- `#education` 为独立教育投资页，`#naval` 为纳瓦尔四点建议页；教育页不显示左侧 TOKEN 装饰，避免大标题被压住。
 
 ### 开场视频
 
@@ -69,8 +78,9 @@ clean — nothing to commit
 - `von-neumann.jpg`
 - `babbage.jpg`
 - `jobs.jpg`
+- `naval.jpg`
 
-HTML 中共有 8 个头像引用，其中图灵复用同一张本地图片。
+HTML 中共有 9 个头像引用，其中图灵复用同一张本地图片。
 
 ### 之前已完成的内容删改
 
@@ -80,6 +90,7 @@ HTML 中共有 8 个头像引用，其中图灵复用同一张本地图片。
 - Harness“整理项目文件夹”练习已删除。
 - “这些归类哪里对、哪里错？”练习已删除。
 - 结尾中“宁可三日无网，不可一日无 AI”段落已删除。
+- 已加入纳瓦尔人物卡、四点切换互动和本地头像。
 
 ## 3. 关键文件
 
@@ -87,6 +98,7 @@ HTML 中共有 8 个头像引用，其中图灵复用同一张本地图片。
 - `AI-Coding-Course/assets/people/`：本地人物头像。
 - `AI-Coding-Course/interaction-demo.html`：早期辅助交互示例，除非用户明确要求，不要优先修改。
 - `AI-Coding-课程大纲.md`：课程内容源文件。
+- `docs/superpowers/plans/2026-07-15-course-structure-refactor.md`：本次课程结构重构计划。
 - `7月15日 (1).mp3`：当前尾声 BGM。
 - 两个 `.mp4`：开场案例视频，位于仓库根目录。
 - `AI-Coding-Course/interactive-lecture.html.bak-20260616-145905`：旧备份，不要覆盖当前主文件。
@@ -95,6 +107,16 @@ HTML 中共有 8 个头像引用，其中图灵复用同一张本地图片。
 ## 4. 最近提交
 
 ```text
+c2a6443 refactor(course): turn summary into one-page reference
+4f0fe55 refactor(course): slim harness and add appendix
+878df0b refactor(course): merge bridge and path workflow
+dbb5e75 refactor(course): move advanced context to appendix
+9ce6001 refactor(course): simplify prompt teaching sequence
+6a8816b docs(course): plan lecture structure refactor
+afad308 fix(course): clear education page side rail
+1e4d30b feat(course): add education investment page
+58ec8f9 feat(course): add naval four-point lesson
+39c04e1 docs(course): link claude rules constitution guide
 feca494 fix(course): bundle finale portraits locally
 bd140cf feat(course): add opening AI demo videos
 bbf2af6 feat(course): replace finale background music
@@ -113,11 +135,12 @@ a376fac refactor(course): make finale one-paragraph slides
 
 已用 Node `new Function` 解析内联脚本，解析通过。当前结构检查确认：
 
-- 20 个 section。
+- 22 个 section，且无残留 `#bridge` 导航或 section。
 - 22 个 `data-final-step`，编号连续 0–21。
 - 每个尾声 step 只有一个直接段落。
 - 2 个开场视频。
-- 8 个本地头像引用。
+- 9 个本地头像引用。
+- 所有导航锚点存在；Prompt Lab 的 `diagnosisChoices`、`diagnosisResult`、`promptImprovement` 仍存在；所有 tab 都有对应 panel。
 - 无 `git diff --check` 问题。
 
 ### 浏览器检查
