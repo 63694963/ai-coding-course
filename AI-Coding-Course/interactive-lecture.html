@@ -548,7 +548,7 @@ pre {
   transform: translate3d(0, 48px, 0) scale(.96);
   filter: blur(14px);
   clip-path: inset(0 0 100% 0);
-  transition: opacity .75s ease, transform .9s cubic-bezier(.2,.75,.2,1), filter .9s ease, clip-path .9s ease, visibility .9s;
+  transition: opacity .52s ease, transform .63s cubic-bezier(.2,.75,.2,1), filter .63s ease, clip-path .63s ease, visibility .63s;
   will-change: opacity, transform, filter, clip-path;
   pointer-events: none;
 }
@@ -619,6 +619,10 @@ pre {
   background: linear-gradient(transparent, rgba(12,10,8,.76));
 }
 .finale-visual svg { display: none; }
+.finale-ai-frames { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #0d0c0b; }
+.finale-ai-frame { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; opacity: 0; transition: opacity .45s ease; }
+.finale-ai-frame.active { opacity: 1; }
+.finale-ai-frame.portrait { object-fit: contain; background: #0d0c0b; }
 .finale-step[data-final-step="0"] .finale-visual { background-image: url("assets/finale-archive-signal.png"); background-position: center; background-size: cover; }
 .finale-step[data-final-step="1"] .finale-visual { background-image: url("assets/finale-archive-computation.png"); background-position: center; background-size: cover; }
 .finale-step[data-final-step="2"] .finale-visual { background-image: url("assets/finale-archive-companion.png"); background-position: center; background-size: cover; }
@@ -2342,7 +2346,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
         </article>
       </div>
       <div class="finale-stage" id="finaleStage" aria-live="polite">
-        <div class="finale-hint"><kbd>→</kbd> 按右方向键，逐段展开</div>
+        <div class="finale-hint">按 → 开始播放</div>
 
         <article class="finale-step has-visual" data-final-step="0" aria-hidden="true">
           <p>各位，惊艳不及久用，智能最懂人心。</p>
@@ -2435,11 +2439,26 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
         <article class="finale-step has-visual" data-final-step="16" aria-hidden="true">
           <p>我们且与AI，慢慢写。</p>
-          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><path class="art-line" d="M48 162 C76 118 98 196 130 148 S178 122 198 148 S236 188 272 104"/><path class="art-line gold" d="M48 184 C88 148 106 212 142 170 S190 150 214 176 S248 196 272 132"/><circle class="art-dot" cx="130" cy="148" r="6"/><circle class="art-dot gold" cx="214" cy="176" r="7"/><circle class="art-dot red" cx="272" cy="104" r="6"/><path class="art-line" d="M62 70 H130 M62 86 H112"/><text class="art-label" x="42" y="38">WRITE, ITERATE, BECOME</text></svg></div>
+          <div class="finale-visual" aria-label="AI coding 应用场景轮播">
+            <div class="finale-ai-frames">
+              <img class="finale-ai-frame portrait" src="assets/finale-ai-coding/mom-01.jpg" alt="AI 辅助学习场景" aria-hidden="true">
+              <img class="finale-ai-frame" src="assets/finale-ai-coding/skill-01.jpg" alt="AI 整理学习资料场景" aria-hidden="true">
+              <img class="finale-ai-frame" src="assets/finale-ai-coding/motion-01.jpg" alt="AI 运动识别仪表盘场景" aria-hidden="true">
+              <img class="finale-ai-frame portrait" src="assets/finale-ai-coding/mom-02.jpg" alt="AI 定制学习内容场景" aria-hidden="true">
+              <img class="finale-ai-frame" src="assets/finale-ai-coding/skill-02.jpg" alt="AI 生成结构化内容场景" aria-hidden="true">
+              <img class="finale-ai-frame" src="assets/finale-ai-coding/motion-02.jpg" alt="AI 提取动作关键点场景" aria-hidden="true">
+              <img class="finale-ai-frame portrait" src="assets/finale-ai-coding/mom-03.jpg" alt="AI 整理错题与练习场景" aria-hidden="true">
+              <img class="finale-ai-frame" src="assets/finale-ai-coding/skill-03.jpg" alt="AI 辅助分析文档场景" aria-hidden="true">
+              <img class="finale-ai-frame" src="assets/finale-ai-coding/motion-03.jpg" alt="AI 项目结构与代码场景" aria-hidden="true">
+              <img class="finale-ai-frame portrait" src="assets/finale-ai-coding/mom-04.jpg" alt="AI 辅助探索可视化场景" aria-hidden="true">
+              <img class="finale-ai-frame" src="assets/finale-ai-coding/skill-04.jpg" alt="AI 生成解题内容场景" aria-hidden="true">
+              <img class="finale-ai-frame" src="assets/finale-ai-coding/motion-04.jpg" alt="AI 可视化展示结果场景" aria-hidden="true">
+            </div>
+          </div>
         </article>
       </div>
       <div class="finale-progress"><span id="finaleProgress"></span><i aria-hidden="true"></i></div>
-      <div class="finale-controls"><span><strong>→</strong> 下一幕　<strong>←</strong> 上一幕</span><span><span class="finale-bgm-status" id="finaleBgmStatus">♪ BGM 待命</span>　Esc 重新开始</span></div>
+      <div class="finale-controls"><span><strong>按 → 开始播放</strong>　按 → 跳过，按 ← 回看</span><span><span class="finale-bgm-status" id="finaleBgmStatus">♪ BGM 待命</span>　Esc 重新开始</span></div>
     </div>
 <audio id="finaleBgm" preload="auto" loop src="../7月15日 (1).mp3" aria-label="结尾背景音乐"></audio>
   </section>
@@ -2649,10 +2668,59 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   var finaleBgm = document.getElementById("finaleBgm");
   var finaleBgmStatus = document.getElementById("finaleBgmStatus");
   var finaleIndex = -1;
+  var finaleTimer = null;
+  var finaleIsPlaying = false;
+  var finaleAiFrames = finale ? Array.prototype.slice.call(finale.querySelectorAll(".finale-ai-frame")) : [];
+  var finaleAiFrameTimer = null;
+  var finaleAiFrameIndex = 0;
   function finaleIsActive() {
     if (!finale) return false;
     var rect = finale.getBoundingClientRect();
     return rect.top < window.innerHeight * 0.66 && rect.bottom > window.innerHeight * 0.34;
+  }
+  function finaleStepDuration(step) {
+    var text = step.querySelector("p") ? step.querySelector("p").textContent : "";
+    var readableChars = Array.from(text).filter(function (char) {
+      return /[\u3400-\u9fffA-Za-z0-9]/.test(char);
+    }).length;
+    var baseDuration = 1200 + readableChars / 4.2 * 1000;
+    return Math.max(2940, Math.min(15400, baseDuration * 0.7));
+  }
+  function clearFinaleTimer() {
+    if (finaleTimer !== null) {
+      window.clearTimeout(finaleTimer);
+      finaleTimer = null;
+    }
+  }
+  function clearFinaleAiFrameTimer() {
+    if (finaleAiFrameTimer !== null) {
+      window.clearTimeout(finaleAiFrameTimer);
+      finaleAiFrameTimer = null;
+    }
+  }
+  function showFinaleAiFrame(index) {
+    finaleAiFrames.forEach(function (frame, frameIndex) {
+      frame.classList.toggle("active", frameIndex === index);
+    });
+  }
+  function scheduleFinaleAiFrame() {
+    clearFinaleAiFrameTimer();
+    if (finaleIndex !== 16 || !finaleAiFrames.length) return;
+    finaleAiFrameTimer = window.setTimeout(function () {
+      finaleAiFrameIndex = (finaleAiFrameIndex + 1) % finaleAiFrames.length;
+      showFinaleAiFrame(finaleAiFrameIndex);
+      scheduleFinaleAiFrame();
+    }, 1000);
+  }
+  function syncFinaleAiSlideshow(index) {
+    clearFinaleAiFrameTimer();
+    if (index !== 16 || !finaleAiFrames.length) {
+      finaleAiFrames.forEach(function (frame) { frame.classList.remove("active"); });
+      return;
+    }
+    finaleAiFrameIndex = 0;
+    showFinaleAiFrame(finaleAiFrameIndex);
+    scheduleFinaleAiFrame();
   }
   function startFinaleBgm() {
     if (!finaleBgm) return;
@@ -2662,11 +2730,16 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
       playback.then(function () {
         if (finaleBgmStatus) finaleBgmStatus.textContent = "♪ BGM 播放中";
       }).catch(function () {
-        if (finaleBgmStatus) finaleBgmStatus.textContent = "♪ BGM 待命";
+        if (finaleBgmStatus) finaleBgmStatus.textContent = "♪ 请按 → 播放";
       });
     } else if (finaleBgmStatus) {
       finaleBgmStatus.textContent = "♪ BGM 播放中";
     }
+  }
+  function pauseFinaleBgm() {
+    if (!finaleBgm) return;
+    finaleBgm.pause();
+    if (finaleBgmStatus) finaleBgmStatus.textContent = "♪ BGM 待命";
   }
   function stopFinaleBgm() {
     if (!finaleBgm) return;
@@ -2674,7 +2747,21 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     finaleBgm.currentTime = 0;
     if (finaleBgmStatus) finaleBgmStatus.textContent = "♪ BGM 待命";
   }
+  function scheduleFinaleStep() {
+    clearFinaleTimer();
+    if (!finaleIsPlaying || finaleIndex < 0) return;
+    finaleTimer = window.setTimeout(function () {
+      finaleTimer = null;
+      if (!finaleIsPlaying || !finaleIsActive()) return;
+      if (finaleIndex < finaleSteps.length - 1) {
+        showFinaleStep(finaleIndex + 1);
+      } else {
+        // Keep the music running while the final-page image carousel loops.
+      }
+    }, finaleStepDuration(finaleSteps[finaleIndex]));
+  }
   function showFinaleStep(index) {
+    clearFinaleTimer();
     var previousFinaleTop = finale ? finale.getBoundingClientRect().top : 0;
     var shouldStartBgm = index >= 0 && finaleIndex < 0;
     finaleIndex = index;
@@ -2683,16 +2770,47 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
       step.classList.toggle("active", active);
       step.setAttribute("aria-hidden", active ? "false" : "true");
     });
+    syncFinaleAiSlideshow(index);
     if (finaleHint) finaleHint.hidden = index >= 0;
     if (finaleProgress) finaleProgress.style.width = index < 0 ? "0%" : ((index + 1) / finaleSteps.length * 100) + "%";
     if (finale && index >= 0) {
       window.scrollBy(0, finale.getBoundingClientRect().top - previousFinaleTop);
     }
     if (shouldStartBgm) startFinaleBgm();
-    if (index < 0) stopFinaleBgm();
+    if (index < 0) {
+      finaleIsPlaying = false;
+      stopFinaleBgm();
+    } else if (finaleIsPlaying) {
+      scheduleFinaleStep();
+    }
   }
-  function resetFinale() { showFinaleStep(-1); }
+  function pauseFinalePlayback() {
+    finaleIsPlaying = false;
+    clearFinaleTimer();
+    pauseFinaleBgm();
+  }
+  function beginFinalePlayback() {
+    finaleIsPlaying = true;
+    if (finaleIndex < 0) showFinaleStep(0);
+    else {
+      startFinaleBgm();
+      scheduleFinaleStep();
+    }
+  }
+  function syncFinalePlayback() {
+    if (!finale) return;
+    if (!finaleIsActive() && finaleIsPlaying) {
+      pauseFinalePlayback();
+    }
+  }
+  function resetFinale() {
+    pauseFinalePlayback();
+    showFinaleStep(-1);
+  }
   resetFinale();
+  window.addEventListener("scroll", syncFinalePlayback, { passive: true });
+  window.addEventListener("resize", syncFinalePlayback);
+  syncFinalePlayback();
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
@@ -2701,9 +2819,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     }
     if (event.key === "ArrowRight" && finaleIsActive() && finaleIndex < finaleSteps.length - 1) {
       event.preventDefault();
-      showFinaleStep(finaleIndex + 1);
+      if (!finaleIsPlaying) beginFinalePlayback();
+      else showFinaleStep(finaleIndex + 1);
     }
-    if (event.key === "ArrowLeft" && finaleIsActive() && finaleIndex >= 0) {
+    if (event.key === "ArrowLeft" && finaleIsActive() && finaleIndex > 0) {
       event.preventDefault();
       showFinaleStep(finaleIndex - 1);
     }
