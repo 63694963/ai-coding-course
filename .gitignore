@@ -3,6 +3,9 @@
 .reasonix/
 .playwright-mcp/
 .serena/
+node_modules/
+.next/
+.wrangler/
 
 # macOS system files
 .DS_Store
