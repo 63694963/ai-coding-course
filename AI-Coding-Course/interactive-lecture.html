@@ -140,6 +140,22 @@ main { padding-top: var(--nav-h); }
   position: relative;
   scroll-margin-top: calc(var(--nav-h) + 18px);
 }
+main > .section:not([hidden]):not(.intro-section):not(.hero):not(.finale-section)::before {
+  content: "TOKEN";
+  position: absolute;
+  left: clamp(8px, 1.8vw, 26px);
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(78,215,197,.34);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .22em;
+  line-height: 1;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  pointer-events: none;
+  user-select: none;
+}
 .inner {
   width: min(100%, var(--max));
   margin: 0 auto;
@@ -1123,6 +1139,7 @@ input[type="range"] {
 }
 
 @media (max-width: 560px) {
+  main > .section:not([hidden]):not(.intro-section):not(.hero):not(.finale-section)::before { display: none; }
   .finale-step p { font-size: 19px; line-height: 1.7; }
   .person-card { grid-template-columns: 76px 1fr; }
   .person-avatar { width: 76px; height: 76px; }
