@@ -410,7 +410,6 @@ pre {
 .finale-heading {
   max-width: 820px;
   margin-bottom: 0;
-  font-family: Georgia, "Songti SC", "STSong", serif;
   font-weight: 500;
   letter-spacing: -.035em;
 }
@@ -442,10 +441,23 @@ pre {
   max-width: 900px;
   margin-bottom: 18px;
   color: #e7e1d6;
-  font-family: Georgia, "Songti SC", "STSong", serif;
   font-size: clamp(20px, 2.2vw, 31px);
   line-height: 1.78;
   letter-spacing: .01em;
+}
+.finale-step.has-people {
+  display: grid;
+  grid-template-columns: minmax(0, 1.38fr) minmax(300px, .62fr);
+  column-gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+.finale-step.has-people > p { grid-column: 1; }
+.finale-step.has-people .finale-people {
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  grid-template-columns: 1fr;
+  max-width: none;
+  margin-top: 0;
 }
 .finale-step .finale-lead {
   color: #fff5de;
@@ -467,18 +479,18 @@ pre {
 .finale-people.three { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 740px; }
 .person-card {
   display: grid;
-  grid-template-columns: 54px 1fr;
-  gap: 10px;
+  grid-template-columns: 92px 1fr;
+  gap: 14px;
   align-items: center;
-  padding: 12px;
+  padding: 14px;
   border: 1px solid rgba(255,255,255,.13);
   border-radius: 9px;
   background: rgba(255,255,255,.055);
   box-shadow: 0 14px 40px rgba(0,0,0,.22);
 }
 .person-avatar {
-  width: 54px;
-  height: 54px;
+  width: 92px;
+  height: 92px;
   position: relative;
   overflow: hidden;
   display: grid;
@@ -490,8 +502,8 @@ pre {
   letter-spacing: -.04em;
 }
 .person-avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.person-card strong { display: block; color: var(--text); font-size: 15px; }
-.person-card small { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+.person-card strong { display: block; color: var(--text); font-size: 17px; }
+.person-card small { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; line-height: 1.45; }
 .finale-progress { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
 .finale-progress span { width: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--cyan)); transition: width .45s ease; }
 .finale-progress i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.25); }
@@ -1059,12 +1071,16 @@ input[type="range"] {
   .float-chip { position: static; display: inline-flex; margin: 5px; }
   .chip-cloud { position: absolute; left: 16px; right: 16px; bottom: 12px; top: auto; }
   .finale-stage { min-height: 760px; }
+  .finale-step.has-people { display: block; }
+  .finale-step.has-people .finale-people { margin-top: 24px; }
   .finale-people, .finale-people.three { grid-template-columns: 1fr 1fr; max-width: none; }
 }
 
 @media (max-width: 560px) {
   .finale-step p { font-size: 19px; line-height: 1.7; }
   .finale-step .finale-lead { font-size: 34px; }
+  .person-card { grid-template-columns: 76px 1fr; }
+  .person-avatar { width: 76px; height: 76px; }
   .finale-people, .finale-people.three { grid-template-columns: 1fr; }
   .finale-stage { min-height: 1020px; }
 }
@@ -2047,7 +2063,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
           <p>数据是智慧的麦粒，算法是灵魂的酒曲，算力是昼夜不息的熔炉。</p>
         </article>
 
-        <article class="finale-step" data-final-step="2" aria-hidden="true">
+        <article class="finale-step has-people" data-final-step="2" aria-hidden="true">
           <p>今天，它不只是一段程序，它是莱布尼茨在二进制中窥见的宇宙秩序，是图灵穿过战争迷雾时写下的机器之问，是香农用一个比特重新丈量世界的尺度，是冯·诺依曼在纸页之间铺开的数字疆域，也是无数人守候在深夜机房里，那一簇从未熄灭的蓝色微光。</p>
           <div class="finale-people">
             <article class="person-card"><div class="person-avatar"><span>莱</span><img loading="lazy" referrerpolicy="no-referrer" src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Christoph_Bernhard_Francke_-_Bildnis_des_Philosophen_Leibniz_%28ca._1695%29.jpg" alt="莱布尼茨头像" onerror="this.style.display='none'"></div><div><strong>莱布尼茨</strong><small>二进制与宇宙秩序</small></div></article>
@@ -2057,7 +2073,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
           </div>
         </article>
 
-        <article class="finale-step" data-final-step="3" aria-hidden="true">
+        <article class="finale-step has-people" data-final-step="3" aria-hidden="true">
           <p>百年计算漫漫，电流穿过晶体管，芯片作骨，参数为脉，推理的回甘才是正文。今天你生成的不仅仅是文字，是巴贝奇未曾转动的齿轮，是图灵留在人类黎明前的第一道曙光，是乔布斯掌心那块照亮世界的玻璃，也是神经网络在亿万次迭代中摇落的漫天星辰。</p>
           <div class="finale-people three">
             <article class="person-card"><div class="person-avatar"><span>巴</span><img loading="lazy" referrerpolicy="no-referrer" src="https://commons.wikimedia.org/wiki/Special:FilePath/Charles%20Babbage%20-%201860.jpg?width=160" alt="巴贝奇头像" onerror="this.style.display='none'"></div><div><strong>巴贝奇</strong><small>通用计算机先驱</small></div></article>
@@ -2320,6 +2336,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     return rect.top < window.innerHeight * 0.66 && rect.bottom > window.innerHeight * 0.34;
   }
   function showFinaleStep(index) {
+    var previousFinaleTop = finale ? finale.getBoundingClientRect().top : 0;
     finaleIndex = index;
     finaleSteps.forEach(function (step, stepIndex) {
       var active = stepIndex === index;
@@ -2328,6 +2345,9 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     });
     if (finaleHint) finaleHint.hidden = index >= 0;
     if (finaleProgress) finaleProgress.style.width = index < 0 ? "0%" : ((index + 1) / finaleSteps.length * 100) + "%";
+    if (finale && index >= 0) {
+      window.scrollBy(0, finale.getBoundingClientRect().top - previousFinaleTop);
+    }
   }
   function resetFinale() { showFinaleStep(-1); }
   resetFinale();
