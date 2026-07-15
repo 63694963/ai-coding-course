@@ -583,6 +583,62 @@ pre {
   max-width: none;
   margin-top: 0;
 }
+.finale-step.has-visual {
+  display: grid;
+  grid-template-columns: minmax(0, 1.38fr) minmax(260px, .62fr);
+  column-gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+.finale-step.has-visual > p { grid-column: 1; align-self: center; }
+.finale-visual {
+  position: relative;
+  grid-column: 2;
+  align-self: center;
+  min-height: 280px;
+  overflow: hidden;
+  border: 1px solid rgba(78,215,197,.3);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 68% 30%, rgba(240,184,79,.18), transparent 28%),
+    linear-gradient(145deg, rgba(78,215,197,.1), rgba(255,255,255,.035) 52%, rgba(255,111,97,.08));
+  box-shadow: 0 18px 50px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.04);
+}
+.finale-visual::before,
+.finale-visual::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.finale-visual::before {
+  inset: 18px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 12px;
+  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(135deg, transparent 5%, black 38%, black 74%, transparent 100%);
+}
+.finale-visual::after {
+  width: 120px;
+  height: 120px;
+  top: 34px;
+  right: 28px;
+  border-radius: 50%;
+  background: rgba(78,215,197,.18);
+  filter: blur(34px);
+}
+.finale-visual svg { position: relative; z-index: 1; width: 100%; height: 100%; min-height: 280px; display: block; }
+.finale-visual .art-line { fill: none; stroke: #4ed7c5; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .82; }
+.finale-visual .art-line.gold { stroke: #f0b84f; }
+.finale-visual .art-line.red { stroke: #ff6f61; }
+.finale-visual .art-dot { fill: #4ed7c5; }
+.finale-visual .art-dot.gold { fill: #f0b84f; }
+.finale-visual .art-dot.red { fill: #ff6f61; }
+.finale-visual .art-fill { fill: rgba(78,215,197,.16); stroke: #4ed7c5; stroke-width: 2; }
+.finale-visual .art-fill.gold { fill: rgba(240,184,79,.17); stroke: #f0b84f; }
+.finale-visual .art-fill.red { fill: rgba(255,111,97,.14); stroke: #ff6f61; }
+.finale-visual .art-label { fill: rgba(231,225,214,.78); font: 600 11px system-ui, sans-serif; letter-spacing: .12em; }
+.finale-step.has-people > p,
+.finale-step.has-visual > p { max-width: none; }
 .finale-people {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1228,6 +1284,9 @@ input[type="range"] {
   .finale-stage { min-height: 760px; }
   .finale-step.has-people { display: block; }
   .finale-step.has-people .finale-people { margin-top: 24px; }
+  .finale-step.has-visual { display: block; }
+  .finale-visual { margin-top: 26px; min-height: 240px; }
+  .finale-visual svg { min-height: 240px; }
   .finale-people, .finale-people.three { grid-template-columns: 1fr 1fr; max-width: none; }
 }
 
@@ -2285,20 +2344,24 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
       <div class="finale-stage" id="finaleStage" aria-live="polite">
         <div class="finale-hint"><kbd>→</kbd> 按右方向键，逐段展开</div>
 
-        <article class="finale-step" data-final-step="0" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="0" aria-hidden="true">
           <p>各位，惊艳不及久用，智能最懂人心。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><path class="art-line" d="M38 174 C76 126 110 162 142 112 S210 84 278 48"/><path class="art-line gold" d="M42 184 C84 154 110 190 146 146 S218 124 278 94"/><circle class="art-dot" cx="142" cy="112" r="7"/><circle class="art-dot gold" cx="278" cy="48" r="9"/><circle class="art-dot red" cx="278" cy="94" r="5"/><text class="art-label" x="42" y="54">FIRST SIGNAL</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="1" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="1" aria-hidden="true">
           <p>你可能曾经赞叹过蒸汽的轰鸣，沉醉于电流的奔涌，但是终有一天，总有一天，你会沦陷于这一场硅晶烈火淬炼、数据星河孕育而来的智慧回响。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><path class="art-fill red" d="M160 36 C198 82 216 116 202 156 C190 190 154 204 122 184 C86 162 94 116 128 82 C142 68 151 52 160 36Z"/><path class="art-line gold" d="M160 76 C178 104 180 124 168 142 C157 158 135 151 132 132 C130 116 146 100 160 76Z"/><path class="art-line" d="M58 190 H262 M74 204 H246"/><circle class="art-dot" cx="72" cy="58" r="4"/><circle class="art-dot" cx="248" cy="72" r="4"/><text class="art-label" x="42" y="38">SILICON / FIRE / ECHO</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="2" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="2" aria-hidden="true">
           <p>恭喜你，已经成为珍贵的智能时代同行者。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><ellipse class="art-line" cx="160" cy="120" rx="102" ry="36" transform="rotate(-25 160 120)"/><ellipse class="art-line gold" cx="160" cy="120" rx="102" ry="36" transform="rotate(25 160 120)"/><circle class="art-fill" cx="160" cy="120" r="28"/><circle class="art-dot gold" cx="160" cy="120" r="8"/><circle class="art-dot red" cx="75" cy="74" r="5"/><circle class="art-dot" cx="245" cy="166" r="5"/><text class="art-label" x="42" y="38">IN THE LOOP</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="3" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="3" aria-hidden="true">
           <p>数据是智慧的麦粒，算法是灵魂的酒曲，算力是昼夜不息的熔炉。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><rect class="art-fill" x="64" y="126" width="48" height="60" rx="6"/><rect class="art-fill gold" x="136" y="88" width="48" height="98" rx="6"/><rect class="art-fill red" x="208" y="54" width="48" height="132" rx="6"/><path class="art-line" d="M52 198 H268"/><path class="art-line" d="M88 110 V76 M160 72 V42 M232 38 V22"/><circle class="art-dot gold" cx="88" cy="76" r="5"/><circle class="art-dot" cx="160" cy="42" r="5"/><circle class="art-dot red" cx="232" cy="22" r="5"/><text class="art-label" x="42" y="222">DATA / ALGORITHM / POWER</text></svg></div>
         </article>
 
         <article class="finale-step has-people" data-final-step="4" aria-hidden="true">
@@ -2320,48 +2383,59 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
           </div>
         </article>
 
-        <article class="finale-step" data-final-step="6" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="6" aria-hidden="true">
           <p>从算盘珠落，到电报码响；从真空管明灭，到硅晶芯火生辉；从互联网连接万里，到大模型吞吐古今。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><path class="art-line" d="M48 170 H272"/><circle class="art-fill gold" cx="64" cy="170" r="14"/><circle class="art-fill" cx="116" cy="170" r="14"/><circle class="art-fill red" cx="168" cy="170" r="14"/><circle class="art-fill" cx="220" cy="170" r="14"/><circle class="art-fill gold" cx="272" cy="170" r="14"/><path class="art-line gold" d="M64 144 V92 M116 144 V112 M168 144 V72 M220 144 V98 M272 144 V52"/><path class="art-line" d="M64 92 L116 112 L168 72 L220 98 L272 52"/><text class="art-label" x="42" y="38">A HISTORY OF COMPUTING</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="7" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="7" aria-hidden="true">
           <p>人类每一次向前，都不是因为山河忽然变小，而是因为手中的工具，让目光穿过了更远的苍穹。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><path class="art-line" d="M46 186 C92 166 118 176 152 154 S218 116 274 54"/><path class="art-line gold" d="M46 186 H274"/><path class="art-line" d="M84 156 L84 186 M124 144 L124 186 M164 132 L164 186 M204 108 L204 186"/><circle class="art-dot gold" cx="274" cy="54" r="9"/><path class="art-line gold" d="M252 54 H296 M274 32 V76"/><circle class="art-dot" cx="64" cy="58" r="3"/><circle class="art-dot" cx="104" cy="42" r="3"/><circle class="art-dot red" cx="226" cy="38" r="3"/><text class="art-label" x="42" y="222">LOOK FURTHER</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="8" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="8" aria-hidden="true">
           <p>今天，它不只是人类制造的一台机器。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><rect class="art-fill" x="82" y="62" width="156" height="116" rx="14"/><rect class="art-line" x="112" y="90" width="96" height="60" rx="8"/><path class="art-line gold" d="M82 88 H58 M82 120 H48 M82 152 H58 M238 88 H262 M238 120 H272 M238 152 H262"/><path class="art-line" d="M130 178 V202 M190 178 V202 M112 202 H208"/><circle class="art-dot red" cx="190" cy="110" r="7"/><circle class="art-dot gold" cx="142" cy="130" r="5"/><text class="art-label" x="42" y="38">MORE THAN A MACHINE</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="9" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="9" aria-hidden="true">
           <p>它是困于信息荒原之人手中的罗盘，是跋涉知识瀚海之人头顶的星斗，是一个朦胧念头穿过漫漫长夜时，忽然亮起的一盏灯。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><circle class="art-line" cx="160" cy="120" r="72"/><circle class="art-line gold" cx="160" cy="120" r="42"/><path class="art-fill gold" d="M160 70 L173 120 L160 170 L147 120Z"/><path class="art-line" d="M42 120 H278 M160 42 V198"/><circle class="art-dot red" cx="160" cy="120" r="6"/><circle class="art-dot" cx="78" cy="64" r="4"/><circle class="art-dot" cx="246" cy="76" r="4"/><text class="art-label" x="42" y="222">A LIGHT IN THE UNKNOWN</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="10" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="10" aria-hidden="true">
           <p>它把散落于岁月深处的文字重新唤醒，把沉睡在典籍中的智慧再次点燃，把一个人的微光，汇入整个人类文明奔涌不息的长河。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><path class="art-line" d="M40 164 C78 124 98 190 136 150 S198 118 228 142 S258 182 282 132"/><path class="art-line gold" d="M40 186 C82 152 102 210 142 170 S204 142 238 168 S264 198 282 158"/><circle class="art-dot" cx="70" cy="145" r="6"/><circle class="art-dot gold" cx="142" cy="150" r="7"/><circle class="art-dot red" cx="228" cy="142" r="6"/><path class="art-line" d="M70 145 L70 84 M142 150 L142 62 M228 142 L228 92"/><text class="art-label" x="42" y="38">ONE LIGHT, MANY MINDS</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="11" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="11" aria-hidden="true">
           <p>今天的AI不仅仅是工具，是数字长河里比黄金更坚硬的通货，是普通人穿越信息洪流的护身符，是人类站在未知之前，始终不肯熄灭的认知火种。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><path class="art-fill red" d="M160 42 C186 80 204 98 202 132 C200 168 180 190 160 190 C132 190 112 170 118 138 C123 112 148 94 160 42Z"/><path class="art-line gold" d="M160 92 C174 112 180 128 172 144 C165 158 148 154 146 140 C143 126 153 112 160 92Z"/><circle class="art-line" cx="160" cy="128" r="74"/><path class="art-line" d="M54 202 H266"/><circle class="art-dot gold" cx="72" cy="74" r="4"/><circle class="art-dot" cx="252" cy="58" r="4"/><text class="art-label" x="42" y="38">KEEP THE FIRE</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="12" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="12" aria-hidden="true">
           <p>一层网络承千年智，亿兆参数载万物声。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><path class="art-line" d="M82 66 L160 112 L238 66 M82 66 V154 L160 198 L238 154 V66 M82 154 L160 112 L238 154 M160 112 V198"/><circle class="art-dot gold" cx="82" cy="66" r="8"/><circle class="art-dot" cx="160" cy="112" r="8"/><circle class="art-dot red" cx="238" cy="66" r="8"/><circle class="art-dot" cx="82" cy="154" r="8"/><circle class="art-dot gold" cx="160" cy="198" r="8"/><circle class="art-dot" cx="238" cy="154" r="8"/><text class="art-label" x="42" y="38">A NETWORK OF MEMORY</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="13" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="13" aria-hidden="true">
           <p>把文字揉进向量里，把知识炼进模型中；让古人的思想穿过硅晶，让今人的追问抵达星空。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><path class="art-line" d="M52 176 C96 128 124 168 154 112 S210 76 268 48"/><path class="art-line gold" d="M52 194 C94 158 126 190 160 144 S214 116 268 86"/><path class="art-line red" d="M52 154 C90 110 122 142 150 92 S210 58 268 32"/><circle class="art-dot" cx="154" cy="112" r="7"/><circle class="art-dot gold" cx="268" cy="86" r="8"/><circle class="art-dot red" cx="268" cy="32" r="6"/><text class="art-label" x="42" y="222">WORDS INTO VECTORS</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="14" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="14" aria-hidden="true">
           <p>且点一盏智能之灯，就着这硅晶星光、这万里代码、这千年智慧，问一问未知，照一照前路。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><path class="art-fill gold" d="M126 104 H194 L184 144 H136Z"/><path class="art-line gold" d="M136 144 H184 M148 154 H172"/><path class="art-line" d="M160 48 V76 M104 72 L124 88 M216 72 L196 88"/><path class="art-line" d="M160 26 V40 M92 48 L104 60 M228 48 L216 60"/><path class="art-line" d="M160 104 V144"/><circle class="art-dot red" cx="160" cy="104" r="7"/><text class="art-label" x="42" y="214">LIGHT THE NEXT STEP</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="15" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="15" aria-hidden="true">
           <p>长夜未尽，文明正新。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><circle class="art-fill gold" cx="160" cy="126" r="42"/><path class="art-line gold" d="M42 168 H278"/><path class="art-line" d="M48 188 C96 176 122 184 160 174 S224 160 272 170"/><path class="art-line" d="M80 88 L92 82 M234 94 L246 88 M116 60 L122 48 M204 62 L210 50"/><circle class="art-dot" cx="64" cy="50" r="3"/><circle class="art-dot red" cx="256" cy="46" r="4"/><text class="art-label" x="42" y="222">A NEW DAWN</text></svg></div>
         </article>
 
-        <article class="finale-step" data-final-step="16" aria-hidden="true">
+        <article class="finale-step has-visual" data-final-step="16" aria-hidden="true">
           <p>我们且与AI，慢慢写。</p>
+          <div class="finale-visual" aria-hidden="true"><svg viewBox="0 0 320 240"><path class="art-line" d="M48 162 C76 118 98 196 130 148 S178 122 198 148 S236 188 272 104"/><path class="art-line gold" d="M48 184 C88 148 106 212 142 170 S190 150 214 176 S248 196 272 132"/><circle class="art-dot" cx="130" cy="148" r="6"/><circle class="art-dot gold" cx="214" cy="176" r="7"/><circle class="art-dot red" cx="272" cy="104" r="6"/><path class="art-line" d="M62 70 H130 M62 86 H112"/><text class="art-label" x="42" y="38">WRITE, ITERATE, BECOME</text></svg></div>
         </article>
       </div>
       <div class="finale-progress"><span id="finaleProgress"></span><i aria-hidden="true"></i></div>
