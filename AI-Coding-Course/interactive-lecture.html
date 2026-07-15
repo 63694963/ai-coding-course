@@ -140,7 +140,7 @@ main { padding-top: var(--nav-h); }
   position: relative;
   scroll-margin-top: calc(var(--nav-h) + 18px);
 }
-main > .section:not([hidden]):not(.intro-section):not(.hero):not(.finale-section)::before {
+main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-section):not(.finale-section)::before {
   content: "TOKEN";
   position: absolute;
   left: clamp(8px, 1.8vw, 26px);
@@ -157,7 +157,7 @@ main > .section:not([hidden]):not(.intro-section):not(.hero):not(.finale-section
   pointer-events: none;
   user-select: none;
 }
-main > .section:not([hidden]):not(.intro-section):not(.hero):not(.finale-section)::after {
+main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-section):not(.finale-section)::after {
   content: "想象力\A好奇心\A学习力\A执行力";
   position: absolute;
   left: clamp(54px, 5.2vw, 88px);
@@ -1227,8 +1227,8 @@ input[type="range"] {
 }
 
 @media (max-width: 560px) {
-  main > .section:not([hidden]):not(.intro-section):not(.hero):not(.finale-section)::before { display: none; }
-  main > .section:not([hidden]):not(.intro-section):not(.hero):not(.finale-section)::after { display: none; }
+  main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-section):not(.finale-section)::before { display: none; }
+  main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-section):not(.finale-section)::after { display: none; }
   .naval-portrait { width: 150px; }
   .naval-facts { grid-template-columns: 1fr; }
   .finale-step p { font-size: 19px; line-height: 1.7; }
