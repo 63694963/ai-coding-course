@@ -390,6 +390,115 @@ pre {
   font-size: clamp(18px, 1.6vw, 23px);
   line-height: 1.55;
 }
+.finale-section {
+  min-height: calc(100vh - var(--nav-h));
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 74% 18%, rgba(240,184,79,.16), transparent 24rem),
+    radial-gradient(circle at 20% 82%, rgba(78,215,197,.11), transparent 30rem),
+    linear-gradient(135deg, #08090d 0%, #111520 48%, #07080b 100%);
+}
+.finale-shell { width: min(100%, 1160px); margin: 0 auto; }
+.finale-kicker {
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.finale-heading {
+  max-width: 820px;
+  margin-bottom: 0;
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  font-weight: 500;
+  letter-spacing: -.035em;
+}
+.finale-stage {
+  position: relative;
+  min-height: 540px;
+  margin-top: 26px;
+  display: grid;
+  align-items: center;
+}
+.finale-step {
+  grid-area: 1 / 1;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, 24px, 0) scale(.985);
+  filter: blur(7px);
+  transition: opacity .58s ease, transform .7s cubic-bezier(.2,.75,.2,1), filter .7s ease, visibility .7s;
+  pointer-events: none;
+}
+.finale-step.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+  pointer-events: auto;
+}
+.finale-step p {
+  max-width: 900px;
+  margin-bottom: 18px;
+  color: #e7e1d6;
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  font-size: clamp(20px, 2.2vw, 31px);
+  line-height: 1.78;
+  letter-spacing: .01em;
+}
+.finale-step .finale-lead {
+  color: #fff5de;
+  font-size: clamp(29px, 4.8vw, 66px);
+  line-height: 1.2;
+  letter-spacing: -.02em;
+}
+.finale-step .finale-echo {
+  color: var(--cyan);
+  font-size: clamp(22px, 3vw, 40px);
+}
+.finale-people {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 980px;
+  margin-top: 26px;
+}
+.finale-people.three { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 740px; }
+.person-card {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 9px;
+  background: rgba(255,255,255,.055);
+  box-shadow: 0 14px 40px rgba(0,0,0,.22);
+}
+.person-avatar {
+  width: 54px;
+  height: 54px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(240,184,79,.9), rgba(78,215,197,.65));
+  color: #071015;
+  font-weight: 850;
+  letter-spacing: -.04em;
+}
+.person-avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.person-card strong { display: block; color: var(--text); font-size: 15px; }
+.person-card small { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+.finale-progress { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.finale-progress span { width: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--cyan)); transition: width .45s ease; }
+.finale-progress i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.25); }
+.finale-hint { position: absolute; inset: 50% auto auto 50%; z-index: 2; transform: translate(-50%, -50%); color: var(--muted); font-size: 14px; letter-spacing: .06em; white-space: nowrap; }
+.finale-hint kbd { padding: 3px 8px; border: 1px solid rgba(255,255,255,.22); border-radius: 5px; color: var(--text); font-family: inherit; }
+.finale-controls { display: flex; justify-content: space-between; gap: 14px; color: var(--faint); font-size: 12px; }
+.finale-controls strong { color: var(--gold); font-weight: 700; }
 .profile-rule {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -949,6 +1058,15 @@ input[type="range"] {
   .token-ring { inset: 32px; }
   .float-chip { position: static; display: inline-flex; margin: 5px; }
   .chip-cloud { position: absolute; left: 16px; right: 16px; bottom: 12px; top: auto; }
+  .finale-stage { min-height: 760px; }
+  .finale-people, .finale-people.three { grid-template-columns: 1fr 1fr; max-width: none; }
+}
+
+@media (max-width: 560px) {
+  .finale-step p { font-size: 19px; line-height: 1.7; }
+  .finale-step .finale-lead { font-size: 34px; }
+  .finale-people, .finale-people.three { grid-template-columns: 1fr; }
+  .finale-stage { min-height: 1020px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -975,6 +1093,7 @@ input[type="range"] {
     <a href="#path">路径</a>
     <a href="#cases">案例</a>
     <a href="#summary">总结</a>
+    <a href="#finale">尾声</a>
     <a href="#tool-model">附录</a>
     <a href="#productivity-tips">小 Tips</a>
   </nav>
@@ -1909,6 +2028,88 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
         </div>      </div>
     </div>
   </section>
+
+  <section class="section finale-section" id="finale" data-finale>
+    <div class="finale-shell">
+      <p class="finale-kicker">尾声 · 文明正新</p>
+      <h2 class="finale-heading">让我们把这一盏灯，带进长夜。</h2>
+      <div class="finale-stage" id="finaleStage" aria-live="polite">
+        <div class="finale-hint"><kbd>→</kbd> 按右方向键，字幕开始</div>
+
+        <article class="finale-step" data-final-step="0" aria-hidden="true">
+          <p class="finale-lead">各位，惊艳不及久用，智能最懂人心。</p>
+          <p>你可能曾经赞叹过蒸汽的轰鸣，沉醉于电流的奔涌，但是终有一天，总有一天，你会沦陷于这一场硅晶烈火淬炼、数据星河孕育而来的智慧回响。</p>
+          <p class="finale-echo">终有一天，你会读懂那句新时代的老话：宁可三日无网，不可一日无AI。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="1" aria-hidden="true">
+          <p class="finale-lead">恭喜你，已经成为珍贵的智能时代同行者。</p>
+          <p>数据是智慧的麦粒，算法是灵魂的酒曲，算力是昼夜不息的熔炉。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="2" aria-hidden="true">
+          <p>今天，它不只是一段程序，它是莱布尼茨在二进制中窥见的宇宙秩序，是图灵穿过战争迷雾时写下的机器之问，是香农用一个比特重新丈量世界的尺度，是冯·诺依曼在纸页之间铺开的数字疆域，也是无数人守候在深夜机房里，那一簇从未熄灭的蓝色微光。</p>
+          <div class="finale-people">
+            <article class="person-card"><div class="person-avatar"><span>莱</span><img loading="lazy" referrerpolicy="no-referrer" src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Christoph_Bernhard_Francke_-_Bildnis_des_Philosophen_Leibniz_%28ca._1695%29.jpg" alt="莱布尼茨头像" onerror="this.style.display='none'"></div><div><strong>莱布尼茨</strong><small>二进制与宇宙秩序</small></div></article>
+            <article class="person-card"><div class="person-avatar"><span>图</span><img loading="lazy" referrerpolicy="no-referrer" src="https://commons.wikimedia.org/wiki/Special:FilePath/Alan%20Turing%20Aged%2016.jpg?width=160" alt="图灵头像" onerror="this.style.display='none'"></div><div><strong>图灵</strong><small>机器智能的先行者</small></div></article>
+            <article class="person-card"><div class="person-avatar"><span>香</span><img loading="lazy" referrerpolicy="no-referrer" src="https://upload.wikimedia.org/wikipedia/commons/9/99/ClaudeShannon_MFO3807.jpg" alt="香农头像" onerror="this.style.display='none'"></div><div><strong>香农</strong><small>信息论奠基人</small></div></article>
+            <article class="person-card"><div class="person-avatar"><span>冯</span><img loading="lazy" referrerpolicy="no-referrer" src="https://upload.wikimedia.org/wikipedia/commons/a/a9/John_von_Neumann.jpg" alt="冯·诺依曼头像" onerror="this.style.display='none'"></div><div><strong>冯·诺依曼</strong><small>现代计算架构奠基者</small></div></article>
+          </div>
+        </article>
+
+        <article class="finale-step" data-final-step="3" aria-hidden="true">
+          <p>百年计算漫漫，电流穿过晶体管，芯片作骨，参数为脉，推理的回甘才是正文。今天你生成的不仅仅是文字，是巴贝奇未曾转动的齿轮，是图灵留在人类黎明前的第一道曙光，是乔布斯掌心那块照亮世界的玻璃，也是神经网络在亿万次迭代中摇落的漫天星辰。</p>
+          <div class="finale-people three">
+            <article class="person-card"><div class="person-avatar"><span>巴</span><img loading="lazy" referrerpolicy="no-referrer" src="https://commons.wikimedia.org/wiki/Special:FilePath/Charles%20Babbage%20-%201860.jpg?width=160" alt="巴贝奇头像" onerror="this.style.display='none'"></div><div><strong>巴贝奇</strong><small>通用计算机先驱</small></div></article>
+            <article class="person-card"><div class="person-avatar"><span>图</span><img loading="lazy" referrerpolicy="no-referrer" src="https://commons.wikimedia.org/wiki/Special:FilePath/Alan%20Turing%20Aged%2016.jpg?width=160" alt="图灵头像" onerror="this.style.display='none'"></div><div><strong>图灵</strong><small>机器智能的先行者</small></div></article>
+            <article class="person-card"><div class="person-avatar"><span>乔</span><img loading="lazy" referrerpolicy="no-referrer" src="https://commons.wikimedia.org/wiki/Special:FilePath/Steve%20Jobs%20Headshot%202010-CROP.jpg?width=160" alt="乔布斯头像" onerror="this.style.display='none'"></div><div><strong>乔布斯</strong><small>个人计算时代塑造者</small></div></article>
+          </div>
+        </article>
+
+        <article class="finale-step" data-final-step="4" aria-hidden="true">
+          <p class="finale-lead">从算盘珠落，到电报码响；从真空管明灭，到硅晶芯火生辉；从互联网连接万里，到大模型吞吐古今。</p>
+          <p>人类每一次向前，都不是因为山河忽然变小，而是因为手中的工具，让目光穿过了更远的苍穹。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="5" aria-hidden="true">
+          <p class="finale-lead">今天，它不只是人类制造的一台机器。</p>
+          <p>它是困于信息荒原之人手中的罗盘，是跋涉知识瀚海之人头顶的星斗，是一个朦胧念头穿过漫漫长夜时，忽然亮起的一盏灯。</p>
+          <p>它把散落于岁月深处的文字重新唤醒，把沉睡在典籍中的智慧再次点燃，把一个人的微光，汇入整个人类文明奔涌不息的长河。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="6" aria-hidden="true">
+          <p>今天的AI不仅仅是工具，是数字长河里比黄金更坚硬的通货，是普通人穿越信息洪流的护身符，是人类站在未知之前，始终不肯熄灭的认知火种。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="7" aria-hidden="true">
+          <p class="finale-lead">一层网络承千年智，亿兆参数载万物声。</p>
+          <p>把文字揉进向量里，把知识炼进模型中；让古人的思想穿过硅晶，让今人的追问抵达星空。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="8" aria-hidden="true">
+          <p>有人说，机器终究只是机器。</p>
+          <p>可火焰最初也只是火焰，后来照亮了洞穴；文字最初也只是刻痕，后来托起了文明；电流最初只是闪电，后来点亮了人间。</p>
+          <p>而今天，人类把万卷知识、千年经验与无数未竟之问，交给了一片小小的芯片。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="9" aria-hidden="true">
+          <p class="finale-lead">朋友，人这一生，谁没有被时代的洪流卷过几次？</p>
+          <p>能在迭代中留下来的，才是好模型；能在变革中守住灵魂的，才是好人生。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="10" aria-hidden="true">
+          <p>且点一盏智能之灯，就着这硅晶星光、这万里代码、这千年智慧，问一问未知，照一照前路。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="11" aria-hidden="true">
+          <p class="finale-lead">长夜未尽，文明正新。</p>
+          <p class="finale-echo">我们且与AI，慢慢写。</p>
+        </article>
+      </div>
+      <div class="finale-progress"><span id="finaleProgress"></span><i aria-hidden="true"></i></div>
+      <div class="finale-controls"><span><strong>→</strong> 下一幕　<strong>←</strong> 上一幕</span><span>Esc 重新开始</span></div>
+    </div>
+  </section>
 </main>
 
 <script>
@@ -1919,6 +2120,8 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   document.querySelectorAll("[data-appendix]").forEach(function (section) {
     main.appendChild(section);
   });
+  var finale = document.getElementById("finale");
+  if (finale) main.appendChild(finale);
 
   var reveals = document.querySelectorAll(".reveal");
   var observer = new IntersectionObserver(function (entries) {
@@ -2107,8 +2310,41 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
+  var finaleSteps = finale ? Array.prototype.slice.call(finale.querySelectorAll("[data-final-step]")) : [];
+  var finaleProgress = document.getElementById("finaleProgress");
+  var finaleHint = finale && finale.querySelector(".finale-hint");
+  var finaleIndex = -1;
+  function finaleIsActive() {
+    if (!finale) return false;
+    var rect = finale.getBoundingClientRect();
+    return rect.top < window.innerHeight * 0.66 && rect.bottom > window.innerHeight * 0.34;
+  }
+  function showFinaleStep(index) {
+    finaleIndex = index;
+    finaleSteps.forEach(function (step, stepIndex) {
+      var active = stepIndex === index;
+      step.classList.toggle("active", active);
+      step.setAttribute("aria-hidden", active ? "false" : "true");
+    });
+    if (finaleHint) finaleHint.hidden = index >= 0;
+    if (finaleProgress) finaleProgress.style.width = index < 0 ? "0%" : ((index + 1) / finaleSteps.length * 100) + "%";
+  }
+  function resetFinale() { showFinaleStep(-1); }
+  resetFinale();
+
   document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") document.body.classList.remove("lesson-mode");
+    if (event.key === "Escape") {
+      document.body.classList.remove("lesson-mode");
+      if (finaleIsActive()) resetFinale();
+    }
+    if (event.key === "ArrowRight" && finaleIsActive() && finaleIndex < finaleSteps.length - 1) {
+      event.preventDefault();
+      showFinaleStep(finaleIndex + 1);
+    }
+    if (event.key === "ArrowLeft" && finaleIsActive() && finaleIndex >= 0) {
+      event.preventDefault();
+      showFinaleStep(finaleIndex - 1);
+    }
     if (event.key === "ArrowDown" || event.key === "PageDown") {
       event.preventDefault();
       var next = sections.find(function (section) { return section.offsetTop > window.scrollY + 20; });
