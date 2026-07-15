@@ -450,6 +450,7 @@ pre {
 .finale-step {
   grid-area: 1 / 1;
   width: 100%;
+  align-self: center;
   opacity: 0;
   visibility: hidden;
   transform: translate3d(0, 24px, 0) scale(.985);
@@ -478,10 +479,11 @@ pre {
   column-gap: clamp(28px, 5vw, 72px);
   align-items: center;
 }
-.finale-step.has-people > p { grid-column: 1; }
+.finale-step.has-people > p { grid-column: 1; grid-row: 1 / span 4; align-self: center; }
 .finale-step.has-people .finale-people {
   grid-column: 2;
   grid-row: 1 / span 4;
+  align-self: center;
   grid-template-columns: 1fr;
   max-width: none;
   margin-top: 0;
