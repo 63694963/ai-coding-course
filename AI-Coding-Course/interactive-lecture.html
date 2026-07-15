@@ -596,12 +596,10 @@ pre {
   align-self: center;
   min-height: 280px;
   overflow: hidden;
-  border: 1px solid rgba(78,215,197,.3);
+  border: 1px solid rgba(231,225,214,.22);
   border-radius: 18px;
-  background:
-    radial-gradient(circle at 68% 30%, rgba(240,184,79,.18), transparent 28%),
-    linear-gradient(145deg, rgba(78,215,197,.1), rgba(255,255,255,.035) 52%, rgba(255,111,97,.08));
-  box-shadow: 0 18px 50px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.04);
+  background: #171411;
+  box-shadow: 0 18px 50px rgba(0,0,0,.3), inset 0 0 0 1px rgba(255,255,255,.04);
 }
 .finale-visual::before,
 .finale-visual::after {
@@ -610,33 +608,32 @@ pre {
   pointer-events: none;
 }
 .finale-visual::before {
-  inset: 18px;
-  border: 1px solid rgba(255,255,255,.09);
-  border-radius: 12px;
-  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: linear-gradient(135deg, transparent 5%, black 38%, black 74%, transparent 100%);
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(12,10,8,.32), transparent 32%, transparent 68%, rgba(12,10,8,.2));
 }
 .finale-visual::after {
-  width: 120px;
-  height: 120px;
-  top: 34px;
-  right: 28px;
-  border-radius: 50%;
-  background: rgba(78,215,197,.18);
-  filter: blur(34px);
+  inset: auto 0 0;
+  z-index: 2;
+  height: 38%;
+  background: linear-gradient(transparent, rgba(12,10,8,.76));
 }
-.finale-visual svg { position: relative; z-index: 1; width: 100%; height: 100%; min-height: 280px; display: block; }
-.finale-visual .art-line { fill: none; stroke: #4ed7c5; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .82; }
-.finale-visual .art-line.gold { stroke: #f0b84f; }
-.finale-visual .art-line.red { stroke: #ff6f61; }
-.finale-visual .art-dot { fill: #4ed7c5; }
-.finale-visual .art-dot.gold { fill: #f0b84f; }
-.finale-visual .art-dot.red { fill: #ff6f61; }
-.finale-visual .art-fill { fill: rgba(78,215,197,.16); stroke: #4ed7c5; stroke-width: 2; }
-.finale-visual .art-fill.gold { fill: rgba(240,184,79,.17); stroke: #f0b84f; }
-.finale-visual .art-fill.red { fill: rgba(255,111,97,.14); stroke: #ff6f61; }
-.finale-visual .art-label { fill: rgba(231,225,214,.78); font: 600 11px system-ui, sans-serif; letter-spacing: .12em; }
+.finale-visual svg { display: none; }
+.finale-step[data-final-step="0"] .finale-visual,
+.finale-step[data-final-step="1"] .finale-visual,
+.finale-step[data-final-step="3"] .finale-visual,
+.finale-step[data-final-step="6"] .finale-visual { background-image: url("assets/finale-archive-computation.png"); background-position: center; background-size: cover; }
+.finale-step[data-final-step="2"] .finale-visual,
+.finale-step[data-final-step="7"] .finale-visual,
+.finale-step[data-final-step="9"] .finale-visual { background-image: url("assets/finale-archive-compass.png"); background-position: center; background-size: cover; }
+.finale-step[data-final-step="8"] .finale-visual,
+.finale-step[data-final-step="10"] .finale-visual,
+.finale-step[data-final-step="12"] .finale-visual,
+.finale-step[data-final-step="13"] .finale-visual { background-image: url("assets/finale-archive-knowledge.png"); background-position: center; background-size: cover; }
+.finale-step[data-final-step="11"] .finale-visual,
+.finale-step[data-final-step="14"] .finale-visual,
+.finale-step[data-final-step="15"] .finale-visual,
+.finale-step[data-final-step="16"] .finale-visual { background-image: url("assets/finale-archive-writing.png"); background-position: center; background-size: cover; }
 .finale-step.has-people > p,
 .finale-step.has-visual > p { max-width: none; }
 .finale-people {
@@ -1286,7 +1283,6 @@ input[type="range"] {
   .finale-step.has-people .finale-people { margin-top: 24px; }
   .finale-step.has-visual { display: block; }
   .finale-visual { margin-top: 26px; min-height: 240px; }
-  .finale-visual svg { min-height: 240px; }
   .finale-people, .finale-people.three { grid-template-columns: 1fr 1fr; max-width: none; }
 }
 
