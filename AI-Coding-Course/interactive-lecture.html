@@ -1267,6 +1267,7 @@ input[type="range"] {
     <a href="#prompt-lab">诊断</a>
     <a href="#context">Context</a>
     <a href="#harness">Harness</a>
+    <a href="#harness-appendix">Harness 附录</a>
     <a href="#path">上手</a>
     <a href="#naval">纳瓦尔</a>
     <a href="#cases">案例</a>
@@ -1736,8 +1737,7 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
           <div class="card"><span class="tag gold">怎么确认</span><h3>要求验证证据</h3><p>让 AI 说明改了什么、检查了什么、还有什么没验证。</p></div>
           <div class="card"><span class="tag red">出错怎么办</span><h3>保留回退路径</h3><p>重要文件先备份；不满意时能恢复到修改前。</p></div>
         </div>
-        <div class="quote reveal">Profile、Skill、MCP 只需先知道：它们分别保存长期习惯、重复方法和工具连接；这场交流不展开术语。</div>
-        <div class="stage-card reveal">
+        <div class="stage-card reveal" hidden>
           <span class="tag gold">提示词 vs Skill</span>
           <h3>相比提示词，技能的四大进化</h3>
           <div class="matrix">
@@ -1756,14 +1756,12 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
           <span class="tag green">把经验装进 Harness</span>
           <h3>把重复叮嘱变成自动运行的系统</h3>
           <p class="body">将技术栈固化于 <a class="skill-link" href="https://github.com/multica-ai/andrej-karpathy-skills/blob/main/README.zh.md" target="_blank" rel="noopener noreferrer"><code>CLAUDE.md</code></a> 中，让每次对话从同一套项目事实开始；将审查标准封装进 Skill，实现按任务自动加载；将提交检查配置为 Hook，确保每次提交前都不会遗漏。<strong>CLAUDE.md 就是 Vibe coding 的宪法：规定 AI 应该如何工作，以及哪些边界不能碰。</strong></p>
-          <div class="grid-3">
-            <div class="card"><span class="tag">项目规则</span><h3>技术栈</h3><p>把语言、框架、目录约定和不能碰的边界写入长期规则，减少每次重新说明。</p></div>
-            <div class="card"><span class="tag gold">Skill</span><h3>审查标准</h3><p>把“检查什么、按什么标准、如何交付证据”写成某类任务的固定流程。</p></div>
-            <div class="card"><span class="tag red">Hook</span><h3>提交检查</h3><p>把格式、测试或其他必要检查放到提交节点，让遗漏变成系统会拦住的事。</p></div>
+          <div class="card">
+            <span class="tag green">一个真实 Skill 示例</span>
+            <h3>financial-analyst：把财务分析变成固定流程</h3>
+            <p>它可以按固定步骤读取数据、计算比率、做 DCF 估值、解释预算差异，并输出可检查的分析结果。重点不是“会做财务”，而是把一类重复工作变成可复用流程。</p>
           </div>
         </div>
-        <div class="quote reveal">同一模型在不同 Harness 上的表现差异，往往远大于不同模型在同一 Harness 上的表现差异。</div>
-        <div class="quote reveal">大模型是厨师，上下文是厨房的台面，Harness 是厨房的用具，Skill 是菜谱。</div>
         <div class="stage-card reveal" hidden>
           <h3>把 Harness 做成学生能操作的界面</h3>
           <p class="body">从产品思路看，Harness 不只是概念，而是一组判断、模板和验收动作。</p>
@@ -1786,7 +1784,7 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
             </table>
           </div>
         </div>
-        <div class="stage-card reveal">
+        <div class="stage-card reveal" hidden>
           <h3>6 个跨行业 Skill 示例</h3>
           <p class="body">Skill 不是“做 PPT 的技巧”，而是把某类重复工作变成 AI 的固定流程。以下来自 <a class="skill-link" href="https://github.com/alirezarezvani/claude-skills" target="_blank" rel="noopener">alirezarezvani/claude-skills</a>（19k+ stars，345 个生产级 Skill），覆盖六个行业。</p>
           <div class="grid-3">
@@ -1930,6 +1928,46 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   rules.md</pre></div>
         </div>
         <div class="quote reveal">Harness 的核心不是“相信 AI”或“防着 AI”，而是把 AI 放进一套可控的工作系统里。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="harness-appendix" data-appendix>
+    <div class="inner chapter">
+      <div class="num reveal">08.5</div>
+      <div class="content-stack">
+        <span class="tag reveal">附录 B · Harness 深入</span>
+        <h2 class="reveal">提示词、Skill 与规则：需要时再展开</h2>
+        <p class="lead reveal">主课只需要会用四个工程动作；下面内容适合课后继续看。</p>
+
+        <div class="stage-card reveal">
+          <span class="tag gold">提示词 vs Skill</span>
+          <h3>相比提示词，Skill 的四大进化</h3>
+          <div class="matrix">
+            <table>
+              <thead><tr><th>维度</th><th>提示词</th><th>Skill</th></tr></thead>
+              <tbody>
+                <tr><td>加载方式</td><td>全量塞入上下文</td><td>按需加载</td></tr>
+                <tr><td>工作空间</td><td>对话结束即消失</td><td>文件系统可保存中间产物、可重跑</td></tr>
+                <tr><td>协作能力</td><td>单个模板独立工作</td><td>可串成工作流，也可带脚本</td></tr>
+                <tr><td>迭代积累</td><td>模板散落各处</td><td>同一份文件持续迭代，后续任务自动复用</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="stage-card reveal">
+          <span class="tag green">真实 Skill 示例</span>
+          <h3>六个跨行业方向</h3>
+          <div class="grid-3">
+            <div class="card"><span class="tag gold">制造·质量</span><h3>capa-officer</h3><p>用 5 Why、鱼骨图和 FMEA 固化纠正与预防措施流程。</p></div>
+            <div class="card"><span class="tag green">采购·供应链</span><h3>procurement-optimizer</h3><p>分析采购支出、供应商整合和 SaaS 续约日历。</p></div>
+            <div class="card"><span class="tag">业务·运营</span><h3>process-mapper</h3><p>做 BPMN 流程映射、瓶颈检测和周期时间分析。</p></div>
+            <div class="card"><span class="tag violet">财务·金融</span><h3>financial-analyst</h3><p>固定执行财务比率、DCF、预算差异和滚动预测分析。</p></div>
+            <div class="card"><span class="tag red">供应商·管理</span><h3>vendor-management</h3><p>追踪供应商评分、SLA 合规和第三方风险分类。</p></div>
+            <div class="card"><span class="tag blue">数据·合规</span><h3>gdpr-dsgvo-expert</h3><p>扫描 GDPR 合规风险，管理 DPIA 和数据主体权利。</p></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
