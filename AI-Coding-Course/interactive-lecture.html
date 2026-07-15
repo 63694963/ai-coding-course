@@ -538,6 +538,7 @@ pre {
 .finale-hint kbd { padding: 3px 8px; border: 1px solid rgba(255,255,255,.22); border-radius: 5px; color: var(--text); font-family: inherit; }
 .finale-controls { display: flex; justify-content: space-between; gap: 14px; color: var(--faint); font-size: 12px; }
 .finale-controls strong { color: var(--gold); font-weight: 700; }
+.finale-bgm-status { color: var(--gold); }
 .profile-rule {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -2162,8 +2163,9 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
         </article>
       </div>
       <div class="finale-progress"><span id="finaleProgress"></span><i aria-hidden="true"></i></div>
-      <div class="finale-controls"><span><strong>→</strong> 下一幕　<strong>←</strong> 上一幕</span><span>Esc 重新开始</span></div>
+      <div class="finale-controls"><span><strong>→</strong> 下一幕　<strong>←</strong> 上一幕</span><span><span class="finale-bgm-status" id="finaleBgmStatus">♪ BGM 待命</span>　Esc 重新开始</span></div>
     </div>
+    <audio id="finaleBgm" preload="auto" loop src="../B9D23376-DEB5-4E2B-B2FC-A939057FB3C7.mp3" aria-label="结尾背景音乐"></audio>
   </section>
 </main>
 
@@ -2368,14 +2370,37 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   var finaleSteps = finale ? Array.prototype.slice.call(finale.querySelectorAll("[data-final-step]")) : [];
   var finaleProgress = document.getElementById("finaleProgress");
   var finaleHint = finale && finale.querySelector(".finale-hint");
+  var finaleBgm = document.getElementById("finaleBgm");
+  var finaleBgmStatus = document.getElementById("finaleBgmStatus");
   var finaleIndex = -1;
   function finaleIsActive() {
     if (!finale) return false;
     var rect = finale.getBoundingClientRect();
     return rect.top < window.innerHeight * 0.66 && rect.bottom > window.innerHeight * 0.34;
   }
+  function startFinaleBgm() {
+    if (!finaleBgm) return;
+    finaleBgm.volume = 0.32;
+    var playback = finaleBgm.play();
+    if (playback && playback.then) {
+      playback.then(function () {
+        if (finaleBgmStatus) finaleBgmStatus.textContent = "♪ BGM 播放中";
+      }).catch(function () {
+        if (finaleBgmStatus) finaleBgmStatus.textContent = "♪ BGM 待命";
+      });
+    } else if (finaleBgmStatus) {
+      finaleBgmStatus.textContent = "♪ BGM 播放中";
+    }
+  }
+  function stopFinaleBgm() {
+    if (!finaleBgm) return;
+    finaleBgm.pause();
+    finaleBgm.currentTime = 0;
+    if (finaleBgmStatus) finaleBgmStatus.textContent = "♪ BGM 待命";
+  }
   function showFinaleStep(index) {
     var previousFinaleTop = finale ? finale.getBoundingClientRect().top : 0;
+    var shouldStartBgm = index >= 0 && finaleIndex < 0;
     finaleIndex = index;
     finaleSteps.forEach(function (step, stepIndex) {
       var active = stepIndex === index;
@@ -2387,6 +2412,8 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     if (finale && index >= 0) {
       window.scrollBy(0, finale.getBoundingClientRect().top - previousFinaleTop);
     }
+    if (shouldStartBgm) startFinaleBgm();
+    if (index < 0) stopFinaleBgm();
   }
   function resetFinale() { showFinaleStep(-1); }
   resetFinale();
