@@ -1602,25 +1602,6 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
           </div>
         </div>
         <div class="quote reveal">上下文不是资料越多越好，而是要帮 AI 知道重点。</div>
-        <div class="stage-card reveal">
-          <span class="tag gold">Context 的成本</span>
-          <h3>上下文窗口是最稀缺的战略资源</h3>
-          <div class="grid-2">
-            <div class="profile-rule">
-              <h4>每一个 Token 都有机会成本</h4>
-              <p>上下文窗口不是无限的资料仓库。每一个 Token 都占用模型理解当前任务、推理和生成结果的空间；无关内容越多，真正重要的信息越容易被淹没。</p>
-            </div>
-            <div class="profile-rule">
-              <h4>让主对话保持干净</h4>
-              <p>历史对话里堆满无关日志和测试输出，会分散模型对当前任务的注意力。需要大量探索时，把工作交给子智能体：它们使用独立上下文窗口，中间读取、命令输出和推理不必回流到主对话，主对话只接收需要的结论。</p>
-            </div>
-          </div>
-        </div>
-        <div class="stage-card reveal">
-          <span class="tag red">长期规则也要算成本</span>
-          <h3>不要把用户级 CLAUDE.md 写成百科全书</h3>
-          <p class="body">用户级 <code>CLAUDE.md</code> 具有跨对话的持久性：它会在每次新对话初始化时被加载进上下文。因此，你写进去的每一行都会在每次交互中持续消费宝贵的 Token 配额。长期文件只保留真正通用、稳定且高频的规则。</p>
-        </div>
       </div>
     </div>
   </section>
@@ -1671,6 +1652,22 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
               <a class="product-link" href="https://www.volcengine.com/product/doubao" target="_blank" rel="noopener"><span>豆包</span><small>字节跳动模型家族</small></a>
             </div>
           </div>
+        </div>
+
+        <div class="stage-card reveal">
+          <span class="tag gold">附录：高级 Context</span>
+          <h3>上下文窗口也有成本</h3>
+          <div class="grid-2">
+            <div class="profile-rule">
+              <h4>每一个 Token 都有机会成本</h4>
+              <p>上下文窗口不是无限的资料仓库。无关内容越多，真正重要的信息越容易被淹没。</p>
+            </div>
+            <div class="profile-rule">
+              <h4>让主对话保持干净</h4>
+              <p>需要大量探索时，可以把读取、命令输出和中间推理交给子智能体，主对话只接收需要的结论。</p>
+            </div>
+          </div>
+          <p class="body" style="margin-top:16px;"><strong>用户级 CLAUDE.md 也要控制长度。</strong>它会在每次新对话初始化时加载，长期文件只保留真正通用、稳定且高频的规则。</p>
         </div>
 
         <div class="quote reveal">主线只需记住：<strong>模型负责理解和推理，工具负责读文件、改文件、运行和验证。</strong>具体产品组合可以交流后再看。</div>
