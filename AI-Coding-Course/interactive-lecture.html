@@ -233,7 +233,7 @@ main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-sect
 .intro-kicker { margin-bottom: 12px; color: var(--cyan); font-size: 13px; font-weight: 800; letter-spacing: .16em; }
 .intro-heading { max-width: 760px; margin-bottom: 10px; }
 .intro-lead { max-width: 760px; margin: 0; color: var(--muted); font-size: clamp(17px, 1.6vw, 21px); }
-.intro-video-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 3vw, 34px); margin-top: 34px; }
+.intro-video-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 3vw, 34px); margin-top: 34px; }
 .intro-video-card { overflow: hidden; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; background: rgba(255,255,255,.055); box-shadow: 0 20px 60px rgba(0,0,0,.28); }
 .intro-video-card video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #020307; object-fit: contain; }
 .intro-video-copy { padding: 16px 18px 18px; }
@@ -1343,8 +1343,12 @@ input[type="range"] {
     <div class="intro-inner">
       <p class="intro-kicker">开场案例 · 先看再开始</p>
       <h1 class="intro-heading">先看 AI 现在能做什么</h1>
-      <p class="intro-lead">先看两个真实案例：AI 如何整理错题、识别运动动作。看完后，再进入今天的交流。</p>
+      <p class="intro-lead">先看三个真实案例：普通妈妈如何使用 AI、AI 如何整理错题、识别运动动作。看完后，再进入今天的交流。</p>
       <div class="intro-video-grid">
+        <article class="intro-video-card">
+          <video controls playsinline preload="metadata" src="../%E6%99%AE%E9%80%9A%E5%A6%88%E5%A6%88.mp4" aria-label="普通妈妈使用 AI 视频"></video>
+          <div class="intro-video-copy"><span class="tag green">普通妈妈</span><h3>普通人，也能开始用 AI</h3><p>从一个普通家庭的真实场景出发，看 AI 如何进入日常生活。</p></div>
+        </article>
         <article class="intro-video-card">
           <video controls playsinline preload="metadata" src="../%E8%BF%99%E4%B8%AASkill%E8%83%BD%E5%B8%AE%E4%BD%A0%E6%95%B4%E7%90%86%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%20%23AI%E5%B7%A5%E5%85%B7%20%23%E5%AE%B6%E9%95%BF%E5%BF%85%E7%9C%8B%20%20%23%E8%80%81%E5%B8%88%E5%A4%87%E8%AF%BE%20%20%23%E8%AF%95%E5%8D%B7%E5%88%86%E6%9E%90%20%23%E9%94%99%E9%A2%98%E6%95%B4%E7%90%86%20%23%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%20%23%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0%20%23%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%20%23%E6%95%B0%E5%AD%A6%E6%8F%90%E5%88%86%20%23%E9%AB%98%E8%80%83%E6%95%B0%E5%AD%A6.mp4" aria-label="AI 错题本视频"></video>
           <div class="intro-video-copy"><span class="tag">AI 错题本</span><h3>把错题整理成学习方法</h3><p>从试卷和错题材料中提取高频考点，形成可复习的知识结构。</p></div>
