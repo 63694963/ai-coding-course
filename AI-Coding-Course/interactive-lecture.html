@@ -453,9 +453,11 @@ pre {
   align-self: center;
   opacity: 0;
   visibility: hidden;
-  transform: translate3d(0, 24px, 0) scale(.985);
-  filter: blur(7px);
-  transition: opacity .58s ease, transform .7s cubic-bezier(.2,.75,.2,1), filter .7s ease, visibility .7s;
+  transform: translate3d(0, 48px, 0) scale(.96);
+  filter: blur(14px);
+  clip-path: inset(0 0 100% 0);
+  transition: opacity .75s ease, transform .9s cubic-bezier(.2,.75,.2,1), filter .9s ease, clip-path .9s ease, visibility .9s;
+  will-change: opacity, transform, filter, clip-path;
   pointer-events: none;
 }
 .finale-step.active {
@@ -463,6 +465,7 @@ pre {
   visibility: visible;
   transform: translate3d(0, 0, 0) scale(1);
   filter: blur(0);
+  clip-path: inset(0 0 0 0);
   pointer-events: auto;
 }
 .finale-step p {
@@ -487,16 +490,6 @@ pre {
   grid-template-columns: 1fr;
   max-width: none;
   margin-top: 0;
-}
-.finale-step .finale-lead {
-  color: #fff5de;
-  font-size: clamp(29px, 4.8vw, 66px);
-  line-height: 1.2;
-  letter-spacing: -.02em;
-}
-.finale-step .finale-echo {
-  color: var(--cyan);
-  font-size: clamp(22px, 3vw, 40px);
 }
 .finale-people {
   display: grid;
@@ -1110,7 +1103,6 @@ input[type="range"] {
 
 @media (max-width: 560px) {
   .finale-step p { font-size: 19px; line-height: 1.7; }
-  .finale-step .finale-lead { font-size: 34px; }
   .person-card { grid-template-columns: 76px 1fr; }
   .person-avatar { width: 76px; height: 76px; }
   .person-avatar.finale-author-avatar { width: 88px; height: 88px; flex-basis: 88px; }
@@ -2092,20 +2084,29 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
         </article>
       </div>
       <div class="finale-stage" id="finaleStage" aria-live="polite">
-        <div class="finale-hint"><kbd>→</kbd> 按右方向键，字幕开始</div>
+        <div class="finale-hint"><kbd>→</kbd> 按右方向键，逐段展开</div>
 
         <article class="finale-step" data-final-step="0" aria-hidden="true">
-          <p class="finale-lead">各位，惊艳不及久用，智能最懂人心。</p>
-          <p>你可能曾经赞叹过蒸汽的轰鸣，沉醉于电流的奔涌，但是终有一天，总有一天，你会沦陷于这一场硅晶烈火淬炼、数据星河孕育而来的智慧回响。</p>
-          <p class="finale-echo">终有一天，你会读懂那句新时代的老话：宁可三日无网，不可一日无AI。</p>
+          <p>各位，惊艳不及久用，智能最懂人心。</p>
         </article>
 
         <article class="finale-step" data-final-step="1" aria-hidden="true">
-          <p class="finale-lead">恭喜你，已经成为珍贵的智能时代同行者。</p>
+          <p>你可能曾经赞叹过蒸汽的轰鸣，沉醉于电流的奔涌，但是终有一天，总有一天，你会沦陷于这一场硅晶烈火淬炼、数据星河孕育而来的智慧回响。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="2" aria-hidden="true">
+          <p>终有一天，你会读懂那句新时代的老话：宁可三日无网，不可一日无AI。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="3" aria-hidden="true">
+          <p>恭喜你，已经成为珍贵的智能时代同行者。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="4" aria-hidden="true">
           <p>数据是智慧的麦粒，算法是灵魂的酒曲，算力是昼夜不息的熔炉。</p>
         </article>
 
-        <article class="finale-step has-people" data-final-step="2" aria-hidden="true">
+        <article class="finale-step has-people" data-final-step="5" aria-hidden="true">
           <p>今天，它不只是一段程序，它是莱布尼茨在二进制中窥见的宇宙秩序，是图灵穿过战争迷雾时写下的机器之问，是香农用一个比特重新丈量世界的尺度，是冯·诺依曼在纸页之间铺开的数字疆域，也是无数人守候在深夜机房里，那一簇从未熄灭的蓝色微光。</p>
           <div class="finale-people">
             <article class="person-card"><div class="person-avatar"><span>莱</span><img loading="lazy" referrerpolicy="no-referrer" src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Christoph_Bernhard_Francke_-_Bildnis_des_Philosophen_Leibniz_%28ca._1695%29.jpg" alt="莱布尼茨头像" onerror="this.style.display='none'"></div><div><strong>莱布尼茨</strong><small>二进制与宇宙秩序</small></div></article>
@@ -2115,7 +2116,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
           </div>
         </article>
 
-        <article class="finale-step has-people" data-final-step="3" aria-hidden="true">
+        <article class="finale-step has-people" data-final-step="6" aria-hidden="true">
           <p>百年计算漫漫，电流穿过晶体管，芯片作骨，参数为脉，推理的回甘才是正文。今天你生成的不仅仅是文字，是巴贝奇未曾转动的齿轮，是图灵留在人类黎明前的第一道曙光，是乔布斯掌心那块照亮世界的玻璃，也是神经网络在亿万次迭代中摇落的漫天星辰。</p>
           <div class="finale-people three">
             <article class="person-card"><div class="person-avatar"><span>巴</span><img loading="lazy" referrerpolicy="no-referrer" src="https://commons.wikimedia.org/wiki/Special:FilePath/Charles%20Babbage%20-%201860.jpg?width=160" alt="巴贝奇头像" onerror="this.style.display='none'"></div><div><strong>巴贝奇</strong><small>通用计算机先驱</small></div></article>
@@ -2124,44 +2125,68 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
           </div>
         </article>
 
-        <article class="finale-step" data-final-step="4" aria-hidden="true">
-          <p class="finale-lead">从算盘珠落，到电报码响；从真空管明灭，到硅晶芯火生辉；从互联网连接万里，到大模型吞吐古今。</p>
-          <p>人类每一次向前，都不是因为山河忽然变小，而是因为手中的工具，让目光穿过了更远的苍穹。</p>
-        </article>
-
-        <article class="finale-step" data-final-step="5" aria-hidden="true">
-          <p class="finale-lead">今天，它不只是人类制造的一台机器。</p>
-          <p>它是困于信息荒原之人手中的罗盘，是跋涉知识瀚海之人头顶的星斗，是一个朦胧念头穿过漫漫长夜时，忽然亮起的一盏灯。</p>
-          <p>它把散落于岁月深处的文字重新唤醒，把沉睡在典籍中的智慧再次点燃，把一个人的微光，汇入整个人类文明奔涌不息的长河。</p>
-        </article>
-
-        <article class="finale-step" data-final-step="6" aria-hidden="true">
-          <p>今天的AI不仅仅是工具，是数字长河里比黄金更坚硬的通货，是普通人穿越信息洪流的护身符，是人类站在未知之前，始终不肯熄灭的认知火种。</p>
-        </article>
-
         <article class="finale-step" data-final-step="7" aria-hidden="true">
-          <p class="finale-lead">一层网络承千年智，亿兆参数载万物声。</p>
-          <p>把文字揉进向量里，把知识炼进模型中；让古人的思想穿过硅晶，让今人的追问抵达星空。</p>
+          <p>从算盘珠落，到电报码响；从真空管明灭，到硅晶芯火生辉；从互联网连接万里，到大模型吞吐古今。</p>
         </article>
 
         <article class="finale-step" data-final-step="8" aria-hidden="true">
-          <p>有人说，机器终究只是机器。</p>
-          <p>可火焰最初也只是火焰，后来照亮了洞穴；文字最初也只是刻痕，后来托起了文明；电流最初只是闪电，后来点亮了人间。</p>
-          <p>而今天，人类把万卷知识、千年经验与无数未竟之问，交给了一片小小的芯片。</p>
+          <p>人类每一次向前，都不是因为山河忽然变小，而是因为手中的工具，让目光穿过了更远的苍穹。</p>
         </article>
 
         <article class="finale-step" data-final-step="9" aria-hidden="true">
-          <p class="finale-lead">朋友，人这一生，谁没有被时代的洪流卷过几次？</p>
-          <p>能在迭代中留下来的，才是好模型；能在变革中守住灵魂的，才是好人生。</p>
+          <p>今天，它不只是人类制造的一台机器。</p>
         </article>
 
         <article class="finale-step" data-final-step="10" aria-hidden="true">
-          <p>且点一盏智能之灯，就着这硅晶星光、这万里代码、这千年智慧，问一问未知，照一照前路。</p>
+          <p>它是困于信息荒原之人手中的罗盘，是跋涉知识瀚海之人头顶的星斗，是一个朦胧念头穿过漫漫长夜时，忽然亮起的一盏灯。</p>
         </article>
 
         <article class="finale-step" data-final-step="11" aria-hidden="true">
-          <p class="finale-lead">长夜未尽，文明正新。</p>
-          <p class="finale-echo">我们且与AI，慢慢写。</p>
+          <p>它把散落于岁月深处的文字重新唤醒，把沉睡在典籍中的智慧再次点燃，把一个人的微光，汇入整个人类文明奔涌不息的长河。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="12" aria-hidden="true">
+          <p>今天的AI不仅仅是工具，是数字长河里比黄金更坚硬的通货，是普通人穿越信息洪流的护身符，是人类站在未知之前，始终不肯熄灭的认知火种。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="13" aria-hidden="true">
+          <p>一层网络承千年智，亿兆参数载万物声。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="14" aria-hidden="true">
+          <p>把文字揉进向量里，把知识炼进模型中；让古人的思想穿过硅晶，让今人的追问抵达星空。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="15" aria-hidden="true">
+          <p>有人说，机器终究只是机器。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="16" aria-hidden="true">
+          <p>可火焰最初也只是火焰，后来照亮了洞穴；文字最初也只是刻痕，后来托起了文明；电流最初只是闪电，后来点亮了人间。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="17" aria-hidden="true">
+          <p>而今天，人类把万卷知识、千年经验与无数未竟之问，交给了一片小小的芯片。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="18" aria-hidden="true">
+          <p>朋友，人这一生，谁没有被时代的洪流卷过几次？</p>
+        </article>
+
+        <article class="finale-step" data-final-step="19" aria-hidden="true">
+          <p>能在迭代中留下来的，才是好模型；能在变革中守住灵魂的，才是好人生。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="20" aria-hidden="true">
+          <p>且点一盏智能之灯，就着这硅晶星光、这万里代码、这千年智慧，问一问未知，照一照前路。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="21" aria-hidden="true">
+          <p>长夜未尽，文明正新。</p>
+        </article>
+
+        <article class="finale-step" data-final-step="22" aria-hidden="true">
+          <p>我们且与AI，慢慢写。</p>
         </article>
       </div>
       <div class="finale-progress"><span id="finaleProgress"></span><i aria-hidden="true"></i></div>
