@@ -600,6 +600,38 @@ pre {
   color: var(--text);
 }
 .profile-rule p { margin: 0; color: var(--muted); }
+.naval-profile {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+.naval-portrait {
+  width: 180px;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(240,184,79,.75), rgba(78,215,197,.5));
+  box-shadow: 0 18px 40px rgba(0,0,0,.24);
+}
+.naval-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+.naval-profile h3 { margin-bottom: 8px; }
+.naval-profile p { margin: 0; color: var(--muted); }
+.naval-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.naval-fact {
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.035);
+}
+.naval-fact strong { display: block; color: var(--text); font-size: 15px; }
+.naval-fact span { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; }
 .layer-compare {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
@@ -1129,7 +1161,7 @@ input[type="range"] {
   .brand { display: none; }
   .nav { order: 1; }
   .tools { order: 2; }
-  .hero-grid, .grid-2, .grid-3, .grid-4, .split, .pillars, .token-lab, .checklist,
+  .hero-grid, .grid-2, .grid-3, .grid-4, .split, .pillars, .token-lab, .checklist, .naval-profile,
   .choice-grid, .builder-grid, .sort-grid, .project-grid, .context-stage, .bridge-row {
     grid-template-columns: 1fr;
   }
@@ -1159,6 +1191,8 @@ input[type="range"] {
 @media (max-width: 560px) {
   main > .section:not([hidden]):not(.intro-section):not(.hero):not(.finale-section)::before { display: none; }
   main > .section:not([hidden]):not(.intro-section):not(.hero):not(.finale-section)::after { display: none; }
+  .naval-portrait { width: 150px; }
+  .naval-facts { grid-template-columns: 1fr; }
   .finale-step p { font-size: 19px; line-height: 1.7; }
   .person-card { grid-template-columns: 76px 1fr; }
   .person-avatar { width: 76px; height: 76px; }
@@ -1190,6 +1224,7 @@ input[type="range"] {
     <a href="#harness">Harness</a>
     <a href="#bridge">桥接</a>
     <a href="#path">路径</a>
+    <a href="#naval">纳瓦尔</a>
     <a href="#cases">案例</a>
     <a href="#summary">总结</a>
     <a href="#finale">尾声</a>
@@ -2019,6 +2054,53 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
           </div>
           <div class="quote">四步走完，你不懂代码，但你做出了一个实际可用的工具。这就是 Vibe coding 的日常节奏。</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="naval">
+    <div class="inner chapter">
+      <div class="num reveal">12.5</div>
+      <div class="content-stack">
+        <h2 class="reveal">纳瓦尔的四个 AI 行动建议</h2>
+        <p class="lead reveal">不要只把 AI 当成工具，把它变成训练认知、建立判断和创造作品的长期伙伴。</p>
+
+        <div class="stage-card reveal">
+          <div class="naval-profile">
+            <div class="naval-portrait"><span>纳</span><img loading="lazy" src="assets/people/naval.jpg" alt="纳瓦尔·拉维坎特头像" onerror="this.style.display='none'"></div>
+            <div>
+              <span class="tag gold">Naval Ravikant</span>
+              <h3>企业家 · 天使投资人 · AngelList 联合创始人</h3>
+              <p>纳瓦尔·拉维坎特是 Epinions 和 AngelList 的创业者，也是长期关注财富、幸福、创业与技术的投资人和思想分享者。他把复杂问题拆成简单原则，强调长期主义、独立判断和为自己创造。</p>
+            </div>
+          </div>
+          <div class="naval-facts">
+            <div class="naval-fact"><strong>Epinions</strong><span>早期创业实践</span></div>
+            <div class="naval-fact"><strong>AngelList</strong><span>连接创业者与投资人</span></div>
+            <div class="naval-fact"><strong>Nav.al</strong><span>财富与幸福思考</span></div>
+          </div>
+        </div>
+
+        <div class="tabbar reveal" role="tablist" aria-label="纳瓦尔的四个 AI 行动建议">
+          <button class="tab active" data-tab="naval-models">1. 交叉验证</button>
+          <button class="tab" data-tab="naval-why">2. 多问为什么</button>
+          <button class="tab" data-tab="naval-discomfort">3. 拥抱笨拙</button>
+          <button class="tab" data-tab="naval-create">4. 为自己创造</button>
+        </div>
+        <div class="panel active" data-panel="naval-models">
+          <div class="prompt-box good"><div class="prompt-title"><span class="accent">先用强模型，再让它们互相挑错</span></div><p class="body">重要问题不要只接受一个答案。用不同模型交叉验证，重大决策时强迫 AI 站到你的对立面，先把反例和盲区摆到桌面上。</p></div>
+        </div>
+        <div class="panel" data-panel="naval-why">
+          <div class="prompt-box good"><div class="prompt-title"><span class="accent">把每个困惑追问到真正听懂</span></div><p class="body">把问题交给 AI，但永远多问一句“为什么”。让它分解到你能听懂，建立自己的基础认知；AI 是陪练，不是替你思考。</p></div>
+        </div>
+        <div class="panel" data-panel="naval-discomfort">
+          <div class="prompt-box good"><div class="prompt-title"><span class="accent">愿意忍受新工具早期的笨拙</span></div><p class="body">早期使用 AI 的优势不一定是更聪明，而是愿意忍受工具还不顺手的阶段。笨拙期，就是大多数人还没有进入的壁垒。</p></div>
+        </div>
+        <div class="panel" data-panel="naval-create">
+          <div class="prompt-box good"><div class="prompt-title"><span class="accent">先为自己创造，不要先为市场创造</span></div><p class="body">第一个应用就做自己每天都会用的东西。真实的正向反馈，会让你持续迭代，也会让你真正理解 Vibe coding 的价值。</p></div>
+        </div>
+
+        <div class="quote reveal"><strong>把被算法喂养的时间，换成定算法的时间。</strong></div>
       </div>
     </div>
   </section>
