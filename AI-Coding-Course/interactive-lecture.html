@@ -413,6 +413,33 @@ pre {
   font-weight: 500;
   letter-spacing: -.035em;
 }
+.finale-heading-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, .36fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+.finale-heading-english {
+  margin-top: 14px;
+  color: var(--cyan);
+  font-size: clamp(18px, 2vw, 26px);
+  letter-spacing: .03em;
+}
+.finale-attribution {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 14px;
+  min-width: 260px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 9px;
+  background: rgba(255,255,255,.055);
+  box-shadow: 0 14px 40px rgba(0,0,0,.22);
+}
+.person-avatar.finale-author-avatar { width: 120px; height: 120px; flex: 0 0 120px; }
+.finale-attribution strong { display: block; color: var(--text); font-size: 17px; }
+.finale-attribution small { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; line-height: 1.45; }
 .finale-stage {
   position: relative;
   min-height: 540px;
@@ -1070,6 +1097,8 @@ input[type="range"] {
   .token-ring { inset: 32px; }
   .float-chip { position: static; display: inline-flex; margin: 5px; }
   .chip-cloud { position: absolute; left: 16px; right: 16px; bottom: 12px; top: auto; }
+  .finale-heading-row { display: block; }
+  .finale-attribution { margin-top: 24px; justify-self: start; }
   .finale-stage { min-height: 760px; }
   .finale-step.has-people { display: block; }
   .finale-step.has-people .finale-people { margin-top: 24px; }
@@ -1081,6 +1110,7 @@ input[type="range"] {
   .finale-step .finale-lead { font-size: 34px; }
   .person-card { grid-template-columns: 76px 1fr; }
   .person-avatar { width: 76px; height: 76px; }
+  .person-avatar.finale-author-avatar { width: 88px; height: 88px; flex-basis: 88px; }
   .finale-people, .finale-people.three { grid-template-columns: 1fr; }
   .finale-stage { min-height: 1020px; }
 }
@@ -2048,7 +2078,16 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   <section class="section finale-section" id="finale" data-finale>
     <div class="finale-shell">
       <p class="finale-kicker">尾声 · 文明正新</p>
-      <h2 class="finale-heading">与 Vibe Coding 一起，把知识写成自己的能力</h2>
+      <div class="finale-heading-row">
+        <div>
+          <h2 class="finale-heading">凡是过往，皆为序章</h2>
+          <p class="finale-heading-english">What's past is prologue.</p>
+        </div>
+        <article class="finale-attribution">
+          <div class="person-avatar finale-author-avatar"><span>莎</span><img loading="lazy" referrerpolicy="no-referrer" src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Shakespeare.jpg" alt="莎士比亚头像" onerror="this.style.display='none'"></div>
+          <div><strong>威廉·莎士比亚</strong><small>《暴风雨》中的时间箴言</small></div>
+        </article>
+      </div>
       <div class="finale-stage" id="finaleStage" aria-live="polite">
         <div class="finale-hint"><kbd>→</kbd> 按右方向键，字幕开始</div>
 
