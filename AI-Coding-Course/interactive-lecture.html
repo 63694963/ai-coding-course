@@ -670,6 +670,10 @@ pre {
 }
 .naval-fact strong { display: block; color: var(--text); font-size: 15px; }
 .naval-fact span { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; }
+.workflow-steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.workflow-step { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 9px; background: rgba(255,255,255,.035); }
+.workflow-step h3 { margin: 12px 0 8px; font-size: 18px; }
+.workflow-step p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
 .layer-compare {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
@@ -1204,6 +1208,7 @@ input[type="range"] {
     grid-template-columns: 1fr;
   }
   .intro-video-grid { grid-template-columns: 1fr; }
+  .workflow-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .arrow-chip { min-height: 42px; }
   .chapter { grid-template-columns: 1fr; }
   .layer-compare, .pairing-grid { grid-template-columns: 1fr; }
@@ -1231,6 +1236,7 @@ input[type="range"] {
   main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-section):not(.finale-section)::after { display: none; }
   .naval-portrait { width: 150px; }
   .naval-facts { grid-template-columns: 1fr; }
+  .workflow-steps { grid-template-columns: 1fr; }
   .finale-step p { font-size: 19px; line-height: 1.7; }
   .person-card { grid-template-columns: 76px 1fr; }
   .person-avatar { width: 76px; height: 76px; }
@@ -1261,8 +1267,7 @@ input[type="range"] {
     <a href="#prompt-lab">诊断</a>
     <a href="#context">Context</a>
     <a href="#harness">Harness</a>
-    <a href="#bridge">桥接</a>
-    <a href="#path">路径</a>
+    <a href="#path">上手</a>
     <a href="#naval">纳瓦尔</a>
     <a href="#cases">案例</a>
     <a href="#summary">总结</a>
@@ -2021,45 +2026,26 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     </div>
   </section>
 
-  <section class="section" id="bridge">
+  <section class="section" id="path">
     <div class="inner chapter">
       <div class="num reveal">11</div>
       <div class="content-stack">
-        <h2 class="reveal">从普通任务过渡到 Vibe coding</h2>
-        <p class="lead reveal">对初学者来说，Vibe coding 可以先理解成：把一个重复的文字、表格或流程任务，做成一个小工具。</p>
-        <div class="stage-card reveal">
-          <h3>现场讲法：不是换世界，是换载体</h3>
-          <div class="bridge-row">
-            <div class="card"><span class="tag">普通任务</span><h3>整理会议纪要</h3><p>把一段会议文字整理成摘要、决定和待办。</p></div>
-            <div class="arrow-chip">→</div>
-            <div class="card"><span class="tag green">Vibe coding</span><h3>会议纪要小工具</h3><p>输入会议文字，点击按钮，输出摘要、决定和待办。</p></div>
-          </div>
-          <div class="bridge-row">
-            <div class="card"><span class="tag">普通任务</span><h3>给方案挑问题</h3><p>从目标、步骤、风险三个角度检查活动方案。</p></div>
-            <div class="arrow-chip">→</div>
-            <div class="card"><span class="tag green">Vibe coding</span><h3>方案检查器</h3><p>粘贴方案，自动按固定维度输出问题清单。</p></div>
-          </div>
-          <div class="bridge-row">
-            <div class="card"><span class="tag">普通任务</span><h3>做客户回访表</h3><p>设计字段、填写说明和示例记录。</p></div>
-            <div class="arrow-chip">→</div>
-            <div class="card"><span class="tag green">Vibe coding</span><h3>客户回访表单</h3><p>销售填写客户状态，页面生成下一步跟进建议。</p></div>
-          </div>
+        <h2 class="reveal">从普通任务到第一个小工具</h2>
+        <p class="lead reveal">选一个每天重复的动作，把它走完五步：说清需求、生成第一版、发现问题，再修改成功。</p>
+        <div class="workflow-steps reveal">
+          <div class="workflow-step"><span class="tag">01</span><h3>选动作</h3><p>找一个每天都会重复、而且自己真的嫌麻烦的动作。</p></div>
+          <div class="workflow-step"><span class="tag green">02</span><h3>说清需求</h3><p>讲明目标、对象、边界、材料、格式和合格标准。</p></div>
+          <div class="workflow-step"><span class="tag gold">03</span><h3>生成第一版</h3><p>先做最小版本，不先加登录、协作和复杂功能。</p></div>
+          <div class="workflow-step"><span class="tag red">04</span><h3>发现问题</h3><p>实际试用，指出哪里不对、哪里不方便、哪里还在猜。</p></div>
+          <div class="workflow-step"><span class="tag violet">05</span><h3>修改成功</h3><p>让 AI 修改，再检查结果，直到这个动作真的变快。</p></div>
         </div>
-        <div class="quote reveal">第一版不要追求“大系统”。只要能把一个重复动作变成可点击、可检查的小工具，就已经进入 Vibe coding。</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="path">
-    <div class="inner chapter">
-      <div class="num reveal">12</div>
-      <div class="content-stack">
-        <h2 class="reveal">初学者上手路径</h2>
-        <p class="lead reveal">先把非代码任务练熟，再进入轻量 Vibe coding。不要一上来做复杂系统。</p>
-        <div class="grid-3 reveal">
-          <div class="card"><span class="tag">第一步</span><h3>先练习说清楚</h3><p>我在做什么、希望完成什么、不要做什么、参考材料、输出格式、合格标准。</p></div>
-          <div class="card"><span class="tag green">第二步</span><h3>练非代码任务</h3><p>写通知、改邮件、总结文章、整理会议纪要、优化 PPT、给方案挑问题。</p></div>
-          <div class="card"><span class="tag gold">第三步</span><h3>轻量 Vibe coding</h3><p>静态展示页、简单表单、文字整理工具、交流页面、资料查询页面。</p></div>
+        <div class="stage-card reveal">
+          <h3>现场示范：把客户回访变成一个小工具</h3>
+          <div class="bridge-row">
+            <div class="card"><span class="tag">普通任务</span><h3>整理客户回访</h3><p>记录联系结果、客户状态和下一步计划。</p></div>
+            <div class="arrow-chip">→</div>
+            <div class="card"><span class="tag green">Vibe coding</span><h3>客户回访表单</h3><p>销售填写状态，页面生成下一步跟进建议。</p></div>
+          </div>
         </div>
         <div class="grid-2 reveal">
           <div class="prompt-box good"><div class="prompt-title"><span class="accent">适合初学者的说法</span></div><pre>先帮我整理需求，不要开始制作。</pre></div>
@@ -2079,7 +2065,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
               </tbody>
             </table>
           </div>
-          <div class="quote">四步走完，你不懂代码，但你做出了一个实际可用的工具。这就是 Vibe coding 的日常节奏。</div>
+        <div class="quote">五步走完，你不懂代码，但你做出了一个实际可用的工具。这就是 Vibe coding 的日常节奏。</div>
         </div>
       </div>
     </div>
@@ -2087,7 +2073,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
   <section class="section" id="naval">
     <div class="inner chapter">
-      <div class="num reveal">12.5</div>
+      <div class="num reveal">12</div>
       <div class="content-stack">
         <h2 class="reveal">纳瓦尔的四个 AI 行动建议</h2>
         <p class="lead reveal">不要只把 AI 当成工具，把它变成训练认知、建立判断和创造作品的长期伙伴。</p>
