@@ -1286,16 +1286,20 @@ input[type="range"] {
   border-color: rgba(255,111,97,.58);
   background: rgba(255,111,97,.1);
 }
-.lesson-mode .topbar, .lesson-mode .progress { opacity: 0; pointer-events: none; }
+.lesson-mode .topbar, .lesson-mode .progress,
+.finale-mode .topbar, .finale-mode .progress { opacity: 0; pointer-events: none; }
 .lesson-mode .section { min-height: 100vh; }
 .lesson-mode main { padding-top: 0; }
 .lesson-mode .finale-attribution,
-.lesson-mode .person-card {
+.lesson-mode .person-card,
+.finale-mode .finale-attribution,
+.finale-mode .person-card {
   border-color: rgba(255,255,255,.06);
   background: rgba(255,255,255,.025);
   box-shadow: none;
 }
-.lesson-mode .finale-visual {
+.lesson-mode .finale-visual,
+.finale-mode .finale-visual {
   border-color: rgba(231,225,214,.1);
   box-shadow: none;
 }
@@ -1327,9 +1331,13 @@ body.lesson-mode { overflow: hidden; }
   font-size: clamp(48px, 6vw, 86px);
   line-height: 1.16;
 }
+.finale-mode .finale-heading-row,
 .lesson-mode .finale-heading-row { display: block; min-height: 240px; }
+.finale-mode .finale-heading,
 .lesson-mode .finale-heading { position: relative; z-index: 3; max-width: 62%; font-size: clamp(52px, 7vw, 104px); }
+.finale-mode .finale-heading-english,
 .lesson-mode .finale-heading-english { position: relative; z-index: 3; }
+.finale-mode .finale-attribution,
 .lesson-mode .finale-attribution {
   position: absolute;
   z-index: 1;
@@ -1344,6 +1352,7 @@ body.lesson-mode { overflow: hidden; }
   background: transparent;
   box-shadow: none;
 }
+.finale-mode .person-avatar.finale-author-avatar,
 .lesson-mode .person-avatar.finale-author-avatar {
   width: clamp(280px, 34vw, 520px);
   height: clamp(280px, 34vw, 520px);
@@ -1354,14 +1363,23 @@ body.lesson-mode { overflow: hidden; }
   mask-image: radial-gradient(circle at 52% 48%, #000 0 47%, transparent 75%);
   -webkit-mask-image: radial-gradient(circle at 52% 48%, #000 0 47%, transparent 75%);
 }
+.finale-mode .finale-attribution > div:last-child,
 .lesson-mode .finale-attribution > div:last-child { position: absolute; right: 7%; bottom: 16%; z-index: 2; }
+.finale-mode .finale-attribution strong,
 .lesson-mode .finale-attribution strong { font-size: 16px; }
+.finale-mode .finale-attribution small,
 .lesson-mode .finale-attribution small { font-size: 12px; }
+.finale-mode .finale-stage,
 .lesson-mode .finale-stage { min-height: 560px; margin-top: 18px; }
+.finale-mode .finale-step.has-people,
 .lesson-mode .finale-step.has-people { grid-template-columns: minmax(0, 1fr) minmax(360px, .72fr); }
+.finale-mode .finale-step.has-people > p,
 .lesson-mode .finale-step.has-people > p { max-width: 760px; }
+.finale-mode .finale-people,
 .lesson-mode .finale-people { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: none; margin: 0; }
+.finale-mode .person-card,
 .lesson-mode .person-card { display: block; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.finale-mode .person-avatar,
 .lesson-mode .person-avatar {
   width: clamp(140px, 15vw, 220px);
   height: clamp(140px, 15vw, 220px);
@@ -1372,7 +1390,9 @@ body.lesson-mode { overflow: hidden; }
   mask-image: radial-gradient(circle, #000 0 46%, transparent 74%);
   -webkit-mask-image: radial-gradient(circle, #000 0 46%, transparent 74%);
 }
+.finale-mode .person-card strong,
 .lesson-mode .person-card strong { margin-top: -20px; position: relative; font-size: 18px; }
+.finale-mode .person-card small,
 .lesson-mode .person-card small { font-size: 12px; }
 .finale-hint { inset: auto auto 24px 50%; display: inline-flex; align-items: center; gap: 6px; color: rgba(243,241,234,.35); font-size: 12px; letter-spacing: .12em; opacity: 1; }
 .finale-hint span:first-child { font-size: 18px; line-height: 1; }
@@ -1458,6 +1478,12 @@ body.lesson-mode { overflow: hidden; }
   .finale-step[data-final-step="12"] p,
   .finale-step[data-final-step="15"] p,
   .finale-step[data-final-step="16"] p { font-size: clamp(34px, 11vw, 52px); line-height: 1.25; }
+  .finale-mode .finale-heading,
+  .lesson-mode .finale-heading { max-width: 100%; font-size: clamp(44px, 13vw, 62px); }
+  .finale-mode .finale-attribution,
+  .lesson-mode .finale-attribution { top: -16px; right: -8px; width: 100%; }
+  .finale-mode .person-avatar.finale-author-avatar,
+  .lesson-mode .person-avatar.finale-author-avatar { width: 220px; height: 220px; }
   .person-card { grid-template-columns: 76px 1fr; }
   .person-avatar { width: 76px; height: 76px; }
   .person-avatar.finale-author-avatar { width: 88px; height: 88px; flex-basis: 88px; }
@@ -2765,8 +2791,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     var button = media.querySelector(".intro-play");
     if (!video || !button) return;
     button.addEventListener("click", function () {
-      if (video.paused) video.play();
-      else video.pause();
+      if (video.paused) {
+        var playback = video.play();
+        if (playback && playback.catch) playback.catch(function () {});
+      } else video.pause();
     });
     video.addEventListener("play", function () {
       video.controls = true;
