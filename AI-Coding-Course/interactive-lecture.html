@@ -1240,6 +1240,16 @@ input[type="range"] {
 .lesson-mode .topbar, .lesson-mode .progress { opacity: 0; pointer-events: none; }
 .lesson-mode .section { min-height: 100vh; }
 .lesson-mode main { padding-top: 0; }
+.lesson-mode .finale-attribution,
+.lesson-mode .person-card {
+  border-color: rgba(255,255,255,.06);
+  background: rgba(255,255,255,.025);
+  box-shadow: none;
+}
+.lesson-mode .finale-visual {
+  border-color: rgba(231,225,214,.1);
+  box-shadow: none;
+}
 
 .reveal {
   opacity: 0;
@@ -2785,6 +2795,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     pauseFinaleBgm();
   }
   function beginFinalePlayback() {
+    document.body.classList.add("lesson-mode");
     finaleIsPlaying = true;
     if (finaleIndex < 0) showFinaleStep(0);
     else {
@@ -2796,9 +2807,11 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     if (!finale) return;
     if (!finaleIsActive() && finaleIsPlaying) {
       pauseFinalePlayback();
+      document.body.classList.remove("lesson-mode");
     }
   }
   function resetFinale() {
+    document.body.classList.remove("lesson-mode");
     pauseFinalePlayback();
     showFinaleStep(-1);
   }
