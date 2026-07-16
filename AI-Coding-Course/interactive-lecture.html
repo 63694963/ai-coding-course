@@ -2780,6 +2780,11 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     if (finaleProgress) finaleProgress.style.width = index < 0 ? "0%" : ((index + 1) / finaleSteps.length * 100) + "%";
     if (finale && index >= 0) {
       window.scrollBy(0, finale.getBoundingClientRect().top - previousFinaleTop);
+      if (document.body.classList.contains("lesson-mode")) {
+        window.requestAnimationFrame(function () {
+          window.scrollTo({ top: finale.offsetTop, behavior: "auto" });
+        });
+      }
     }
     if (shouldStartBgm) startFinaleBgm();
     if (index < 0) {
