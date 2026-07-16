@@ -1300,8 +1300,12 @@ input[type="range"] {
 }
 .lesson-mode .finale-visual,
 .finale-mode .finale-visual {
-  border-color: rgba(231,225,214,.1);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 48%, #000 0 42%, rgba(0,0,0,.86) 55%, transparent 80%);
+  mask-image: radial-gradient(ellipse at 50% 48%, #000 0 42%, rgba(0,0,0,.86) 55%, transparent 80%);
 }
 html.map-open, body.map-open { overflow: hidden; }
 html.finale-mode,
