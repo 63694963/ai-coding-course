@@ -2796,7 +2796,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   }
   function beginFinalePlayback() {
     document.body.classList.add("lesson-mode");
-    if (finale) finale.scrollIntoView({ behavior: "auto", block: "start" });
+    if (finale) window.scrollTo({ top: finale.offsetTop, behavior: "auto" });
     finaleIsPlaying = true;
     if (finaleIndex < 0) showFinaleStep(0);
     else {
