@@ -6,6 +6,17 @@
 
 <https://63694963.github.io/ai-coding-course/>
 
+## 仓库地址
+
+GitHub 仓库：<https://github.com/63694963/ai-coding-course>
+
+克隆仓库：
+
+```bash
+git clone https://github.com/63694963/ai-coding-course.git
+cd ai-coding-course
+```
+
 ## 项目内容
 
 - 交互式课程页面：从基础概念逐步进入 AI Coding 的实际场景。
@@ -48,7 +59,42 @@ python3 -m http.server 8000
 
 ## 部署
 
-GitHub Pages 当前从 `gh-pages` 分支根目录发布。修改页面或素材后，重新发布对应文件即可更新线上版本。
+GitHub Pages 当前从 `gh-pages` 分支根目录发布。线上地址为：
+
+<https://63694963.github.io/ai-coding-course/>
+
+### 常用 Git 操作
+
+查看当前远程仓库：
+
+```bash
+git remote -v
+```
+
+如果本地还没有 `origin`，添加远程仓库：
+
+```bash
+git remote add origin https://github.com/63694963/ai-coding-course.git
+```
+
+提交并推送源代码到 `main`：
+
+```bash
+git add .
+git commit -m "描述本次修改"
+git push origin main
+```
+
+如果要更新 GitHub Pages 线上内容，需要把对应的发布文件同步到 `gh-pages`，再推送该分支：
+
+```bash
+git switch gh-pages
+git add .
+git commit -m "更新线上页面"
+git push origin gh-pages
+```
+
+`main` 用于保存项目源代码，`gh-pages` 用于发布静态网站；只推送 `main` 不会自动更新当前 Pages 版本。
 
 ## 许可证与素材说明
 
