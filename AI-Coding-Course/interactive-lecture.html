@@ -82,7 +82,7 @@ button:focus-visible, input:focus-visible {
 }
 .nav {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   overflow-x: auto;
   scrollbar-width: none;
   min-width: 0;
@@ -91,12 +91,13 @@ button:focus-visible, input:focus-visible {
 .nav a {
   color: var(--faint);
   text-decoration: none;
-  padding: 7px 10px;
+  padding: 7px 8px;
   border-radius: 7px;
   font-size: 13px;
   line-height: 1;
   white-space: nowrap;
 }
+.nav .nav-optional { display: none; }
 .nav a:hover, .nav a.active {
   color: var(--text);
   background: rgba(255,255,255,.08);
@@ -154,23 +155,6 @@ main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-sect
   text-shadow: 0 0 18px rgba(78,215,197,.24);
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  pointer-events: none;
-  user-select: none;
-}
-main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-section):not(.finale-section)::after {
-  content: "想象力\A好奇心\A学习力\A执行力";
-  position: absolute;
-  left: clamp(54px, 5.2vw, 88px);
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(255,255,255,.76);
-  font-size: clamp(14px, 1.45vw, 22px);
-  font-weight: 850;
-  letter-spacing: .08em;
-  line-height: 1.7;
-  text-align: center;
-  white-space: pre;
-  text-shadow: 0 0 16px rgba(255,255,255,.16);
   pointer-events: none;
   user-select: none;
 }
@@ -1315,7 +1299,7 @@ input[type="range"] {
 <header class="topbar">
   <div class="brand"><span class="mark"></span><span>Vibe coding 讲解页</span></div>
   <nav class="nav" id="nav" aria-label="章节导航">
-    <a href="#intro-videos">开场案例</a>
+    <a href="#intro-videos">开场</a>
     <a href="#hero">首页</a>
     <a href="#why">Why</a>
     <a href="#education">教育</a>
@@ -1326,14 +1310,14 @@ input[type="range"] {
     <a href="#prompt-lab">诊断</a>
     <a href="#context">Context</a>
     <a href="#harness">Harness</a>
-    <a href="#harness-appendix">Harness 附录</a>
+    <a class="nav-optional" href="#harness-appendix">Harness 附录</a>
     <a href="#path">上手</a>
     <a href="#naval">纳瓦尔</a>
     <a href="#cases">案例</a>
     <a href="#summary">总结</a>
     <a href="#finale">尾声</a>
-    <a href="#tool-model">附录</a>
-    <a href="#productivity-tips">小 Tips</a>
+    <a class="nav-optional" href="#tool-model">附录</a>
+    <a class="nav-optional" href="#productivity-tips">小 Tips</a>
   </nav>
   <div class="tools">
     <button class="icon-btn" id="modeBtn" title="切换演示模式" aria-label="切换演示模式">⛶</button>
