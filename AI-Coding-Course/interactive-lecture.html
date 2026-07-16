@@ -606,8 +606,8 @@ pre {
   max-width: 900px;
   margin-bottom: 18px;
   color: #e7e1d6;
-  font-size: clamp(20px, 2.2vw, 31px);
-  line-height: 1.78;
+  font-size: clamp(18px, 2vw, 28px);
+  line-height: 1.62;
   letter-spacing: .01em;
 }
 .finale-step.has-people {
@@ -1315,8 +1315,8 @@ body.lesson-mode { overflow: hidden; }
 .finale-heading-row { position: relative; min-height: 220px; }
 .finale-step p {
   max-width: 900px;
-  font-size: clamp(28px, 3.2vw, 46px);
-  line-height: 1.55;
+  font-size: clamp(24px, 2.4vw, 36px);
+  line-height: 1.48;
 }
 .finale-step[data-final-step="0"] p,
 .finale-step[data-final-step="2"] p,
@@ -1328,8 +1328,8 @@ body.lesson-mode { overflow: hidden; }
 .finale-step[data-final-step="16"] p {
   max-width: 980px;
   font-family: var(--serif-font);
-  font-size: clamp(48px, 6vw, 86px);
-  line-height: 1.16;
+  font-size: clamp(40px, 4.6vw, 66px);
+  line-height: 1.12;
 }
 .finale-mode .finale-heading-row,
 .lesson-mode .finale-heading-row { display: block; min-height: 240px; }
@@ -1370,26 +1370,50 @@ body.lesson-mode { overflow: hidden; }
 .finale-mode .finale-attribution small,
 .lesson-mode .finale-attribution small { font-size: 12px; }
 .finale-mode .finale-stage,
-.lesson-mode .finale-stage { min-height: 560px; margin-top: 18px; }
+.lesson-mode .finale-stage { min-height: clamp(420px, 50vh, 560px); margin-top: 12px; align-items: start; }
+.finale-mode .finale-step,
+.lesson-mode .finale-step { align-self: start; }
 .finale-mode .finale-step.has-people,
-.lesson-mode .finale-step.has-people { grid-template-columns: minmax(0, 1fr) minmax(360px, .72fr); }
+.lesson-mode .finale-step.has-people { grid-template-columns: minmax(0, 1fr) minmax(320px, .64fr); align-items: start; }
 .finale-mode .finale-step.has-people > p,
-.lesson-mode .finale-step.has-people > p { max-width: 760px; }
+.lesson-mode .finale-step.has-people > p { max-width: 640px; }
+.finale-mode .finale-step.has-people > p,
+.lesson-mode .finale-step.has-people > p,
+.finale-mode .finale-step.has-visual > p,
+.lesson-mode .finale-step.has-visual > p { align-self: start; }
+.finale-mode .finale-step.has-people .finale-people,
+.lesson-mode .finale-step.has-people .finale-people,
+.finale-mode .finale-step.has-visual .finale-visual,
+.lesson-mode .finale-step.has-visual .finale-visual { align-self: start; }
 .finale-mode .finale-people,
 .lesson-mode .finale-people { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: none; margin: 0; }
 .finale-mode .person-card,
 .lesson-mode .person-card { display: block; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
 .finale-mode .person-avatar,
 .lesson-mode .person-avatar {
-  width: clamp(140px, 15vw, 220px);
-  height: clamp(140px, 15vw, 220px);
+  width: clamp(160px, 17vw, 240px);
+  height: clamp(160px, 17vw, 240px);
   border: 0;
   border-radius: 50%;
-  opacity: .64;
-  filter: grayscale(.55) sepia(.18);
-  mask-image: radial-gradient(circle, #000 0 46%, transparent 74%);
-  -webkit-mask-image: radial-gradient(circle, #000 0 46%, transparent 74%);
+  overflow: hidden;
+  opacity: .62;
+  background: transparent;
+  filter: grayscale(.62) sepia(.16) contrast(.9) brightness(.84);
+  mask-image: radial-gradient(circle at 50% 45%, #000 0 38%, rgba(0,0,0,.94) 52%, transparent 78%);
+  -webkit-mask-image: radial-gradient(circle at 50% 45%, #000 0 38%, rgba(0,0,0,.94) 52%, transparent 78%);
 }
+.finale-mode .person-avatar::after,
+.lesson-mode .person-avatar::after,
+.finale-mode .person-avatar.finale-author-avatar::after,
+.lesson-mode .person-avatar.finale-author-avatar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 44%, transparent 0 36%, rgba(5,6,9,.08) 52%, rgba(5,6,9,.92) 78%, #050609 100%);
+}
+.finale-mode .person-avatar img,
+.lesson-mode .person-avatar img { opacity: .88; }
 .finale-mode .person-card strong,
 .lesson-mode .person-card strong { margin-top: -20px; position: relative; font-size: 18px; }
 .finale-mode .person-card small,
@@ -1480,6 +1504,8 @@ body.lesson-mode { overflow: hidden; }
   .finale-step[data-final-step="16"] p { font-size: clamp(34px, 11vw, 52px); line-height: 1.25; }
   .finale-mode .finale-heading,
   .lesson-mode .finale-heading { max-width: 100%; font-size: clamp(44px, 13vw, 62px); }
+  .finale-mode .finale-stage,
+  .lesson-mode .finale-stage { min-height: clamp(480px, 72vh, 680px); }
   .finale-mode .finale-attribution,
   .lesson-mode .finale-attribution { top: -16px; right: -8px; width: 100%; }
   .finale-mode .person-avatar.finale-author-avatar,
