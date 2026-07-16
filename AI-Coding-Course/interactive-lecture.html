@@ -23,6 +23,9 @@
   --red: #ff6f61;
   --violet: #b790ff;
   --shadow: 0 20px 60px rgba(0,0,0,.32);
+  --radius: 12px;
+  --display-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  --serif-font: "Songti SC", STSong, "Noto Serif SC", serif;
   --nav-h: 58px;
   --max: 1180px;
 }
@@ -36,7 +39,7 @@ body {
     radial-gradient(circle at 12% 8%, rgba(77,163,255,.18), transparent 28rem),
     radial-gradient(circle at 90% 28%, rgba(78,215,197,.11), transparent 26rem),
     linear-gradient(180deg, #050609 0%, #080a0f 44%, #050609 100%);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--display-font);
   line-height: 1.72;
   -webkit-font-smoothing: antialiased;
 }
@@ -55,7 +58,7 @@ button:focus-visible, input:focus-visible {
   inset: 0 0 auto;
   height: var(--nav-h);
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 14px;
   align-items: center;
   padding: 0 clamp(14px, 3vw, 34px);
@@ -82,13 +85,16 @@ button:focus-visible, input:focus-visible {
 }
 .nav {
   display: flex;
-  gap: 4px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   min-width: 0;
 }
-.nav::-webkit-scrollbar { display: none; }
+.nav-context { display: inline-flex; align-items: baseline; gap: 12px; min-width: 0; }
+.nav-index { color: var(--cyan); font-family: "SF Mono", Menlo, Monaco, Consolas, monospace; font-size: 11px; letter-spacing: .08em; white-space: nowrap; }
+.nav-title { overflow: hidden; color: var(--text); font-size: 14px; font-weight: 720; text-overflow: ellipsis; white-space: nowrap; }
 .nav a {
+  display: none;
   color: var(--faint);
   text-decoration: none;
   padding: 7px 8px;
@@ -97,7 +103,16 @@ button:focus-visible, input:focus-visible {
   line-height: 1;
   white-space: nowrap;
 }
-.nav .nav-optional { display: none; }
+.nav-map-btn {
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 7px;
+  padding: 7px 11px;
+  color: var(--muted);
+  background: rgba(255,255,255,.045);
+  font-size: 12px;
+  line-height: 1;
+}
+.nav-map-btn:hover, .nav-map-btn[aria-expanded="true"] { color: var(--text); background: rgba(78,215,197,.1); border-color: rgba(78,215,197,.42); }
 .nav a:hover, .nav a.active {
   color: var(--text);
   background: rgba(255,255,255,.08);
@@ -129,8 +144,36 @@ button:focus-visible, input:focus-visible {
   display: block;
   width: 0%;
   height: 100%;
-  background: linear-gradient(90deg, var(--blue), var(--cyan), var(--gold));
+  background: var(--cyan);
 }
+
+.chapter-map {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+}
+.chapter-map-backdrop { position: absolute; inset: 0; background: rgba(5,6,9,.78); backdrop-filter: blur(14px); }
+.chapter-map-panel {
+  position: relative;
+  width: min(920px, calc(100% - 36px));
+  max-height: min(720px, calc(100vh - 72px));
+  margin: 36px auto;
+  overflow: auto;
+  padding: clamp(22px, 4vw, 42px);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(20,25,34,.97), rgba(7,9,14,.97));
+  box-shadow: 0 28px 100px rgba(0,0,0,.48);
+}
+.chapter-map-head { display: flex; align-items: start; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
+.chapter-map-kicker { margin: 0 0 8px; color: var(--cyan); font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.chapter-map-title { margin: 0; font-size: clamp(30px, 4vw, 52px); line-height: 1; }
+.chapter-map-close { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,.15); border-radius: 8px; color: var(--text); background: rgba(255,255,255,.06); }
+.chapter-map-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.chapter-map-link { display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: center; min-height: 58px; padding: 10px 12px; border: 1px solid rgba(255,255,255,.1); border-radius: 9px; color: var(--text); background: rgba(255,255,255,.04); text-decoration: none; }
+.chapter-map-link:hover, .chapter-map-link:focus-visible { border-color: rgba(78,215,197,.45); background: rgba(78,215,197,.09); }
+.chapter-map-link small { color: var(--cyan); font-family: "SF Mono", Menlo, Monaco, Consolas, monospace; font-size: 11px; }
+.chapter-map-link span { color: var(--muted); font-size: 14px; line-height: 1.3; }
 
 main { padding-top: var(--nav-h); }
 .section {
@@ -177,7 +220,7 @@ main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-sect
     linear-gradient(145deg, #070a10 0%, #0b111a 52%, #08090d 100%);
 }
 .intro-heading {
-  max-width: 760px;
+  max-width: 980px;
   margin-bottom: 8px;
   font-size: clamp(52px, 6.4vw, 92px);
   line-height: .95;
@@ -222,11 +265,16 @@ main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-sect
 .education-bridge b { font-size: 22px; line-height: 1; }
 .intro-inner { width: min(100%, var(--max)); margin: 0 auto; }
 .intro-kicker { margin-bottom: 12px; color: var(--cyan); font-size: 13px; font-weight: 800; letter-spacing: .16em; }
-.intro-heading { max-width: 760px; margin-bottom: 10px; }
+.intro-heading { max-width: 980px; margin-bottom: 10px; }
 .intro-lead { max-width: 760px; margin: 0; color: var(--muted); font-size: clamp(16px, 1.45vw, 19px); }
 .intro-video-grid { display: grid; grid-template-columns: 1.15fr .925fr .925fr; gap: clamp(16px, 2.3vw, 26px); margin-top: 22px; }
 .intro-video-card { overflow: hidden; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; background: rgba(255,255,255,.055); box-shadow: 0 20px 60px rgba(0,0,0,.28); }
-.intro-video-card video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #020307; object-fit: contain; }
+.intro-video-media { position: relative; overflow: hidden; background: #020307; }
+.intro-video-card video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #020307; object-fit: cover; }
+.intro-video-media::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 48%, rgba(3,5,8,.52)); }
+.intro-play { position: absolute; inset: 50% auto auto 50%; z-index: 2; width: 54px; height: 54px; transform: translate(-50%, -50%); border: 1px solid rgba(255,255,255,.4); border-radius: 50%; color: var(--text); background: rgba(5,6,9,.56); font-size: 19px; line-height: 1; transition: opacity .25s ease, transform .25s ease, background .25s ease; }
+.intro-play:hover, .intro-play:focus-visible { background: rgba(78,215,197,.8); transform: translate(-50%, -50%) scale(1.06); }
+.intro-video-media.is-playing .intro-play { opacity: 0; pointer-events: none; }
 .intro-video-card:first-child { border-color: rgba(78,215,197,.32); background: linear-gradient(145deg, rgba(78,215,197,.08), rgba(255,255,255,.055)); }
 .intro-video-copy { padding: 12px 14px 14px; }
 .intro-video-copy .tag { margin-bottom: 10px; }
@@ -355,7 +403,7 @@ h3 {
   min-height: 116px;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 18px;
 }
 .card h3 { margin-bottom: 8px; }
@@ -497,6 +545,7 @@ pre {
   margin-bottom: 0;
   font-weight: 500;
   letter-spacing: -.035em;
+  font-family: var(--serif-font);
 }
 .finale-heading-row {
   display: grid;
@@ -1250,6 +1299,106 @@ input[type="range"] {
   border-color: rgba(231,225,214,.1);
   box-shadow: none;
 }
+html.map-open, body.map-open { overflow: hidden; }
+html.finale-mode,
+body.finale-mode { scrollbar-width: none; }
+html.finale-mode::-webkit-scrollbar,
+body.finale-mode::-webkit-scrollbar { display: none; }
+html.lesson-mode { overflow: hidden; scrollbar-width: none; }
+html.lesson-mode::-webkit-scrollbar { display: none; }
+body.lesson-mode { overflow: hidden; }
+
+.finale-heading-row { position: relative; min-height: 220px; }
+.finale-step p {
+  max-width: 900px;
+  font-size: clamp(28px, 3.2vw, 46px);
+  line-height: 1.55;
+}
+.finale-step[data-final-step="0"] p,
+.finale-step[data-final-step="2"] p,
+.finale-step[data-final-step="3"] p,
+.finale-step[data-final-step="6"] p,
+.finale-step[data-final-step="8"] p,
+.finale-step[data-final-step="12"] p,
+.finale-step[data-final-step="15"] p,
+.finale-step[data-final-step="16"] p {
+  max-width: 980px;
+  font-family: var(--serif-font);
+  font-size: clamp(48px, 6vw, 86px);
+  line-height: 1.16;
+}
+.lesson-mode .finale-heading-row { display: block; min-height: 240px; }
+.lesson-mode .finale-heading { position: relative; z-index: 3; max-width: 62%; font-size: clamp(52px, 7vw, 104px); }
+.lesson-mode .finale-heading-english { position: relative; z-index: 3; }
+.lesson-mode .finale-attribution {
+  position: absolute;
+  z-index: 1;
+  top: -66px;
+  right: -4%;
+  display: block;
+  width: 46%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.lesson-mode .person-avatar.finale-author-avatar {
+  width: clamp(280px, 34vw, 520px);
+  height: clamp(280px, 34vw, 520px);
+  margin-left: auto;
+  border-radius: 50%;
+  opacity: .36;
+  filter: grayscale(.55) sepia(.22);
+  mask-image: radial-gradient(circle at 52% 48%, #000 0 47%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at 52% 48%, #000 0 47%, transparent 75%);
+}
+.lesson-mode .finale-attribution > div:last-child { position: absolute; right: 7%; bottom: 16%; z-index: 2; }
+.lesson-mode .finale-attribution strong { font-size: 16px; }
+.lesson-mode .finale-attribution small { font-size: 12px; }
+.lesson-mode .finale-stage { min-height: 560px; margin-top: 18px; }
+.lesson-mode .finale-step.has-people { grid-template-columns: minmax(0, 1fr) minmax(360px, .72fr); }
+.lesson-mode .finale-step.has-people > p { max-width: 760px; }
+.lesson-mode .finale-people { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: none; margin: 0; }
+.lesson-mode .person-card { display: block; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.lesson-mode .person-avatar {
+  width: clamp(140px, 15vw, 220px);
+  height: clamp(140px, 15vw, 220px);
+  border: 0;
+  border-radius: 50%;
+  opacity: .64;
+  filter: grayscale(.55) sepia(.18);
+  mask-image: radial-gradient(circle, #000 0 46%, transparent 74%);
+  -webkit-mask-image: radial-gradient(circle, #000 0 46%, transparent 74%);
+}
+.lesson-mode .person-card strong { margin-top: -20px; position: relative; font-size: 18px; }
+.lesson-mode .person-card small { font-size: 12px; }
+.finale-hint { inset: auto auto 24px 50%; display: inline-flex; align-items: center; gap: 6px; color: rgba(243,241,234,.35); font-size: 12px; letter-spacing: .12em; opacity: 1; }
+.finale-hint span:first-child { font-size: 18px; line-height: 1; }
+.finale-hint kbd { padding: 0; border: 0; color: inherit; }
+.finale-controls { justify-content: flex-end; color: rgba(169,173,183,.42); font-size: 11px; }
+.finale-controls strong { color: rgba(240,184,79,.58); }
+.finale-progress { opacity: .52; }
+
+/* Page archetypes: each chapter gets a different visual rhythm. */
+[data-archetype="chapter"] .content-stack { max-width: 920px; }
+[data-archetype="chapter"] .quote { max-width: 860px; padding-block: 24px; font-size: clamp(22px, 2.2vw, 34px); }
+[data-archetype="concept"] .content-stack { max-width: 1080px; }
+[data-archetype="concept"] .stage-card { border-top: 2px solid rgba(78,215,197,.48); background: linear-gradient(135deg, rgba(78,215,197,.11), rgba(255,255,255,.035) 62%); }
+[data-archetype="interaction"] .stage-card { border-left: 2px solid var(--gold); background: linear-gradient(135deg, rgba(240,184,79,.1), rgba(255,255,255,.035) 62%); }
+[data-archetype="interaction"] .stage-card h3 { max-width: 760px; }
+[data-archetype="system"] .content-stack { max-width: 1120px; }
+[data-archetype="system"] .grid-4 { gap: 1px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.1); }
+[data-archetype="system"] .grid-4 .card { border: 0; border-radius: 0; background: rgba(8,11,16,.72); }
+[data-archetype="system"] .stage-card { border-left: 2px solid var(--cyan); }
+[data-archetype="reference"] .content-stack { max-width: 1120px; }
+[data-archetype="reference"] .stage-card:first-of-type { border-color: rgba(240,184,79,.4); background: linear-gradient(145deg, rgba(240,184,79,.12), rgba(255,255,255,.035) 70%); }
+[data-archetype="reference"] .stage-card:first-of-type .grid-3 { gap: 1px; background: rgba(255,255,255,.12); }
+[data-archetype="reference"] .stage-card:first-of-type .card { border: 0; border-radius: 0; background: rgba(8,11,16,.7); }
+
+.finale-mode .topbar, .finale-mode .progress { opacity: 0; pointer-events: none; }
+.finale-mode .finale-section { min-height: 100vh; }
 
 .reveal {
   opacity: 0;
@@ -1294,12 +1443,21 @@ input[type="range"] {
 }
 
 @media (max-width: 560px) {
+  .chapter-map-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-section):not(.finale-section)::before { display: none; }
   main > .section:not([hidden]):not(.intro-section):not(.hero):not(.education-section):not(.finale-section)::after { display: none; }
   .naval-portrait { width: 150px; }
   .naval-facts { grid-template-columns: 1fr; }
   .workflow-steps { grid-template-columns: 1fr; }
   .finale-step p { font-size: 19px; line-height: 1.7; }
+  .finale-step[data-final-step="0"] p,
+  .finale-step[data-final-step="2"] p,
+  .finale-step[data-final-step="3"] p,
+  .finale-step[data-final-step="6"] p,
+  .finale-step[data-final-step="8"] p,
+  .finale-step[data-final-step="12"] p,
+  .finale-step[data-final-step="15"] p,
+  .finale-step[data-final-step="16"] p { font-size: clamp(34px, 11vw, 52px); line-height: 1.25; }
   .person-card { grid-template-columns: 76px 1fr; }
   .person-avatar { width: 76px; height: 76px; }
   .person-avatar.finale-author-avatar { width: 88px; height: 88px; flex-basis: 88px; }
@@ -1318,6 +1476,11 @@ input[type="range"] {
 <header class="topbar">
   <div class="brand"><span class="mark"></span><span>Vibe coding 讲解页</span></div>
   <nav class="nav" id="nav" aria-label="章节导航">
+    <div class="nav-context" aria-live="polite">
+      <span class="nav-index" id="chapterIndex">01 / 16</span>
+      <span class="nav-title" id="chapterName">开场案例</span>
+    </div>
+    <button class="nav-map-btn" id="mapBtn" type="button" aria-expanded="false" aria-controls="chapterMap">课程地图</button>
     <a href="#intro-videos">开场</a>
     <a href="#hero">首页</a>
     <a href="#why">Why</a>
@@ -1344,24 +1507,34 @@ input[type="range"] {
   </div>
 </header>
 <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+<div class="chapter-map" id="chapterMap" hidden>
+  <div class="chapter-map-backdrop" data-map-close></div>
+  <section class="chapter-map-panel" role="dialog" aria-modal="true" aria-labelledby="chapterMapTitle">
+    <div class="chapter-map-head">
+      <div><p class="chapter-map-kicker">Vibe coding · navigation</p><h2 class="chapter-map-title" id="chapterMapTitle">课程地图</h2></div>
+      <button class="chapter-map-close" id="mapCloseBtn" type="button" aria-label="关闭课程地图">×</button>
+    </div>
+    <div class="chapter-map-grid" id="chapterMapGrid"></div>
+  </section>
+</div>
 
 <main>
-  <section class="section intro-section" id="intro-videos">
+  <section class="section intro-section" id="intro-videos" data-archetype="case">
     <div class="intro-inner">
       <p class="intro-kicker">开场案例 · 先看再开始</p>
       <h1 class="intro-heading">先看 AI 现在能做什么</h1>
       <p class="intro-lead">先看三个真实案例：普通妈妈如何使用 AI、AI 如何整理错题、识别运动动作。看完后，再进入今天的交流。</p>
       <div class="intro-video-grid">
         <article class="intro-video-card">
-          <video controls playsinline preload="metadata" src="../%E6%99%AE%E9%80%9A%E5%A6%88%E5%A6%88.mp4" aria-label="普通妈妈使用 AI 视频"></video>
+          <div class="intro-video-media"><video playsinline preload="metadata" poster="assets/intro-posters/mom.jpg" src="../%E6%99%AE%E9%80%9A%E5%A6%88%E5%A6%88.mp4" aria-label="普通妈妈使用 AI 视频"></video><button class="intro-play" type="button" aria-label="播放普通妈妈使用 AI 视频">▶</button></div>
           <div class="intro-video-copy"><span class="tag green">普通妈妈</span><h3>普通人，也能开始用 AI</h3><p>从一个普通家庭的真实场景出发，看 AI 如何进入日常生活。</p></div>
         </article>
         <article class="intro-video-card">
-          <video controls playsinline preload="metadata" src="../%E8%BF%99%E4%B8%AASkill%E8%83%BD%E5%B8%AE%E4%BD%A0%E6%95%B4%E7%90%86%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%20%23AI%E5%B7%A5%E5%85%B7%20%23%E5%AE%B6%E9%95%BF%E5%BF%85%E7%9C%8B%20%20%23%E8%80%81%E5%B8%88%E5%A4%87%E8%AF%BE%20%20%23%E8%AF%95%E5%8D%B7%E5%88%86%E6%9E%90%20%23%E9%94%99%E9%A2%98%E6%95%B4%E7%90%86%20%23%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%20%23%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0%20%23%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%20%23%E6%95%B0%E5%AD%A6%E6%8F%90%E5%88%86%20%23%E9%AB%98%E8%80%83%E6%95%B0%E5%AD%A6.mp4" aria-label="AI 错题本视频"></video>
+          <div class="intro-video-media"><video playsinline preload="metadata" poster="assets/intro-posters/skill.jpg" src="../%E8%BF%99%E4%B8%AASkill%E8%83%BD%E5%B8%AE%E4%BD%A0%E6%95%B4%E7%90%86%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%20%23AI%E5%B7%A5%E5%85%B7%20%23%E5%AE%B6%E9%95%BF%E5%BF%85%E7%9C%8B%20%20%23%E8%80%81%E5%B8%88%E5%A4%87%E8%AF%BE%20%20%23%E8%AF%95%E5%8D%B7%E5%88%86%E6%9E%90%20%23%E9%94%99%E9%A2%98%E6%95%B4%E7%90%86%20%23%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%20%23%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0%20%23%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%20%23%E6%95%B0%E5%AD%A6%E6%8F%90%E5%88%86%20%23%E9%AB%98%E8%80%83%E6%95%B0%E5%AD%A6.mp4" aria-label="AI 错题本视频"></video><button class="intro-play" type="button" aria-label="播放 AI 错题本视频">▶</button></div>
           <div class="intro-video-copy"><span class="tag">AI 错题本</span><h3>把错题整理成学习方法</h3><p>从试卷和错题材料中提取高频考点，形成可复习的知识结构。</p></div>
         </article>
         <article class="intro-video-card">
-          <video controls playsinline preload="metadata" src="../%E5%85%A8%E6%A0%88%E8%BF%90%E5%8A%A8%E8%AF%86%E5%88%AB%20Demo%20%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%9C%A8%E6%9C%AC%E5%9C%B0%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%85%A8%E6%A0%88%E8%BF%90%E5%8A%A8%E8%AF%86%E5%88%AB%20Demo%EF%BC%8C%E4%B8%8D%E4%BE%9D%E8%B5%96%E4%BB%BB%E4%BD%95%E5%A4%96%E9%83%A8%20API%EF%BC%8C%E5%AE%8C%E5%85%A8%E6%9C%AC%E5%9C%B0%E8%BF%90%E8%A1%8C%E3%80%82%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B%E6%98%AF%E8%A7%86%E9%A2%91%E8%BE%93%E5%85%A5%E5%90%8E%E8%87%AA%E5%8A%A8%E8%BF%9B%E8%A1%8C%E9%AA%A8%E9%AA%BC%E6%A3%80%E6%B5%8B%EF%BC%8C%E6%8F%90%E5%8F%96%E5%85%B3%E9%94%AE%E5%85%B3%E8%8A%82%E7%82%B9%EF%BC%8C%E5%86%8D%E5%9F%BA%E4%BA%8E%E8%A7%84%E5%88%99.mp4" aria-label="AI 网球识别视频"></video>
+          <div class="intro-video-media"><video playsinline preload="metadata" poster="assets/intro-posters/motion.jpg" src="../%E5%85%A8%E6%A0%88%E8%BF%90%E5%8A%A8%E8%AF%86%E5%88%AB%20Demo%20%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%9C%A8%E6%9C%AC%E5%9C%B0%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%85%A8%E6%A0%88%E8%BF%90%E5%8A%A8%E8%AF%86%E5%88%AB%20Demo%EF%BC%8C%E4%B8%8D%E4%BE%9D%E8%B5%96%E4%BB%BB%E4%BD%95%E5%A4%96%E9%83%A8%20API%EF%BC%8C%E5%AE%8C%E5%85%A8%E6%9C%AC%E5%9C%B0%E8%BF%90%E8%A1%8C%E3%80%82%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B%E6%98%AF%E8%A7%86%E9%A2%91%E8%BE%93%E5%85%A5%E5%90%8E%E8%87%AA%E5%8A%A8%E8%BF%9B%E8%A1%8C%E9%AA%A8%E9%AA%BC%E6%A3%80%E6%B5%8B，提取关键关节点，再基于规则.mp4" aria-label="AI 网球识别视频"></video><button class="intro-play" type="button" aria-label="播放 AI 网球识别视频">▶</button></div>
           <div class="intro-video-copy"><span class="tag gold">AI 网球识别</span><h3>让视频变成动作判断</h3><p>从视频中提取骨骼关键点，再用规则识别运动动作。</p></div>
         </article>
       </div>
@@ -1369,7 +1542,7 @@ input[type="range"] {
     </div>
   </section>
 
-  <section class="section hero" id="hero">
+  <section class="section hero" id="hero" data-archetype="chapter">
     <div class="inner hero-grid">
       <div>
         <p class="eyebrow reveal">From Token to Four Capabilities</p>
@@ -1453,7 +1626,7 @@ input[type="range"] {
     </div>
   </section>
 
-  <section class="section" id="map">
+  <section class="section" id="map" data-archetype="chapter">
     <div class="inner chapter">
       <div class="num reveal">00</div>
       <div class="content-stack">
@@ -1469,7 +1642,7 @@ input[type="range"] {
     </div>
   </section>
 
-  <section class="section" id="opening">
+  <section class="section" id="opening" data-archetype="chapter">
     <div class="inner chapter">
       <div class="num reveal">01</div>
       <div class="content-stack">
@@ -1481,7 +1654,7 @@ input[type="range"] {
     </div>
   </section>
 
-  <section class="section" id="token">
+  <section class="section" id="token" data-archetype="concept">
     <div class="inner chapter">
       <div class="num reveal">02</div>
       <div class="content-stack">
@@ -1572,7 +1745,7 @@ input[type="range"] {
     </div>
   </section>
 
-  <section class="section" id="prompt">
+  <section class="section" id="prompt" data-archetype="concept">
     <div class="inner chapter">
       <div class="num reveal">04</div>
       <div class="content-stack">
@@ -1588,7 +1761,7 @@ input[type="range"] {
     </div>
   </section>
 
-  <section class="section" id="prompt-lab">
+  <section class="section" id="prompt-lab" data-archetype="interaction">
     <div class="inner chapter">
       <div class="num reveal">05</div>
       <div class="content-stack">
@@ -1648,7 +1821,7 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
     </div>
   </section>
 
-  <section class="section" id="context">
+  <section class="section" id="context" data-archetype="concept">
     <div class="inner chapter">
       <div class="num reveal">06</div>
       <div class="content-stack">
@@ -1801,7 +1974,7 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
     </div>
   </section>
 
-  <section class="section" id="harness">
+  <section class="section" id="harness" data-archetype="system">
     <div class="inner chapter">
       <div class="num reveal">08</div>
       <div class="content-stack">
@@ -2233,7 +2406,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     </div>
   </section>
 
-  <section class="section" id="cases">
+  <section class="section" id="cases" data-archetype="case">
     <div class="inner chapter">
       <div class="num reveal">13</div>
       <div class="content-stack">
@@ -2300,7 +2473,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     </div>
   </section>
 
-  <section class="section" id="summary">
+  <section class="section" id="summary" data-archetype="reference">
     <div class="inner chapter">
       <div class="num reveal">14</div>
       <div class="content-stack">
@@ -2351,7 +2524,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
         </article>
       </div>
       <div class="finale-stage" id="finaleStage" aria-live="polite">
-        <div class="finale-hint">按 → 开始播放</div>
+        <div class="finale-hint"><span aria-hidden="true">→</span><span>继续</span></div>
 
         <article class="finale-step has-visual" data-final-step="0" aria-hidden="true">
           <p>各位，惊艳不及久用，智能最懂人心。</p>
@@ -2463,7 +2636,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
         </article>
       </div>
       <div class="finale-progress"><span id="finaleProgress"></span><i aria-hidden="true"></i></div>
-      <div class="finale-controls"><span><strong>按 → 开始播放</strong>　按 → 跳过，按 ← 回看</span><span><span class="finale-bgm-status" id="finaleBgmStatus">♪ BGM 待命</span>　Esc 重新开始</span></div>
+      <div class="finale-controls"><span class="finale-bgm-status" id="finaleBgmStatus">♪ BGM 待命</span></div>
     </div>
 <audio id="finaleBgm" preload="auto" loop src="../7月15日 (1).mp3" aria-label="结尾背景音乐"></audio>
   </section>
@@ -2491,7 +2664,43 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   var sections = Array.prototype.slice.call(document.querySelectorAll("main .section[id]:not([hidden])"));
   var links = Array.prototype.slice.call(document.querySelectorAll(".nav a"));
   var progress = document.getElementById("progressBar");
+  var chapterIndex = document.getElementById("chapterIndex");
+  var chapterName = document.getElementById("chapterName");
+  var chapterMap = document.getElementById("chapterMap");
+  var chapterMapGrid = document.getElementById("chapterMapGrid");
+  var mapBtn = document.getElementById("mapBtn");
+  var mapCloseBtn = document.getElementById("mapCloseBtn");
+  var chapterSections = sections.filter(function (section) {
+    return !section.hasAttribute("data-appendix") && !section.hasAttribute("data-finale");
+  });
   var activeId = "";
+
+  function setChapterMap(open) {
+    if (!chapterMap || !mapBtn) return;
+    chapterMap.hidden = !open;
+    mapBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    document.body.classList.toggle("map-open", open);
+    if (open && mapCloseBtn) mapCloseBtn.focus();
+    if (!open) mapBtn.focus();
+  }
+  if (chapterMapGrid) {
+    links.forEach(function (link, index) {
+      var mapLink = document.createElement("a");
+      mapLink.className = "chapter-map-link";
+      mapLink.href = link.getAttribute("href");
+      var number = document.createElement("small");
+      number.textContent = String(index + 1).padStart(2, "0");
+      var label = document.createElement("span");
+      label.textContent = link.textContent.trim();
+      mapLink.appendChild(number);
+      mapLink.appendChild(label);
+      mapLink.addEventListener("click", function () { setChapterMap(false); });
+      chapterMapGrid.appendChild(mapLink);
+    });
+  }
+  if (mapBtn) mapBtn.addEventListener("click", function () { setChapterMap(chapterMap.hidden); });
+  if (mapCloseBtn) mapCloseBtn.addEventListener("click", function () { setChapterMap(false); });
+  if (chapterMap) chapterMap.querySelector("[data-map-close]").addEventListener("click", function () { setChapterMap(false); });
 
   function revealHashTarget() {
     if (!window.location.hash) return;
@@ -2520,6 +2729,17 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
       links.forEach(function (link) {
         link.classList.toggle("active", link.getAttribute("href") === "#" + current);
       });
+      var currentSection = document.getElementById(current);
+      var chapterPosition = chapterSections.indexOf(currentSection);
+      var isFinale = currentSection && currentSection.hasAttribute("data-finale");
+      var heading = currentSection && currentSection.querySelector("h1, h2") ? currentSection.querySelector("h1, h2").textContent.trim().replace(/\s+/g, " ") : "课程内容";
+      var activeLink = links.find(function (link) { return link.getAttribute("href") === "#" + current; });
+      var label = activeLink ? activeLink.textContent.trim().replace(/^\d+\s*/, "") : (isFinale ? "尾声" : heading);
+      if (chapterName) {
+        chapterName.textContent = label;
+        chapterName.setAttribute("title", heading);
+      }
+      if (chapterIndex) chapterIndex.textContent = chapterPosition >= 0 ? String(chapterPosition + 1).padStart(2, "0") + " / " + String(chapterSections.length).padStart(2, "0") : "附录";
     }
   }
   window.addEventListener("scroll", updateScrollState, { passive: true });
@@ -2538,6 +2758,29 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   }
   document.querySelectorAll(".tab").forEach(function (button) {
     button.addEventListener("click", function () { activateTab(button); });
+  });
+
+  document.querySelectorAll(".intro-video-media").forEach(function (media) {
+    var video = media.querySelector("video");
+    var button = media.querySelector(".intro-play");
+    if (!video || !button) return;
+    button.addEventListener("click", function () {
+      if (video.paused) video.play();
+      else video.pause();
+    });
+    video.addEventListener("play", function () {
+      video.controls = true;
+      media.classList.add("is-playing");
+      button.hidden = true;
+    });
+    video.addEventListener("pause", function () {
+      media.classList.remove("is-playing");
+      button.hidden = false;
+    });
+    video.addEventListener("ended", function () {
+      media.classList.remove("is-playing");
+      button.hidden = false;
+    });
   });
 
   var tokenInputs = Array.prototype.slice.call(document.querySelectorAll("[data-token]"));
@@ -2678,6 +2921,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   var finaleAiFrames = finale ? Array.prototype.slice.call(finale.querySelectorAll(".finale-ai-frame")) : [];
   var finaleAiFrameTimer = null;
   var finaleAiFrameIndex = 0;
+  function setFinaleMode(active) {
+    document.documentElement.classList.toggle("finale-mode", active);
+    document.body.classList.toggle("finale-mode", active);
+  }
   function finaleIsActive() {
     if (!finale) return false;
     var rect = finale.getBoundingClientRect();
@@ -2800,6 +3047,8 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     pauseFinaleBgm();
   }
   function beginFinalePlayback() {
+    setFinaleMode(true);
+    document.documentElement.classList.add("lesson-mode");
     document.body.classList.add("lesson-mode");
     if (finale) window.scrollTo({ top: finale.offsetTop, behavior: "auto" });
     finaleIsPlaying = true;
@@ -2811,12 +3060,17 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   }
   function syncFinalePlayback() {
     if (!finale) return;
-    if (!finaleIsActive() && finaleIsPlaying) {
+    var active = finaleIsActive();
+    setFinaleMode(active);
+    if (!active && finaleIsPlaying) {
       pauseFinalePlayback();
+      document.documentElement.classList.remove("lesson-mode");
       document.body.classList.remove("lesson-mode");
     }
   }
   function resetFinale() {
+    setFinaleMode(false);
+    document.documentElement.classList.remove("lesson-mode");
     document.body.classList.remove("lesson-mode");
     pauseFinalePlayback();
     showFinaleStep(-1);
@@ -2827,7 +3081,14 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   syncFinalePlayback();
 
   document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && chapterMap && !chapterMap.hidden) {
+      event.preventDefault();
+      setChapterMap(false);
+      return;
+    }
     if (event.key === "Escape") {
+      setFinaleMode(false);
+      document.documentElement.classList.remove("lesson-mode");
       document.body.classList.remove("lesson-mode");
       if (finaleIsActive()) resetFinale();
     }

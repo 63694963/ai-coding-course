@@ -1,7 +1,7 @@
 # Vibe Coding 课程视觉改进 Spec（完整审核版）
 
 更新时间：2026-07-16  
-状态：待用户审核，审核通过前不继续修改课程 HTML  
+状态：执行中（用户已确认开始执行）  
 主交付文件：`AI-Coding-Course/interactive-lecture.html`
 
 ## 1. 项目目标
