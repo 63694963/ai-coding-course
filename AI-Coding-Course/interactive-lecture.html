@@ -1314,9 +1314,9 @@ body.lesson-mode { overflow: hidden; }
 
 .finale-heading-row { position: relative; min-height: 220px; }
 .finale-step p {
-  max-width: 900px;
-  font-size: clamp(24px, 2.4vw, 36px);
-  line-height: 1.48;
+  max-width: 820px;
+  font-size: clamp(20px, 2.2vw, 31px);
+  line-height: 1.62;
 }
 .finale-step[data-final-step="0"] p,
 .finale-step[data-final-step="2"] p,
@@ -1326,25 +1326,25 @@ body.lesson-mode { overflow: hidden; }
 .finale-step[data-final-step="12"] p,
 .finale-step[data-final-step="15"] p,
 .finale-step[data-final-step="16"] p {
-  max-width: 980px;
+  max-width: 860px;
   font-family: var(--serif-font);
-  font-size: clamp(40px, 4.6vw, 66px);
-  line-height: 1.12;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1.2;
 }
 .finale-mode .finale-heading-row,
-.lesson-mode .finale-heading-row { display: block; min-height: 240px; }
+.lesson-mode .finale-heading-row { display: block; min-height: 320px; }
 .finale-mode .finale-heading,
-.lesson-mode .finale-heading { position: relative; z-index: 3; max-width: 62%; font-size: clamp(52px, 7vw, 104px); }
+.lesson-mode .finale-heading { position: relative; z-index: 3; max-width: 58%; font-size: clamp(50px, 6.4vw, 96px); }
 .finale-mode .finale-heading-english,
 .lesson-mode .finale-heading-english { position: relative; z-index: 3; }
 .finale-mode .finale-attribution,
 .lesson-mode .finale-attribution {
   position: absolute;
   z-index: 1;
-  top: -66px;
-  right: -4%;
+  top: -34px;
+  right: -2%;
   display: block;
-  width: 46%;
+  width: 44%;
   min-width: 0;
   padding: 0;
   border: 0;
@@ -1354,8 +1354,8 @@ body.lesson-mode { overflow: hidden; }
 }
 .finale-mode .person-avatar.finale-author-avatar,
 .lesson-mode .person-avatar.finale-author-avatar {
-  width: clamp(280px, 34vw, 520px);
-  height: clamp(280px, 34vw, 520px);
+  width: clamp(280px, 27vw, 390px);
+  height: clamp(280px, 27vw, 390px);
   margin-left: auto;
   border-radius: 50%;
   opacity: .36;
@@ -1370,13 +1370,13 @@ body.lesson-mode { overflow: hidden; }
 .finale-mode .finale-attribution small,
 .lesson-mode .finale-attribution small { font-size: 12px; }
 .finale-mode .finale-stage,
-.lesson-mode .finale-stage { min-height: clamp(420px, 50vh, 560px); margin-top: 12px; align-items: start; }
+.lesson-mode .finale-stage { min-height: clamp(400px, 46vh, 520px); margin-top: 8px; align-items: start; }
 .finale-mode .finale-step,
 .lesson-mode .finale-step { align-self: start; }
 .finale-mode .finale-step.has-people,
-.lesson-mode .finale-step.has-people { grid-template-columns: minmax(0, 1fr) minmax(320px, .64fr); align-items: start; }
+.lesson-mode .finale-step.has-people { grid-template-columns: minmax(0, 1fr) minmax(380px, .64fr); align-items: start; }
 .finale-mode .finale-step.has-people > p,
-.lesson-mode .finale-step.has-people > p { max-width: 640px; }
+.lesson-mode .finale-step.has-people > p { max-width: 620px; }
 .finale-mode .finale-step.has-people > p,
 .lesson-mode .finale-step.has-people > p,
 .finale-mode .finale-step.has-visual > p,
@@ -1386,13 +1386,13 @@ body.lesson-mode { overflow: hidden; }
 .finale-mode .finale-step.has-visual .finale-visual,
 .lesson-mode .finale-step.has-visual .finale-visual { align-self: start; }
 .finale-mode .finale-people,
-.lesson-mode .finale-people { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: none; margin: 0; }
+.lesson-mode .finale-people { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: none; margin: 0; }
 .finale-mode .person-card,
-.lesson-mode .person-card { display: block; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.lesson-mode .person-card { display: grid; grid-template-columns: clamp(88px, 7vw, 112px) 1fr; gap: 10px; align-items: center; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
 .finale-mode .person-avatar,
 .lesson-mode .person-avatar {
-  width: clamp(160px, 17vw, 240px);
-  height: clamp(160px, 17vw, 240px);
+  width: clamp(88px, 7vw, 112px);
+  height: clamp(88px, 7vw, 112px);
   border: 0;
   border-radius: 50%;
   overflow: hidden;
@@ -1415,9 +1415,9 @@ body.lesson-mode { overflow: hidden; }
 .finale-mode .person-avatar img,
 .lesson-mode .person-avatar img { opacity: .88; }
 .finale-mode .person-card strong,
-.lesson-mode .person-card strong { margin-top: -20px; position: relative; font-size: 18px; }
+.lesson-mode .person-card strong { margin-top: 0; position: relative; font-size: 15px; }
 .finale-mode .person-card small,
-.lesson-mode .person-card small { font-size: 12px; }
+.lesson-mode .person-card small { font-size: 11px; }
 .finale-hint { inset: auto auto 24px 50%; display: inline-flex; align-items: center; gap: 6px; color: rgba(243,241,234,.35); font-size: 12px; letter-spacing: .12em; opacity: 1; }
 .finale-hint span:first-child { font-size: 18px; line-height: 1; }
 .finale-hint kbd { padding: 0; border: 0; color: inherit; }
