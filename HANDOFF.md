@@ -1,9 +1,9 @@
 # HANDOFF
 
-更新时间：2026-07-15  
+更新时间：2026-07-17  
 仓库：`/Users/jerry/Documents/repo/讲课`  
 分支：`main`  
-功能基线：`c2a6443 refactor(course): turn summary into one-page reference`
+功能基线：`1b172d1 docs(course): record finale edge fade`
 
 ## 1. 交接目标
 
@@ -15,11 +15,11 @@
 
 ## 2. 当前完成状态
 
-工作区在本次交接前已验证干净：
+工作区状态：已跟踪文件无改动；当前存在一个用户新增、尚未纳入提交的未跟踪文件 `Jason.mp4`，不要删除或自动暂存。
 
 ```text
 * main
-clean — nothing to commit
+?? Jason.mp4
 ```
 
 当前主文件约 320 KB，包含 22 个章节 section（含 1 个隐藏关系页和多个附录页），脚本和样式均内联。
@@ -35,11 +35,13 @@ clean — nothing to commit
 
 ### 开场视频
 
-课件最前面新增 `#intro-videos` 开场区域，排在 `#hero` 之前：
+课件最前面新增 `#intro-videos` 开场区域，排在 `#hero` 之前，目前已接入三个视频：
 
+- 普通妈妈视频：仓库根目录的 `普通妈妈.mp4`
 - AI 错题本视频：仓库根目录的长文件名 `这个Skill能帮你整理高频考点 ... .mp4`
 - AI 网球识别视频：仓库根目录的长文件名 `全栈运动识别 Demo ... .mp4`
-- 两个视频使用 `controls`、`playsinline`、`preload="metadata"`，不会未经操作自动抢声音。
+- `Jason.mp4` 当前只是未跟踪素材，尚未接入 HTML；后续如需加入开场案例，先确认卡片文案、海报和顺序。
+- 三个已接入视频使用 `playsinline`、`preload="metadata"`，不会未经操作自动抢声音。
 - 顶部导航增加“开场案例”，视频下方有“看完案例，开始交流”链接。
 - HTML 中对中文、空格和 `#` 字符进行了 URL 编码，不能随意把 src 改回未编码的原文件名。
 
@@ -54,6 +56,15 @@ clean — nothing to commit
 - 普通文字和人物卡在舞台高度上居中。
 - 标题为“凡是过往，皆为序章”，英文为 “What's past is prologue.”
 - 右侧署名为威廉·莎士比亚，头像已本地化。
+
+### 尾声视觉精修
+
+视觉规范已记录在 `docs/visual-polish-spec.md`，当前 R5 尾声方案已落地：
+
+- 进入尾声自动隐藏导航、全局进度和滚动条；Esc 恢复原页面状态。
+- 莎士比亚使用大面积、无边框渐隐构图；多人物使用紧凑的无边框阵列。
+- 尾声历史/机械场景图与莎士比亚采用一致的径向渐变遮罩，去掉硬矩形边框和圆角卡片感。
+- 字幕已回退至紧凑字号，确保人物姓名与文案同屏；只保留极弱方向键提示和必要 BGM 状态。
 
 ### 尾声 BGM
 
@@ -98,15 +109,25 @@ HTML 中共有 9 个头像引用，其中图灵复用同一张本地图片。
 - `AI-Coding-Course/assets/people/`：本地人物头像。
 - `AI-Coding-Course/interaction-demo.html`：早期辅助交互示例，除非用户明确要求，不要优先修改。
 - `AI-Coding-课程大纲.md`：课程内容源文件。
+- `docs/visual-polish-spec.md`：视觉精修需求、执行项和验收记录。
 - `docs/superpowers/plans/2026-07-15-course-structure-refactor.md`：本次课程结构重构计划。
 - `7月15日 (1).mp3`：当前尾声 BGM。
-- 两个 `.mp4`：开场案例视频，位于仓库根目录。
+- 已接入的三个 `.mp4`：开场案例视频，位于仓库根目录；另有未接入的 `Jason.mp4`。
 - `AI-Coding-Course/interactive-lecture.html.bak-20260616-145905`：旧备份，不要覆盖当前主文件。
+- `Jason.mp4`：用户新增的未跟踪视频素材，当前未接入课件。
 - `.gitignore`：已存在，不要随意扩大忽略范围。
 
 ## 4. 最近提交
 
 ```text
+1b172d1 docs(course): record finale edge fade
+fe7ff5c fix(course): fade finale visual edges
+7ebb1c5 docs(course): record compact finale rollback
+e328ba2 fix(course): restore compact finale composition
+df9e9a7 docs(course): record finale refinement
+6ad050d fix(course): refine finale subtitle and portrait blending
+5b5d7e7 docs(course): record visual polish execution and QA
+bb92a2c fix(course): apply cinematic finale on entry
 c2a6443 refactor(course): turn summary into one-page reference
 4f0fe55 refactor(course): slim harness and add appendix
 878df0b refactor(course): merge bridge and path workflow
@@ -160,7 +181,14 @@ python3 -m http.server 4173
 - 尾声第二组人物幕加载巴贝奇、图灵、乔布斯头像。
 - 所有本地头像实际 `naturalWidth > 0`。
 
-当前没有后台 HTTP 服务。
+本次验收使用过 `http://127.0.0.1:4173` 临时静态服务器；当前没有后台 HTTP 服务。
+
+最新尾声视觉验收：
+
+- 1440×900 桌面视口：场景图中心内容保留，四周自然渐隐，无硬矩形边界。
+- 390×844 窄屏视口：横向溢出为 0，尾声遮罩规则可正常解析。
+- 浏览器控制台无 warning/error；页面标题和本地 HTTP 页面身份正确。
+- `file://` 页面受浏览器安全策略限制，不能把该限制误报为运行时截图通过；HTTP 等价预览已完成截图验收。
 
 ## 6. 已知风险与边界
 
@@ -169,6 +197,7 @@ python3 -m http.server 4173
 - BGM 需要真实的右方向键用户手势启动；自动化工具可能因浏览器自动播放策略无法产生声音。
 - 外部课程链接、人物引语和日期不是本次交接的改动范围；如果用户要求核验来源，再单独做联网核查。
 - 不要删除用户新增的两个视频、BGM 或 `assets/people/`。
+- `Jason.mp4` 是当前未跟踪的用户素材，除非用户明确要求，不要删除、重命名或自动加入 HTML。
 
 ## 7. 新对话接手流程
 
@@ -182,7 +211,7 @@ git log --oneline -8
 
 然后：
 
-1. 阅读本 `HANDOFF.md`。
+1. 阅读本 `HANDOFF.md`，先确认 `Jason.mp4` 等未跟踪素材是否属于用户的新需求。
 2. 打开 `AI-Coding-Course/interactive-lecture.html`，先检查开场视频，再检查尾声。
 3. 修改前保留当前工作区改动，不要使用破坏性 Git 命令。
 4. 每个独立修改完成后运行静态解析和 `git diff --check`，再提交。
