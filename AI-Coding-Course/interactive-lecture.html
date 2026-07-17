@@ -1586,8 +1586,8 @@ body::after {
     radial-gradient(circle at 28% 30%, rgba(82, 221, 255, .16), transparent 16rem),
     radial-gradient(circle at 75% 52%, rgba(100, 244, 218, .13), transparent 18rem),
     radial-gradient(circle at 48% 80%, rgba(255, 197, 111, .1), transparent 16rem);
-  filter: blur(70px) saturate(160%);
-  animation: glass-drift 18s var(--glass-ease) infinite alternate;
+  filter: blur(50px) saturate(145%);
+  animation: none;
 }
 @keyframes glass-drift {
   from { transform: translate3d(-2%, -1%, 0) scale(1); }
@@ -1651,15 +1651,15 @@ body::after {
   border-radius: 28px;
   border-color: rgba(218, 253, 255, .24);
   background: linear-gradient(145deg, rgba(27, 69, 82, .64), rgba(4, 18, 27, .72));
-  backdrop-filter: blur(60px) saturate(180%);
-  -webkit-backdrop-filter: blur(60px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(175%);
+  -webkit-backdrop-filter: blur(40px) saturate(175%);
   box-shadow: 0 28px 100px rgba(0, 5, 12, .48), inset 0 1px 0 rgba(255, 255, 255, .34);
 }
 .chapter-map-link {
   background: rgba(224, 251, 255, .08);
   border-color: rgba(218, 253, 255, .16);
-  backdrop-filter: blur(38px) saturate(160%);
-  -webkit-backdrop-filter: blur(38px) saturate(160%);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 .chapter-map-link:hover,
 .chapter-map-link:focus-visible {
@@ -1737,14 +1737,17 @@ h1, h2, h3 { color: var(--text); text-shadow: 0 2px 26px rgba(100, 244, 218, .12
   border-color: var(--line);
   background-color: rgba(224, 251, 255, .085);
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, .18), transparent 52%);
-  backdrop-filter: blur(60px) saturate(180%);
-  -webkit-backdrop-filter: blur(60px) saturate(180%);
-  box-shadow: var(--shadow);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 8px 30px rgba(0, 8, 14, .16), inset 0 1px 0 rgba(255, 255, 255, .22);
 }
 .stage-card {
   position: relative;
   overflow: hidden;
   padding: clamp(22px, 3vw, 36px);
+  backdrop-filter: blur(40px) saturate(175%);
+  -webkit-backdrop-filter: blur(40px) saturate(175%);
+  box-shadow: 0 20px 70px rgba(0, 8, 14, .34), inset 0 1px 0 rgba(255, 255, 255, .3);
 }
 .stage-card::before,
 .education-card::before,
@@ -1838,15 +1841,15 @@ h1, h2, h3 { color: var(--text); text-shadow: 0 2px 26px rgba(100, 244, 218, .12
   border-radius: 15px;
   border-color: rgba(218, 253, 255, .2);
   background: rgba(224, 251, 255, .1);
-  backdrop-filter: blur(42px) saturate(180%);
-  -webkit-backdrop-filter: blur(42px) saturate(180%);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   box-shadow: 0 4px 16px rgba(0, 8, 14, .12), inset 0 1px 0 rgba(255, 255, 255, .28);
 }
 .token-core {
   background: rgba(3, 20, 29, .58);
   border-color: rgba(173, 247, 255, .34);
-  backdrop-filter: blur(44px) saturate(180%);
-  -webkit-backdrop-filter: blur(44px) saturate(180%);
+  backdrop-filter: blur(32px) saturate(170%);
+  -webkit-backdrop-filter: blur(32px) saturate(170%);
   box-shadow: 0 0 50px rgba(100, 244, 218, .14), inset 0 1px 0 rgba(255, 255, 255, .3);
 }
 .token-ring { filter: drop-shadow(0 0 18px rgba(100, 244, 218, .2)); }
@@ -1858,14 +1861,18 @@ h1, h2, h3 { color: var(--text); text-shadow: 0 2px 26px rgba(100, 244, 218, .12
   transition: all .5s var(--glass-ease);
 }
 .intro-video-card:first-child { border-color: rgba(100, 244, 218, .44); background-color: rgba(100, 244, 218, .12); }
+.intro-video-card:first-child {
+  backdrop-filter: blur(36px) saturate(175%);
+  -webkit-backdrop-filter: blur(36px) saturate(175%);
+}
 .intro-video-card:hover { transform: translateY(-5px); box-shadow: 0 24px 60px rgba(0, 8, 14, .3), 0 0 34px rgba(100, 244, 218, .14), inset 0 1px 0 rgba(255, 255, 255, .4); }
 .intro-video-card video { filter: saturate(1.18) contrast(1.04); }
 .intro-video-media { background: rgba(3, 13, 20, .5); }
 .intro-play,
 .intro-start {
   background: rgba(224, 251, 255, .17);
-  backdrop-filter: blur(44px) saturate(180%);
-  -webkit-backdrop-filter: blur(44px) saturate(180%);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border-color: rgba(218, 253, 255, .38);
   border-radius: 18px;
   box-shadow: 0 4px 16px rgba(0, 8, 14, .14), inset 0 1px 0 rgba(255, 255, 255, .32);
@@ -1889,8 +1896,8 @@ h1, h2, h3 { color: var(--text); text-shadow: 0 2px 26px rgba(100, 244, 218, .12
 .project-option {
   color: var(--muted);
   background-color: rgba(224, 251, 255, .1);
-  backdrop-filter: blur(44px) saturate(180%);
-  -webkit-backdrop-filter: blur(44px) saturate(180%);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   transition: all .5s var(--glass-ease);
 }
 .tab { border-radius: 16px; }
@@ -1943,6 +1950,10 @@ pre,
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16);
 }
 .education-card.active { background-color: rgba(100, 244, 218, .15); }
+.education-card.active {
+  backdrop-filter: blur(36px) saturate(175%);
+  -webkit-backdrop-filter: blur(36px) saturate(175%);
+}
 .arrow-chip { border-radius: 18px; background: rgba(100, 244, 218, .14); box-shadow: 0 0 24px rgba(100, 244, 218, .12), inset 0 1px 0 rgba(255, 255, 255, .3); }
 
 @media (max-width: 560px) {
@@ -2005,15 +2016,15 @@ pre,
       <p class="intro-lead">先看三个真实案例：普通妈妈如何使用 AI、AI 如何整理错题、识别运动动作。看完后，再进入今天的交流。</p>
       <div class="intro-video-grid">
         <article class="intro-video-card">
-          <div class="intro-video-media"><video playsinline preload="metadata" poster="assets/intro-posters/mom.jpg" src="../%E6%99%AE%E9%80%9A%E5%A6%88%E5%A6%88.mp4" aria-label="普通妈妈使用 AI 视频"></video><button class="intro-play" type="button" aria-label="播放普通妈妈使用 AI 视频">▶</button></div>
+          <div class="intro-video-media"><video playsinline preload="none" poster="assets/intro-posters/mom.jpg" src="../%E6%99%AE%E9%80%9A%E5%A6%88%E5%A6%88.mp4" aria-label="普通妈妈使用 AI 视频"></video><button class="intro-play" type="button" aria-label="播放普通妈妈使用 AI 视频">▶</button></div>
           <div class="intro-video-copy"><span class="tag green">普通妈妈</span><h3>普通人，也能开始用 AI</h3><p>从一个普通家庭的真实场景出发，看 AI 如何进入日常生活。</p></div>
         </article>
         <article class="intro-video-card">
-          <div class="intro-video-media"><video playsinline preload="metadata" poster="assets/intro-posters/skill.jpg" src="../%E8%BF%99%E4%B8%AASkill%E8%83%BD%E5%B8%AE%E4%BD%A0%E6%95%B4%E7%90%86%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%20%23AI%E5%B7%A5%E5%85%B7%20%23%E5%AE%B6%E9%95%BF%E5%BF%85%E7%9C%8B%20%20%23%E8%80%81%E5%B8%88%E5%A4%87%E8%AF%BE%20%20%23%E8%AF%95%E5%8D%B7%E5%88%86%E6%9E%90%20%23%E9%94%99%E9%A2%98%E6%95%B4%E7%90%86%20%23%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%20%23%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0%20%23%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%20%23%E6%95%B0%E5%AD%A6%E6%8F%90%E5%88%86%20%23%E9%AB%98%E8%80%83%E6%95%B0%E5%AD%A6.mp4" aria-label="AI 错题本视频"></video><button class="intro-play" type="button" aria-label="播放 AI 错题本视频">▶</button></div>
+          <div class="intro-video-media"><video playsinline preload="none" poster="assets/intro-posters/skill.jpg" src="../%E8%BF%99%E4%B8%AASkill%E8%83%BD%E5%B8%AE%E4%BD%A0%E6%95%B4%E7%90%86%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%20%23AI%E5%B7%A5%E5%85%B7%20%23%E5%AE%B6%E9%95%BF%E5%BF%85%E7%9C%8B%20%20%23%E8%80%81%E5%B8%88%E5%A4%87%E8%AF%BE%20%20%23%E8%AF%95%E5%8D%B7%E5%88%86%E6%9E%90%20%23%E9%94%99%E9%A2%98%E6%95%B4%E7%90%86%20%23%E9%AB%98%E9%A2%91%E8%80%83%E7%82%B9%20%23%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0%20%23%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%20%23%E6%95%B0%E5%AD%A6%E6%8F%90%E5%88%86%20%23%E9%AB%98%E8%80%83%E6%95%B0%E5%AD%A6.mp4" aria-label="AI 错题本视频"></video><button class="intro-play" type="button" aria-label="播放 AI 错题本视频">▶</button></div>
           <div class="intro-video-copy"><span class="tag">AI 错题本</span><h3>把错题整理成学习方法</h3><p>从试卷和错题材料中提取高频考点，形成可复习的知识结构。</p></div>
         </article>
         <article class="intro-video-card">
-          <div class="intro-video-media"><video playsinline preload="metadata" poster="assets/intro-posters/motion.jpg" src="../%E5%85%A8%E6%A0%88%E8%BF%90%E5%8A%A8%E8%AF%86%E5%88%AB%20Demo%20%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%9C%A8%E6%9C%AC%E5%9C%B0%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%85%A8%E6%A0%88%E8%BF%90%E5%8A%A8%E8%AF%86%E5%88%AB%20Demo%EF%BC%8C%E4%B8%8D%E4%BE%9D%E8%B5%96%E4%BB%BB%E4%BD%95%E5%A4%96%E9%83%A8%20API%EF%BC%8C%E5%AE%8C%E5%85%A8%E6%9C%AC%E5%9C%B0%E8%BF%90%E8%A1%8C%E3%80%82%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B%E6%98%AF%E8%A7%86%E9%A2%91%E8%BE%93%E5%85%A5%E5%90%8E%E8%87%AA%E5%8A%A8%E8%BF%9B%E8%A1%8C%E9%AA%A8%E9%AA%BC%E6%A3%80%E6%B5%8B，提取关键关节点，再基于规则.mp4" aria-label="AI 网球识别视频"></video><button class="intro-play" type="button" aria-label="播放 AI 网球识别视频">▶</button></div>
+          <div class="intro-video-media"><video playsinline preload="none" poster="assets/intro-posters/motion.jpg" src="../%E5%85%A8%E6%A0%88%E8%BF%90%E5%8A%A8%E8%AF%86%E5%88%AB%20Demo%20%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%9C%A8%E6%9C%AC%E5%9C%B0%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E7%9A%84%E4%B8%80%E4%B8%AA%E5%85%A8%E6%A0%88%E8%BF%90%E5%8A%A8%E8%AF%86%E5%88%AB%20Demo%EF%BC%8C%E4%B8%8D%E4%BE%9D%E8%B5%96%E4%BB%BB%E4%BD%95%E5%A4%96%E9%83%A8%20API%EF%BC%8C%E5%AE%8C%E5%85%A8%E6%9C%AC%E5%9C%B0%E8%BF%90%E8%A1%8C%E3%80%82%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B%E6%98%AF%E8%A7%86%E9%A2%91%E8%BE%93%E5%85%A5%E5%90%8E%E8%87%AA%E5%8A%A8%E8%BF%9B%E8%A1%8C%E9%AA%A8%E9%AA%BC%E6%A3%80%E6%B5%8B，提取关键关节点，再基于规则.mp4" aria-label="AI 网球识别视频"></video><button class="intro-play" type="button" aria-label="播放 AI 网球识别视频">▶</button></div>
           <div class="intro-video-copy"><span class="tag gold">AI 网球识别</span><h3>让视频变成动作判断</h3><p>从视频中提取骨骼关键点，再用规则识别运动动作。</p></div>
         </article>
       </div>
