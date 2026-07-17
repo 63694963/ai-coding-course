@@ -3,7 +3,7 @@
 更新时间：2026-07-17  
 仓库：`/Users/jerry/Documents/repo/讲课`  
 分支：`main`  
-功能基线：`1b172d1 docs(course): record finale edge fade`
+功能基线：`39bdd8e perf(course): reduce glass rendering cost`
 
 ## 1. 交接目标
 
@@ -11,18 +11,25 @@
 
 - 主文件：`AI-Coding-Course/interactive-lecture.html`
 - 运行方式：可直接用 `file://` 打开，也可用仓库根目录的静态服务器预览。
-- 技术栈：原生 HTML、CSS、JavaScript；没有 npm、构建器或后端。
+- 技术栈：课件交付仍是原生 HTML、CSS、JavaScript；仓库保留脚手架自带的 npm/React 依赖，但本课件不使用 React 组件库或 React 预览页。
 
 ## 2. 当前完成状态
 
-工作区状态：已跟踪文件无改动；当前存在一个用户新增、尚未纳入提交的未跟踪文件 `Jason.mp4`，不要删除或自动暂存。
+工作区状态：已跟踪文件无改动；当前存在两个用户新增、尚未纳入提交的未跟踪文件 `Jason.mp4`、`glassmorphism-hard-prompt.md`，不要删除或自动暂存。
 
 ```text
 * main
 ?? Jason.mp4
+?? glassmorphism-hard-prompt.md
 ```
 
 当前主文件约 320 KB，包含 22 个章节 section（含 1 个隐藏关系页和多个附录页），脚本和样式均内联。
+
+### React 方案状态
+
+- React 组件库、预览页和课件内的 React 挂载代码已回退，不属于当前交付范围。
+- 不要重新添加 `app/components/ui/`、`/components-preview` 或课件 React bundle；如未来重新提出 React 需求，应另行确认范围。
+- `package.json` 中的 React 依赖属于仓库脚手架遗留，不代表课件已使用 React。
 
 ### 课程主线重构
 
@@ -159,7 +166,7 @@ a376fac refactor(course): make finale one-paragraph slides
 - 22 个 section，且无残留 `#bridge` 导航或 section。
 - 22 个 `data-final-step`，编号连续 0–21。
 - 每个尾声 step 只有一个直接段落。
-- 2 个开场视频。
+- 3 个开场视频。
 - 9 个本地头像引用。
 - 所有导航锚点存在；Prompt Lab 的 `diagnosisChoices`、`diagnosisResult`、`promptImprovement` 仍存在；所有 tab 都有对应 panel。
 - 无 `git diff --check` 问题。
@@ -175,7 +182,7 @@ python3 -m http.server 4173
 
 验证结果：
 
-- 两个开场视频均返回 HTTP 200，浏览器 `readyState=4`，桌面显示为约 550×309。
+- 三个开场视频均返回 HTTP 200，浏览器 `readyState=4`，桌面显示为约 550×309。
 - 新 BGM 路径返回 HTTP 200，音频可加载。
 - 尾声第一组人物幕加载莱布尼茨、图灵、香农、冯·诺依曼头像。
 - 尾声第二组人物幕加载巴贝奇、图灵、乔布斯头像。
