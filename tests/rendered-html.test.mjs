@@ -49,6 +49,8 @@ for (const file of htmlFiles) {
     assert.match(wittgensteinIntro, /The limits of my language mean the limits of my world/);
     assert.match(wittgensteinIntro, /assets\/people\/wittgenstein\.jpg/);
     assert.match(capability, /四个能力支点/);
+    assert.match(capability, /想象力/);
+    assert.doesNotMatch(html, /content:\s*"想象力\\A好奇心\\A学习力\\A执行力"/);
 
     const zombieCase = sectionBody(html, "zombie-cleaner");
     assert.ok(html.indexOf('id="loop"') < html.indexOf('id="zombie-cleaner"'));
