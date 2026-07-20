@@ -42,6 +42,14 @@ for (const file of htmlFiles) {
     assert.doesNotMatch(loop, /一个 Loop 的五个零件 \+ 一个记忆/);
     assert.match(loop, /Loop Engineering：让 AI 自己循环起来/);
 
+    const wittgensteinIntro = sectionBody(html, "wittgenstein-intro");
+    const capability = sectionBody(html, "capability");
+    assert.ok(html.indexOf('id="wittgenstein-intro"') < html.indexOf('id="capability"'));
+    assert.match(wittgensteinIntro, /我的语言的界限意味着我的世界的界限/);
+    assert.match(wittgensteinIntro, /The limits of my language mean the limits of my world/);
+    assert.match(wittgensteinIntro, /assets\/people\/wittgenstein\.jpg/);
+    assert.match(capability, /四个能力支点/);
+
     const zombieCase = sectionBody(html, "zombie-cleaner");
     assert.ok(html.indexOf('id="loop"') < html.indexOf('id="zombie-cleaner"'));
     assert.ok(html.indexOf('id="zombie-cleaner"') < html.indexOf('id="path"'));

@@ -23,7 +23,7 @@
 ?? glassmorphism-hard-prompt.md
 ```
 
-当前主文件约 320 KB，包含 24 个章节 section（含 1 个隐藏关系页和多个附录页），脚本和样式均内联。
+当前主文件约 320 KB，包含 25 个章节 section（含 1 个隐藏关系页、1 个维特根斯坦引言页和多个附录页），脚本和样式均内联。
 
 ### React 方案状态
 
@@ -36,6 +36,8 @@
 - Prompt 开场只保留“不了解具体情况的实习助手”比喻；Prompt 正课保留目标与场景、边界与材料、格式与标准三个组成部分；Prompt Lab 的诊断互动完整保留。
 - Context 主课包含背景判断、上下文窗口成本、子智能体保持主对话干净和用户级 `CLAUDE.md` 长度控制；这些内容都放在 `#context` 的 Context Engineering 主段落中。
 - “从普通任务到第一个小工具”和“现场示范：把客户回访变成一个小工具”已从 `#path` 移除；该页保留提示词示例和“5 分钟跟着做”内容。
+- `#wittgenstein-intro` 作为无编号引言页放在 Token 之后、`#capability`（四个能力支点）之前，包含“我的语言的界限意味着我的世界的界限”中英文引文和本地维特根斯坦头像。
+- 维特根斯坦头像取自 [Wikimedia Commons 文件页](https://commons.wikimedia.org/wiki/File%3ALudwig-Wittgenstein-portrait.jpg)，已复制到两份 `assets/people/wittgenstein.jpg`，不要改回外链。
 - Harness 主课只保留材料、规则、验证、回退、`CLAUDE.md` 宪法和一个 `financial-analyst` Skill 示例；提示词/Skill 对比和六个跨行业 Skill 已移入 `#harness-appendix`。
 - “一张图带走”只保留好 Prompt 六个零件、三种 Engineering 一句话和安全红线；四能力自检留在前面的互动页，急救话术移入效率附录。
 - `#education` 为独立教育投资页，`#naval` 为纳瓦尔四点建议页；教育页不显示左侧 TOKEN 装饰，避免大标题被压住。
