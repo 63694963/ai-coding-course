@@ -23,7 +23,7 @@
 ?? glassmorphism-hard-prompt.md
 ```
 
-当前主文件约 320 KB，包含 23 个章节 section（含 1 个隐藏关系页和多个附录页），脚本和样式均内联。
+当前主文件约 320 KB，包含 24 个章节 section（含 1 个隐藏关系页和多个附录页），脚本和样式均内联。
 
 ### React 方案状态
 
@@ -59,6 +59,13 @@
 - `#why` 的知识沉淀区域已恢复“知识库例子”卡片，以及“打开 Obsidian 知识库”链接。
 - Obsidian 深链指向 vault `吴嘉纪的知识笔记` 的 `000AI brain/index.md`，两份 HTML（源码与 `public` 运行副本）保持同步。
 - `tests/rendered-html.test.mjs` 会检查暖场题、莎士比亚题干、导航入口和 Obsidian 深链，修改这两份 HTML 后应运行 `npm test`。
+
+### Loop 后短剧案例
+
+- `#zombie-cleaner` 放在 Loop Engineering 之后，案例标题为“2026 AI 短剧：《丧尸清道夫》”。
+- 页面默认只显示 6 个标题入口；点击后才打开弹层，展示基础设定、氛围与画质、两段分镜、机器人提示词或参考图。
+- 4 张参考图位于 `AI-Coding-Course/assets/cases/zombie-cleaner/` 和 `public/assets/cases/zombie-cleaner/`，不要改回 Downloads 绝对路径。
+- 案例来源链接保留为用户提供的抖音短链；浏览工具无法直接打开该短链，但页面链接已通过浏览器检查。
 
 ### 尾声字幕
 
@@ -128,6 +135,7 @@ HTML 中共有 9 个头像引用，其中图灵复用同一张本地图片。
 - `docs/superpowers/plans/2026-07-15-course-structure-refactor.md`：本次课程结构重构计划。
 - `7月15日 (1).mp3`：当前尾声 BGM。
 - `tests/rendered-html.test.mjs`：开场暖场题与 Obsidian 知识库的结构回归测试。
+- `AI-Coding-Course/assets/cases/zombie-cleaner/`、`public/assets/cases/zombie-cleaner/`：丧尸短剧案例参考图。
 - 已接入的三个 `.mp4`：开场案例视频，位于仓库根目录；另有未接入的 `Jason.mp4`。
 - `AI-Coding-Course/interactive-lecture.html.bak-20260616-145905`：旧备份，不要覆盖当前主文件。
 - `Jason.mp4`：用户新增的未跟踪视频素材，当前未接入课件。

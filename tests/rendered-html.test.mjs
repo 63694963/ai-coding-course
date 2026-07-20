@@ -41,5 +41,15 @@ for (const file of htmlFiles) {
     assert.doesNotMatch(toolModel, /上下文窗口也有成本/);
     assert.doesNotMatch(loop, /一个 Loop 的五个零件 \+ 一个记忆/);
     assert.match(loop, /Loop Engineering：让 AI 自己循环起来/);
+
+    const zombieCase = sectionBody(html, "zombie-cleaner");
+    assert.ok(html.indexOf('id="loop"') < html.indexOf('id="zombie-cleaner"'));
+    assert.ok(html.indexOf('id="zombie-cleaner"') < html.indexOf('id="path"'));
+    assert.match(zombieCase, /《丧尸清道夫》/);
+    assert.equal((zombieCase.match(/data-case-dialog-open=/g) ?? []).length, 6);
+    assert.match(zombieCase, /href="https:\/\/v\.douyin\.com\/TbqXH-LChk4\/?"/);
+    assert.match(zombieCase, /id="zombie-case-dialog"/);
+    assert.equal((zombieCase.match(/class="zombie-case-reference"/g) ?? []).length, 4);
+    assert.match(zombieCase, /data-case-dialog-close/);
   });
 }

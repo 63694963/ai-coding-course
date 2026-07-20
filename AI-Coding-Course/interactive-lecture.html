@@ -2008,6 +2008,57 @@ pre,
   .company-duel { grid-template-columns: 1fr; }
   .opening-questions .option-row { grid-template-columns: 24px minmax(0, 1fr); gap: 9px; padding: 11px 12px; }
 }
+.zombie-case {
+  align-items: center;
+  background:
+    radial-gradient(circle at 82% 20%, rgba(240,184,79,.16), transparent 24rem),
+    radial-gradient(circle at 18% 80%, rgba(78,215,197,.12), transparent 26rem),
+    linear-gradient(145deg, #080a10 0%, #10151c 55%, #08090d 100%);
+}
+.zombie-case .content-stack { max-width: 1160px; }
+.zombie-case-lead { max-width: 780px; }
+.zombie-case-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.zombie-case-meta .product-link { margin-top: 0; }
+.zombie-case-index { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.zombie-case-card {
+  min-height: 132px;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 12px;
+  color: var(--text);
+  background: linear-gradient(145deg, rgba(255,255,255,.1), rgba(255,255,255,.04));
+  text-align: left;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.zombie-case-card:hover, .zombie-case-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(240,184,79,.65);
+  background: linear-gradient(145deg, rgba(240,184,79,.16), rgba(255,255,255,.06));
+}
+.zombie-case-card-index { display: block; margin-bottom: 22px; color: var(--gold); font-family: "SF Mono", Menlo, Monaco, Consolas, monospace; font-size: 12px; letter-spacing: .14em; }
+.zombie-case-card-title { display: block; font-size: clamp(20px, 2vw, 28px); font-weight: 800; line-height: 1.2; }
+.zombie-case-card-hint { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; }
+.zombie-case-dialog { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 28px; background: rgba(3,5,8,.78); backdrop-filter: blur(18px) saturate(145%); }
+.zombie-case-dialog[hidden] { display: none; }
+.zombie-case-dialog-card { width: min(980px, 100%); max-height: min(820px, calc(100vh - 56px)); overflow: auto; padding: clamp(22px, 4vw, 42px); border: 1px solid rgba(255,255,255,.2); border-radius: 16px; background: linear-gradient(145deg, rgba(25,31,40,.98), rgba(8,10,15,.98)); box-shadow: 0 30px 120px rgba(0,0,0,.55); }
+.zombie-case-dialog-head { display: flex; align-items: start; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+.zombie-case-dialog-head h3 { margin: 0; font-size: clamp(28px, 4vw, 48px); }
+.zombie-case-dialog-close { width: 38px; height: 38px; flex: 0 0 auto; border: 1px solid rgba(255,255,255,.18); border-radius: 9px; color: var(--text); background: rgba(255,255,255,.08); font-size: 22px; }
+.zombie-case-dialog-close:hover { background: rgba(255,255,255,.16); }
+.zombie-case-detail[hidden] { display: none; }
+.zombie-case-detail h4 { margin: 24px 0 8px; color: var(--gold); font-size: 18px; }
+.zombie-case-detail p, .zombie-case-detail li { color: var(--muted); font-size: 16px; line-height: 1.8; }
+.zombie-case-detail ul { margin: 0; padding-left: 20px; }
+.zombie-case-detail pre { white-space: pre-wrap; }
+.zombie-case-reference-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+.zombie-case-reference { display: block; width: 100%; border: 1px solid rgba(255,255,255,.14); border-radius: 10px; background: #06070a; }
+.modal-open { overflow: hidden; }
+@media (max-width: 720px) {
+  .zombie-case-index { grid-template-columns: 1fr; }
+  .zombie-case-dialog { padding: 14px; }
+  .zombie-case-dialog-card { max-height: calc(100vh - 28px); padding: 22px 18px; }
+  .zombie-case-reference-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -2908,6 +2959,116 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     </div>
   </section>
 
+  <section class="section zombie-case" id="zombie-cleaner" data-archetype="case">
+    <div class="inner chapter">
+      <div class="num reveal">+</div>
+      <div class="content-stack">
+        <span class="tag reveal">Loop Engineering · 真实制作案例</span>
+        <h2 class="reveal">2026 AI 短剧：《丧尸清道夫》</h2>
+        <p class="lead zombie-case-lead reveal">从角色设定到分镜提示词：一个 AI 短剧如何被拆成可循环、可验证的制作步骤。</p>
+        <div class="zombie-case-meta reveal">
+          <span class="tag gold">原子朋克 × 丧尸喜剧</span>
+          <span class="tag green">同期声 · 无配乐</span>
+          <a class="product-link" href="https://v.douyin.com/TbqXH-LChk4/" target="_blank" rel="noopener noreferrer"><span>观看案例来源 ↗</span><small>抖音短剧</small></a>
+        </div>
+
+        <div class="zombie-case-index reveal">
+          <button class="zombie-case-card" type="button" data-case-dialog-open="setting" data-case-title="基础设定">
+            <span class="zombie-case-card-index">01</span>
+            <span class="zombie-case-card-title">基础设定</span>
+          </button>
+          <button class="zombie-case-card" type="button" data-case-dialog-open="visual" data-case-title="氛围与画质">
+            <span class="zombie-case-card-index">02</span>
+            <span class="zombie-case-card-title">氛围与画质</span>
+          </button>
+          <button class="zombie-case-card" type="button" data-case-dialog-open="shot-one" data-case-title="分镜一 · 00:00–00:07">
+            <span class="zombie-case-card-index">03</span>
+            <span class="zombie-case-card-title">分镜一 · 00:00–00:07</span>
+          </button>
+          <button class="zombie-case-card" type="button" data-case-dialog-open="shot-two" data-case-title="分镜二 · 00:07–00:10">
+            <span class="zombie-case-card-index">04</span>
+            <span class="zombie-case-card-title">分镜二 · 00:07–00:10</span>
+          </button>
+          <button class="zombie-case-card" type="button" data-case-dialog-open="robot-prompt" data-case-title="机器人提示词">
+            <span class="zombie-case-card-index">05</span>
+            <span class="zombie-case-card-title">机器人提示词</span>
+          </button>
+          <button class="zombie-case-card" type="button" data-case-dialog-open="references" data-case-title="参考图">
+            <span class="zombie-case-card-index">06</span>
+            <span class="zombie-case-card-title">参考图</span>
+          </button>
+        </div>
+        <p class="body reveal">页面只保留流程标题；点击任意标题，查看对应的正文或参考图。</p>
+      </div>
+    </div>
+
+    <div class="zombie-case-dialog" id="zombie-case-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="zombie-case-dialog-title">
+      <div class="zombie-case-dialog-card">
+        <div class="zombie-case-dialog-head">
+          <div><span class="tag gold">《丧尸清道夫》制作流程</span><h3 id="zombie-case-dialog-title">案例详情</h3></div>
+          <button class="zombie-case-dialog-close" type="button" data-case-dialog-close aria-label="关闭案例详情">×</button>
+        </div>
+
+        <article class="zombie-case-detail" data-case-detail="setting" hidden>
+          <h4>机器人清道夫</h4>
+          <ul>
+            <li>身形修长的人形机器人，1960 年代原子朋克风格设计，拥有自主意识。</li>
+            <li>面部以纯黑 LED 显示屏代替五官，显示马赛克像素风格的静帧表情，不使用动态表情。</li>
+            <li>身穿美式西部牛仔复古风格的棕色牛仔帽、黑色哑光高腰皮衣夹克、黑色哑光皮手套、牛仔腰带和枪套。</li>
+          </ul>
+          <h4>非洲鸵鸟与丧尸</h4>
+          <ul>
+            <li>成年非洲公鸵鸟，样貌呆傻，双眼歪斜不对称，歪吐着舌头。</li>
+            <li>多只腐烂惊悚的丧尸：头发凌乱，皮肤溃烂灰白，布满伤口和污痕，眼球浑浊发白，露出尖锐泛黄的腐烂獠牙。</li>
+            <li>丧尸身着破乱的海滩度假风和日常休闲装，皮肤与衣物沾满血渍和腐败肌理。</li>
+          </ul>
+          <h4>场景与声音</h4>
+          <p>1960 年代美式复古原子朋克城市街道，刚刚爆发丧尸危机。大战后的死寂街道上有破损老爷车、散落报纸、血迹和四处可见的丧尸尸体；冷战太空风的流线型建筑、临街商铺和圆润穹顶科幻楼宇，与休闲惬意的环境形成荒诞反差。声音只保留同期声，不使用配乐。</p>
+        </article>
+
+        <article class="zombie-case-detail" data-case-detail="visual" hidden>
+          <h4>风格核心</h4>
+          <p>原子朋克、末日丧尸、电影级质感、超写实、极致逼真、Photorealism 真人实景拍摄。杜绝游戏 CG 感和僵硬动作，保持速度感，让闲适场景与恐怖丧尸形成荒诞反差，整体氛围幽默且滑稽。</p>
+          <h4>摄影与色彩</h4>
+          <ul>
+            <li>变形宽荧幕电影质感，IMAX 胶片摄影机，Panavision C 系列镜头，加入自然动态模糊。</li>
+            <li>60 年代复古科幻原子朋克美学，复古暖橙与海盐蓝高对比色调。</li>
+            <li>低饱和复古胶片滤镜、自然日光照明，高光不过曝，暗部保留细节，明暗过渡自然通透。</li>
+          </ul>
+        </article>
+
+        <article class="zombie-case-detail" data-case-detail="shot-one" hidden>
+          <h4>景别与运镜</h4>
+          <p>电影感、史诗级大全景。无人机高空俯拍，利用公路作引导线；主体入画后跟随，固定机位缓缓上摇。</p>
+          <h4>画面内容</h4>
+          <p>机器人骑乘鸵鸟飞驰在公路上，背对镜头从画面下方入画，沿笔直公路狂奔。机器人左手握住鸵鸟脖子，右手按住牛仔帽；鸵鸟翅膀微张，双脚交替蹬踏，在街道上蛇形高速走位并带有动态模糊。远处出现行动缓慢的丧尸尸潮，吼声此起彼伏，尾随在鸵鸟后方，渲染末日危机氛围。</p>
+        </article>
+
+        <article class="zombie-case-detail" data-case-detail="shot-two" hidden>
+          <h4>景别与运镜</h4>
+          <p>轻微仰拍，机器人上半身近景，正面 30 度；人物与鸵鸟居中作为前景，街道建筑为背景，固定机位跟随主体。</p>
+          <h4>画面内容</h4>
+          <p>鸵鸟奔跑产生剧烈抖动，持续高频颠簸、震颤，随着步伐上下晃动。机器人身体随步伐高频颠动，前倾后仰，腰身和坐姿猛烈起伏。面部 LED 屏保持蓝色冷酷、无奈的静帧表情，同时发出生无可恋的电子机械男声。与上个镜头形成反差，制造滑稽氛围。</p>
+        </article>
+
+        <article class="zombie-case-detail" data-case-detail="robot-prompt" hidden>
+          <h4>角色生成提示词</h4>
+          <pre class="prompt-box good">生成身形修长的未来人形机器人，展示全身，主体乳白色机甲外壳＋黑色机械关节结构，全身外露精密机械零件，简约机械头颅，面部有纯黑色 LED 显示屏代替五官，显示马赛克风格的微笑表情。机械结构关节处有轻微污渍和灰尘，金属表面带有轻微划痕，机械感与科幻感强烈。影棚纯灰色背景，科幻电影质感，超高精度材质纹理，超写实渲染，细节拉满，真实相机实景拍摄。</pre>
+        </article>
+
+        <article class="zombie-case-detail" data-case-detail="references" hidden>
+          <h4>角色与场景参考图</h4>
+          <div class="zombie-case-reference-grid">
+            <img class="zombie-case-reference" src="assets/cases/zombie-cleaner/robot-base.png" alt="机器人基础造型参考图">
+            <img class="zombie-case-reference" src="assets/cases/zombie-cleaner/robot-cowboy.png" alt="机器人牛仔造型参考图">
+            <img class="zombie-case-reference" src="assets/cases/zombie-cleaner/zombie-city.png" alt="丧尸城市场景参考图">
+            <img class="zombie-case-reference" src="assets/cases/zombie-cleaner/storyboard.png" alt="丧尸短剧分镜草图参考图">
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="path">
     <div class="inner chapter">
       <div class="num reveal">11</div>
@@ -3245,6 +3406,42 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   });
   var finale = document.getElementById("finale");
   if (finale) main.appendChild(finale);
+
+  var zombieCaseDialog = document.getElementById("zombie-case-dialog");
+  var zombieCaseDialogTitle = document.getElementById("zombie-case-dialog-title");
+  var zombieCaseDetails = zombieCaseDialog ? zombieCaseDialog.querySelectorAll("[data-case-detail]") : [];
+  function closeZombieCaseDialog() {
+    if (!zombieCaseDialog) return;
+    zombieCaseDialog.hidden = true;
+    document.body.classList.remove("modal-open");
+  }
+  function openZombieCaseDialog(key, title) {
+    if (!zombieCaseDialog) return;
+    zombieCaseDetails.forEach(function (detail) {
+      detail.hidden = detail.getAttribute("data-case-detail") !== key;
+    });
+    if (zombieCaseDialogTitle) zombieCaseDialogTitle.textContent = title || "案例详情";
+    zombieCaseDialog.hidden = false;
+    document.body.classList.add("modal-open");
+    var closeButton = zombieCaseDialog.querySelector("[data-case-dialog-close]");
+    if (closeButton) closeButton.focus();
+  }
+  document.querySelectorAll("[data-case-dialog-open]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      openZombieCaseDialog(button.getAttribute("data-case-dialog-open"), button.getAttribute("data-case-title"));
+    });
+  });
+  if (zombieCaseDialog) {
+    zombieCaseDialog.addEventListener("click", function (event) {
+      if (event.target === zombieCaseDialog) closeZombieCaseDialog();
+    });
+    zombieCaseDialog.querySelectorAll("[data-case-dialog-close]").forEach(function (button) {
+      button.addEventListener("click", closeZombieCaseDialog);
+    });
+  }
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && zombieCaseDialog && !zombieCaseDialog.hidden) closeZombieCaseDialog();
+  });
 
   var reveals = document.querySelectorAll(".reveal");
   var observer = new IntersectionObserver(function (entries) {
