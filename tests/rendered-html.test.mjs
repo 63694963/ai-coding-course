@@ -70,5 +70,13 @@ for (const file of htmlFiles) {
     assert.match(robotPrompt, /data-case-detail="robot-prompt"/);
     assert.match(robotPrompt, /robot-base\.png/);
     assert.match(robotPrompt, /robot-cowboy\.png/);
+
+    const finale = sectionBody(html, "finale");
+    assert.match(finale, /class="finale-touch-controls"/);
+    assert.match(finale, /id="finalePrevButton"/);
+    assert.match(finale, /id="finaleNextButton"/);
+    assert.match(finale, /上一幕/);
+    assert.match(finale, /下一幕/);
+    assert.match(html, /function goToNextFinaleStep\(\)/);
   });
 }

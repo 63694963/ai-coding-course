@@ -704,6 +704,22 @@ pre {
 .finale-controls { display: flex; justify-content: space-between; gap: 14px; color: var(--faint); font-size: 12px; }
 .finale-controls strong { color: var(--gold); font-weight: 700; }
 .finale-bgm-status { color: var(--gold); }
+.finale-touch-controls { display: none; }
+.finale-touch-button {
+  min-height: 48px;
+  flex: 1;
+  padding: 11px 14px;
+  border: 1px solid rgba(78,215,197,.34);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(78,215,197,.08);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 750;
+  touch-action: manipulation;
+}
+.finale-touch-button:active { background: rgba(78,215,197,.2); }
+.finale-touch-button:disabled { cursor: default; opacity: .3; }
 .profile-rule {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1303,6 +1319,8 @@ input[type="range"] {
   .chip-cloud { position: absolute; left: 16px; right: 16px; bottom: 12px; top: auto; }
   .finale-heading-row { display: block; }
   .finale-attribution { margin-top: 24px; justify-self: start; }
+  .finale-touch-controls { position: fixed; left: max(16px, env(safe-area-inset-left)); right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 40; display: flex; gap: 10px; width: auto; margin: 0; }
+  .finale-touch-button { border-color: rgba(78,215,197,.48); background: rgba(7,9,14,.88); backdrop-filter: blur(14px); }
   .finale-stage { min-height: 760px; }
   .finale-step.has-people { display: block; }
   .finale-step.has-people .finale-people { margin-top: 24px; }
@@ -2564,7 +2582,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
         </article>
       </div>
       <div class="finale-stage" id="finaleStage" aria-live="polite">
-        <div class="finale-hint">按 → 开始播放</div>
+        <div class="finale-hint">按 → 或轻触“下一幕”开始</div>
 
         <article class="finale-step has-visual" data-final-step="0" aria-hidden="true">
           <p>各位，惊艳不及久用，智能最懂人心。</p>
@@ -2676,6 +2694,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
         </article>
       </div>
       <div class="finale-progress"><span id="finaleProgress"></span><i aria-hidden="true"></i></div>
+      <div class="finale-touch-controls" aria-label="字幕翻页控制">
+        <button class="finale-touch-button" id="finalePrevButton" type="button" aria-label="上一幕">← 上一幕</button>
+        <button class="finale-touch-button" id="finaleNextButton" type="button" aria-label="下一幕">下一幕 →</button>
+      </div>
       <div class="finale-controls"><span><strong>按 → 开始播放</strong>　按 → 跳过，按 ← 回看</span><span><span class="finale-bgm-status" id="finaleBgmStatus">♪ BGM 待命</span>　Esc 重新开始</span></div>
     </div>
 <audio id="finaleBgm" preload="auto" loop src="../7月15日 (1).mp3" aria-label="结尾背景音乐"></audio>
@@ -2919,6 +2941,9 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   var finaleSteps = finale ? Array.prototype.slice.call(finale.querySelectorAll("[data-final-step]")) : [];
   var finaleProgress = document.getElementById("finaleProgress");
   var finaleHint = finale && finale.querySelector(".finale-hint");
+  var finaleTouchControls = finale && finale.querySelector(".finale-touch-controls");
+  var finalePrevButton = document.getElementById("finalePrevButton");
+  var finaleNextButton = document.getElementById("finaleNextButton");
   var finaleBgm = document.getElementById("finaleBgm");
   var finaleBgmStatus = document.getElementById("finaleBgmStatus");
   var finaleIndex = -1;
@@ -3027,6 +3052,8 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     syncFinaleAiSlideshow(index);
     if (finaleHint) finaleHint.hidden = index >= 0;
     if (finaleProgress) finaleProgress.style.width = index < 0 ? "0%" : ((index + 1) / finaleSteps.length * 100) + "%";
+    if (finalePrevButton) finalePrevButton.disabled = index <= 0;
+    if (finaleNextButton) finaleNextButton.disabled = index >= finaleSteps.length - 1;
     if (finale && index >= 0) {
       window.scrollBy(0, finale.getBoundingClientRect().top - previousFinaleTop);
     }
@@ -3053,6 +3080,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   }
   function syncFinalePlayback() {
     if (!finale) return;
+    if (finaleTouchControls) finaleTouchControls.hidden = !finaleIsActive();
     if (!finaleIsActive() && finaleIsPlaying) {
       pauseFinalePlayback();
     }
@@ -3066,6 +3094,19 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   window.addEventListener("resize", syncFinalePlayback);
   syncFinalePlayback();
 
+  function goToNextFinaleStep() {
+    if (!finaleIsActive() || finaleIndex >= finaleSteps.length - 1) return;
+    if (!finaleIsPlaying) beginFinalePlayback();
+    else showFinaleStep(finaleIndex + 1);
+  }
+  function goToPreviousFinaleStep() {
+    if (!finaleIsActive() || finaleIndex <= 0) return;
+    pauseFinalePlayback();
+    showFinaleStep(finaleIndex - 1);
+  }
+  if (finalePrevButton) finalePrevButton.addEventListener("click", goToPreviousFinaleStep);
+  if (finaleNextButton) finaleNextButton.addEventListener("click", goToNextFinaleStep);
+
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
       document.body.classList.remove("lesson-mode");
@@ -3073,12 +3114,11 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
     }
     if (event.key === "ArrowRight" && finaleIsActive() && finaleIndex < finaleSteps.length - 1) {
       event.preventDefault();
-      if (!finaleIsPlaying) beginFinalePlayback();
-      else showFinaleStep(finaleIndex + 1);
+      goToNextFinaleStep();
     }
     if (event.key === "ArrowLeft" && finaleIsActive() && finaleIndex > 0) {
       event.preventDefault();
-      showFinaleStep(finaleIndex - 1);
+      goToPreviousFinaleStep();
     }
     if (event.key === "ArrowDown" || event.key === "PageDown") {
       event.preventDefault();
