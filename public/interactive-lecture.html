@@ -1309,6 +1309,54 @@ input[type="range"] {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
 }
+.opening-questions .chapter { align-items: start; }
+.question-stack { display: grid; gap: 18px; }
+.question-panel {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(78,215,197,.3);
+  background: linear-gradient(145deg, rgba(78,215,197,.09), rgba(255,255,255,.045) 68%);
+}
+.question-panel::after {
+  content: attr(data-q);
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  color: rgba(78,215,197,.42);
+  font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  letter-spacing: .16em;
+}
+.question-panel .tag { display: inline-flex; }
+.question-title {
+  max-width: 980px;
+  margin: 16px 0 20px;
+  font-size: clamp(22px, 2.5vw, 34px);
+  line-height: 1.35;
+}
+.question-options { display: grid; gap: 10px; }
+.opening-questions .option-row {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px;
+  color: var(--muted);
+  background: rgba(5,6,9,.3);
+}
+.opening-questions .option-row b { color: var(--cyan); }
+.company-duel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.company-column { display: grid; gap: 10px; align-content: start; }
+.company-column h3 { margin: 0 0 2px; color: var(--gold); font-size: 18px; }
+.opening-token { display: flex; align-items: center; gap: 14px; padding-top: 4px; }
+.opening-token-word { margin: 0; color: var(--cyan); font-family: "SF Mono", Menlo, Monaco, Consolas, monospace; font-size: 12px; letter-spacing: .2em; }
+.opening-token-rule { height: 1px; flex: 1; background: linear-gradient(90deg, rgba(78,215,197,.55), transparent); }
+@media (max-width: 720px) {
+  .company-duel { grid-template-columns: 1fr; }
+  .opening-questions .option-row { grid-template-columns: 24px minmax(0, 1fr); gap: 9px; padding: 11px 12px; }
+}
 </style>
 </head>
 <body>
@@ -1316,6 +1364,7 @@ input[type="range"] {
   <div class="brand"><span class="mark"></span><span>Vibe coding 讲解页</span></div>
   <nav class="nav" id="nav" aria-label="章节导航">
     <a href="#intro-videos">开场案例</a>
+    <a href="#opening-questions">暖场问题</a>
     <a href="#hero">首页</a>
     <a href="#why">Why</a>
     <a href="#education">教育</a>
@@ -1389,6 +1438,65 @@ input[type="range"] {
     </div>
   </section>
 
+  <section class="section opening-questions" id="opening-questions" data-archetype="interaction">
+    <div class="inner chapter">
+      <div class="num reveal">Q</div>
+      <div class="content-stack">
+        <h2 class="reveal">暖场问题</h2>
+
+        <div class="question-stack">
+          <div class="stage-card question-panel reveal" data-q="01">
+            <span class="tag">问题一 · 能力边界</span>
+            <p class="question-title">假如现在的 AI 回到了 16 世纪的英国，以下哪个选项是 AI 最有可能做不到的？</p>
+            <div class="question-options">
+              <div class="option-row"><b>A</b><span>让 Jerry、Tom 和莎士比亚（假定现在没人知道莎士比亚是谁）各自写一个《哈姆雷特》的版本，并评判各自的优劣</span></div>
+              <div class="option-row"><b>B</b><span>让 AI 在 16 世纪的英国早期证券交易市场上全权替代哈姆雷特购买股票（假如说那个时候已经有了电子交易系统的话）</span></div>
+              <div class="option-row"><b>C</b><span>根据当时已有的历史传说、戏剧传统和观众偏好，独立写出一部接近《哈姆雷特》风格的复仇悲剧初稿</span></div>
+              <div class="option-row"><b>D</b><span>让 AI 用伊丽莎白时代英语（十四行诗体式、俳句）写出复仇悲剧初稿，并生成舞台独白、人物关系图和面向剧院老板的推荐理由</span></div>
+            </div>
+          </div>
+
+          <div class="stage-card question-panel reveal" data-q="02">
+            <span class="tag gold">问题二 · 公司认知</span>
+            <p class="question-title">以下哪家公司是目前世界和国内最领先的 AI 公司？</p>
+            <div class="company-duel">
+              <div class="company-column">
+                <h3>世界领先候选</h3>
+                <div class="option-row"><b>A</b><span>OpenAI</span></div>
+                <div class="option-row"><b>B</b><span>Google</span></div>
+                <div class="option-row"><b>C</b><span>马斯克的 X</span></div>
+                <div class="option-row"><b>D</b><span>Anthropic</span></div>
+              </div>
+              <div class="company-column">
+                <h3>国内领先候选</h3>
+                <div class="option-row"><b>A</b><span>豆包</span></div>
+                <div class="option-row"><b>B</b><span>智谱</span></div>
+                <div class="option-row"><b>C</b><span>千问</span></div>
+                <div class="option-row"><b>D</b><span>DeepSeek</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage-card question-panel reveal" data-q="03">
+            <span class="tag green">问题三 · 学习重点</span>
+            <p class="question-title">在 AI 工具和模型不断更新的背景下，你认为以下哪项最关键？</p>
+            <div class="question-options">
+              <div class="option-row"><b>A</b><span>熟练使用 GPT、Claude、Kimi、通义千问等各类 AI 应用工具</span></div>
+              <div class="option-row"><b>B</b><span>能够调用 OpenAI、DeepSeek 等底层大模型能力</span></div>
+              <div class="option-row"><b>C</b><span>能够掌握提示词写法，让 AI 按照自己的要求生成内容</span></div>
+              <div class="option-row"><b>D</b><span>能够根据具体任务，判断该如何拆解问题、如何验证结果，并最终由人完成判断和负责</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="opening-token reveal" aria-label="Token">
+          <p class="opening-token-word">Token</p>
+          <div class="opening-token-rule"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="why">
     <div class="inner chapter">
       <div class="num reveal">'26</div>
@@ -1418,6 +1526,14 @@ input[type="range"] {
             <div class="card"><span class="tag green">2. 建流程</span><p>把"输入→AI处理→检查→修改→验收"固化成可重复步骤。</p></div>
             <div class="card"><span class="tag gold">3. 积经验</span><p>每次有效的提问、检查方法，都记下来，下次直接用。</p></div>
             <div class="card"><span class="tag violet">4. 变成系统</span><p>规则+流程+经验 = 你的 Token 资本。换工具、换模型，这套东西不丢。</p></div>
+          </div>
+          <div class="card" style="margin-top:16px;border-color: var(--green);">
+            <span class="tag green">知识库例子</span>
+            <p>把原始资料放进 raw，把 AI 整理出的概念、实体和对比放进 wiki，再用 index 和 log 记录变化。这样每次学习都不是一次性聊天，而是在给自己的知识库加一块砖。</p>
+            <a class="product-link" href="obsidian://open?vault=%E5%90%B4%E5%98%89%E7%A6%84%E7%9A%84%E7%9F%A5%E8%AF%86%E7%AC%94%E8%AE%B0&file=000AI%20brain%2Findex.md" style="margin-top:14px;">
+              <span>打开 Obsidian 知识库</span>
+              <small>000AI brain</small>
+            </a>
           </div>
         </div>
 

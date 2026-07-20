@@ -1,6 +1,6 @@
 # HANDOFF
 
-更新时间：2026-07-17  
+更新时间：2026-07-20  
 仓库：`/Users/jerry/Documents/repo/讲课`  
 分支：`main`  
 功能基线：`39bdd8e perf(course): reduce glass rendering cost`
@@ -23,7 +23,7 @@
 ?? glassmorphism-hard-prompt.md
 ```
 
-当前主文件约 320 KB，包含 22 个章节 section（含 1 个隐藏关系页和多个附录页），脚本和样式均内联。
+当前主文件约 320 KB，包含 23 个章节 section（含 1 个隐藏关系页和多个附录页），脚本和样式均内联。
 
 ### React 方案状态
 
@@ -51,6 +51,14 @@
 - 三个已接入视频使用 `playsinline`、`preload="metadata"`，不会未经操作自动抢声音。
 - 顶部导航增加“开场案例”，视频下方有“看完案例，开始交流”链接。
 - HTML 中对中文、空格和 `#` 字符进行了 URL 编码，不能随意把 src 改回未编码的原文件名。
+
+### 暖场问题与个人知识库
+
+- `#opening-questions` 已恢复为首页之后的暖场环节，包含三组选择题。
+- 第一题恢复“假如现在的 AI 回到了 16 世纪的英国”设定，并保留 Jerry、Tom 与莎士比亚的选项。
+- `#why` 的知识沉淀区域已恢复“知识库例子”卡片，以及“打开 Obsidian 知识库”链接。
+- Obsidian 深链指向 vault `吴嘉纪的知识笔记` 的 `000AI brain/index.md`，两份 HTML（源码与 `public` 运行副本）保持同步。
+- `tests/rendered-html.test.mjs` 会检查暖场题、莎士比亚题干、导航入口和 Obsidian 深链，修改这两份 HTML 后应运行 `npm test`。
 
 ### 尾声字幕
 
@@ -119,6 +127,7 @@ HTML 中共有 9 个头像引用，其中图灵复用同一张本地图片。
 - `docs/visual-polish-spec.md`：视觉精修需求、执行项和验收记录。
 - `docs/superpowers/plans/2026-07-15-course-structure-refactor.md`：本次课程结构重构计划。
 - `7月15日 (1).mp3`：当前尾声 BGM。
+- `tests/rendered-html.test.mjs`：开场暖场题与 Obsidian 知识库的结构回归测试。
 - 已接入的三个 `.mp4`：开场案例视频，位于仓库根目录；另有未接入的 `Jason.mp4`。
 - `AI-Coding-Course/interactive-lecture.html.bak-20260616-145905`：旧备份，不要覆盖当前主文件。
 - `Jason.mp4`：用户新增的未跟踪视频素材，当前未接入课件。
