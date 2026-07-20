@@ -49,7 +49,16 @@ for (const file of htmlFiles) {
     assert.equal((zombieCase.match(/data-case-dialog-open=/g) ?? []).length, 6);
     assert.match(zombieCase, /href="https:\/\/v\.douyin\.com\/TbqXH-LChk4\/?"/);
     assert.match(zombieCase, /id="zombie-case-dialog"/);
-    assert.equal((zombieCase.match(/class="zombie-case-reference"/g) ?? []).length, 4);
+    assert.equal((zombieCase.match(/class="zombie-case-reference"/g) ?? []).length, 6);
     assert.match(zombieCase, /data-case-dialog-close/);
+
+    const path = sectionBody(html, "path");
+    assert.doesNotMatch(path, /从普通任务到第一个小工具/);
+    assert.doesNotMatch(path, /现场示范：把客户回访变成一个小工具/);
+    assert.match(path, /5 分钟跟着做/);
+    const robotPrompt = sectionBody(html, "zombie-cleaner");
+    assert.match(robotPrompt, /data-case-detail="robot-prompt"/);
+    assert.match(robotPrompt, /robot-base\.png/);
+    assert.match(robotPrompt, /robot-cowboy\.png/);
   });
 }
