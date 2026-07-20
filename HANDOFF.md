@@ -34,7 +34,7 @@
 ### 课程主线重构
 
 - Prompt 开场只保留“不了解具体情况的实习助手”比喻；Prompt 正课保留目标与场景、边界与材料、格式与标准三个组成部分；Prompt Lab 的诊断互动完整保留。
-- Context 主课只保留初学者需要的背景判断；上下文成本、子智能体保持主对话干净、用户级 `CLAUDE.md` 成本已移到工具与模型附录。
+- Context 主课包含背景判断、上下文窗口成本、子智能体保持主对话干净和用户级 `CLAUDE.md` 长度控制；这些内容都放在 `#context` 的 Context Engineering 主段落中。
 - “桥接”和“上手路径”已合并为一页五步流程：选动作、说清需求、生成第一版、发现问题、修改成功。
 - Harness 主课只保留材料、规则、验证、回退、`CLAUDE.md` 宪法和一个 `financial-analyst` Skill 示例；提示词/Skill 对比和六个跨行业 Skill 已移入 `#harness-appendix`。
 - “一张图带走”只保留好 Prompt 六个零件、三种 Engineering 一句话和安全红线；四能力自检留在前面的互动页，急救话术移入效率附录。

@@ -2452,6 +2452,21 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
 销售人员每周最多只能回访 20 个客户。</pre>
           </div>
         </div>
+        <div class="stage-card reveal">
+          <span class="tag gold">高级 Context</span>
+          <h3>上下文窗口也有成本</h3>
+          <div class="grid-2">
+            <div class="profile-rule">
+              <h4>每一个 Token 都有机会成本</h4>
+              <p>上下文窗口不是无限的资料仓库。无关内容越多，真正重要的信息越容易被淹没。</p>
+            </div>
+            <div class="profile-rule">
+              <h4>让主对话保持干净</h4>
+              <p>需要大量探索时，可以把读取、命令输出和中间推理交给子智能体，主对话只接收需要的结论。</p>
+            </div>
+          </div>
+          <p class="body" style="margin-top:16px;"><strong>用户级 CLAUDE.md 也要控制长度。</strong>它会在每次新对话初始化时加载，长期文件只保留真正通用、稳定且高频的规则。</p>
+        </div>
         <div class="quote reveal">上下文不是资料越多越好，而是要帮 AI 知道重点。</div>
       </div>
     </div>
@@ -2503,22 +2518,6 @@ NPS 评分、复购概率、流失风险、负责人、下次提醒时间……
               <a class="product-link" href="https://www.volcengine.com/product/doubao" target="_blank" rel="noopener"><span>豆包</span><small>字节跳动模型家族</small></a>
             </div>
           </div>
-        </div>
-
-        <div class="stage-card reveal">
-          <span class="tag gold">附录：高级 Context</span>
-          <h3>上下文窗口也有成本</h3>
-          <div class="grid-2">
-            <div class="profile-rule">
-              <h4>每一个 Token 都有机会成本</h4>
-              <p>上下文窗口不是无限的资料仓库。无关内容越多，真正重要的信息越容易被淹没。</p>
-            </div>
-            <div class="profile-rule">
-              <h4>让主对话保持干净</h4>
-              <p>需要大量探索时，可以把读取、命令输出和中间推理交给子智能体，主对话只接收需要的结论。</p>
-            </div>
-          </div>
-          <p class="body" style="margin-top:16px;"><strong>用户级 CLAUDE.md 也要控制长度。</strong>它会在每次新对话初始化时加载，长期文件只保留真正通用、稳定且高频的规则。</p>
         </div>
 
         <div class="quote reveal">主线只需记住：<strong>模型负责理解和推理，工具负责读文件、改文件、运行和验证。</strong>具体产品组合可以交流后再看。</div>
@@ -2870,18 +2869,6 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
             <div class="card"><span class="tag">以前</span><h3>人对 AI 说一句</h3><p>你打字 → AI 回复 → 你看结果 → 你再打下一句。人是循环的驱动力。</p></div>
             <div class="card"><span class="tag green">现在正在变</span><h3>循环替人驱动</h3><p>你定目标和规则 → 循环自动跑：做一步、检查、不对就改、对了就下一步，直到完成。</p></div>
             <div class="card"><span class="tag gold">本质</span><h3>从"操作者"变成"设计者"</h3><p>你不负责每次对话，你负责设计"AI 怎么自己跟自己对话、检查、纠错"的规则。</p></div>
-          </div>
-        </div>
-
-        <div class="stage-card reveal">
-          <h3>一个 Loop 的五个零件 + 一个记忆</h3>
-          <div class="grid-3">
-            <div class="card"><span class="tag">1. 定时触发</span><p>循环按时间或事件自动启动，不需要人每次去点"开始"。</p></div>
-            <div class="card"><span class="tag green">2. 并行隔离</span><p>多个 AI 同时干活时，各自用独立的工作区，互不踩文件。</p></div>
-            <div class="card"><span class="tag gold">3. 固化知识</span><p>项目规则、风格、禁忌写成 Skill，循环每次自动加载，不用重讲。</p></div>
-            <div class="card"><span class="tag violet">4. 连接工具</span><p>循环能读写仓库、调 API、发消息，不只是"给建议"，而是直接做事。</p></div>
-            <div class="card"><span class="tag">5. 分角色</span><p>写的和检查的不是同一个 AI。自己做自己查容易放水，分开才可靠。</p></div>
-            <div class="card"><span class="tag red">+ 记忆</span><p>循环结束后把"做到哪了、哪些验证通过、哪些还没做"写到文件里，下次接着跑。</p></div>
           </div>
         </div>
 
