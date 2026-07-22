@@ -108,25 +108,17 @@ cd ai-coding-course
 
 ### 2. 启动本地服务器
 
-课程核心页面可以通过静态 HTTP 服务运行：
+`public/` 是课程唯一来源。把它作为站点根目录启动静态 HTTP 服务：
 
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 8000 --directory public
 ```
 
-然后在浏览器中访问：
+然后访问：
 
-```text
-http://localhost:8000/AI-Coding-Course/interactive-lecture.html
-```
+<http://localhost:8000/>
 
-也可以直接双击：
-
-```text
-AI-Coding-Course/interactive-lecture.html
-```
-
-但在 `file://` 模式下，部分浏览器可能限制音频、视频或相对路径资源加载，因此建议使用本地 HTTP 服务。
+也可以直接双击 `public/interactive-lecture.html`，但部分浏览器会限制 `file://` 下的音频、视频或相对路径资源，因此建议使用本地 HTTP 服务。
 
 ## 开发与测试
 
@@ -154,74 +146,63 @@ npm test
 npm run lint
 ```
 
-建议使用 Node.js 22.13.0 或更高版本。
+建议使用 Node.js 22.13.0 或更高版本。`dist/` 是可重新生成的构建产物，不纳入 Git。
 
 ## 项目结构
 
 ```text
 .
-├── AI-Coding-Course/
-│   ├── interactive-lecture.html    # 交互式课程主页面
-│   ├── interaction-demo.html       # 交互示例页面
-│   └── assets/                     # 图片及课程素材
-├── public/                         # 网站发布资源
-├── tests/                          # 页面测试
-├── .github/
-│   └── workflows/                  # GitHub Actions 工作流
-├── package.json                    # 项目依赖及运行命令
+├── public/
+│   ├── index.html                  # 站点入口
+│   ├── interactive-lecture.html    # 唯一课程主页面
+│   ├── assets/                     # 图片和课程素材
+│   ├── *.mp4                       # 课程视频
+│   └── 7月15日 (1).mp3             # 课程配乐
+├── app/                            # Workers 根路由
+├── worker/                         # Cloudflare Worker 入口
+├── tests/                          # 页面结构测试
+├── .github/workflows/             # GitHub Actions 工作流
+├── package.json                    # 构建与测试命令
 └── README.md                       # 项目说明
 ```
 
+所有课程内容修改只编辑 `public/interactive-lecture.html`，不要创建第二份课程 HTML。
+
 ## GitHub 版本管理
 
-本项目建议通过分支和 Pull Request 管理修改：
+本项目通常通过功能分支和 Pull Request 管理修改：
 
 ```text
-创建功能分支
-      ↓
-修改并提交代码
-      ↓
-推送到 GitHub
-      ↓
-创建 Pull Request
-      ↓
-检查并合并到 main
-      ↓
-更新在线网站
+agent/xxx → Pull Request → main → 自动部署
 ```
-
-主要分支的作用：
 
 | 分支 | 作用 |
 | --- | --- |
-| `main` | 保存当前正式源代码 |
+| `main` | 当前正式源代码和自动部署来源 |
 | `agent/xxx` | Codex 等工具创建的修改分支 |
-| `gh-pages` | 发布 GitHub Pages 在线网站 |
-
-当 Codex 把代码推送到 `agent/xxx` 分支时，只代表修改已经保存在 GitHub，还没有进入正式版本。需要创建 Pull Request，并将该分支合并到 `main`：
-
-```text
-agent/xxx → Pull Request → main
-```
 
 ## 网站部署
 
-在线网站通过 GitHub Pages 发布：
+### GitHub Pages
+
+`.github/workflows/pages.yml` 在 `main` 更新后直接发布 `public/`：
 
 <https://63694963.github.io/ai-coding-course/>
 
-当前仓库主要使用：
+无需手工维护 `gh-pages` 内容副本。可以在仓库的 **Actions** 页面查看部署过程。
 
-- `main`：保存项目源代码；
-- `gh-pages`：保存并发布在线网站文件。
+### Cloudflare Pages
 
-需要注意：
+使用 Git 集成时推荐：
 
-> 代码合并进入 `main`，不一定代表在线网站已经同步更新。
+- 构建命令：留空
+- 输出目录：`public`
 
-如果 GitHub Actions 已配置自动部署，合并后会自动生成并更新在线版本；如果没有自动部署，则需要将最新发布文件同步到 `gh-pages` 分支。
+如果使用 `npm run build`，输出目录设为 `dist/client`。`public/index.html` 使用相对跳转，因此同时兼容根域名和 GitHub Pages 子路径。
 
-可以在仓库的 **Actions** 页面查看自动部署过程，也可以进入 **Settings → Pages** 查看当前发布分支和部署状态。
+### Cloudflare Workers
+
+Workers 使用 Vinext 构建产物；`app/page.tsx` 将根路径重定向到 `/interactive-lecture.html`。
 
 ## 项目地址
 
@@ -236,7 +217,7 @@ AI Coding 的意义，不只是让 AI 替人编写几行代码。
 
 真正重要的，不只是让 AI 给出答案，而是学习如何与 AI 一起定义问题、寻找路径、检查结果，并最终抵达答案。
 
-> 循此苦旅，以达星辰。  
+> 循此苦旅，以达星辰。
 > *Per aspera ad astra.*
 
 ## 许可证与素材说明
