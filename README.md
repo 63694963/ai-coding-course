@@ -26,17 +26,17 @@ cd ai-coding-course
 
 ## 本地运行
 
-项目是静态 HTML，建议通过本地 HTTP 服务打开，以保证视频、音频和相对路径资源正常加载：
+`public/` 是课程唯一来源。建议把它作为站点根目录启动本地 HTTP 服务，以保证视频、音频和相对路径资源正常加载：
 
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 8000 --directory public
 ```
 
 然后访问：
 
-<http://localhost:8000/AI-Coding-Course/interactive-lecture.html>
+<http://localhost:8000/>
 
-也可以直接双击 `AI-Coding-Course/interactive-lecture.html` 打开，但部分浏览器对 `file://` 下的媒体加载和自动播放限制更严格。
+也可以直接双击 `public/interactive-lecture.html` 打开，但部分浏览器对 `file://` 下的媒体加载和自动播放限制更严格。
 
 ## 操作方式
 
@@ -48,18 +48,18 @@ python3 -m http.server 8000
 
 ```text
 .
-├── AI-Coding-Course/
-│   ├── interactive-lecture.html   # 主课程页面
-│   ├── interaction-demo.html      # 交互示例页
-│   └── assets/                     # 图片与结尾章节素材
-├── *.mp4                          # 课程视频素材
-├── 7月15日 (1).mp3                 # 课程配乐
+├── public/
+│   ├── index.html                  # 站点入口
+│   ├── interactive-lecture.html    # 唯一主课程页面
+│   ├── assets/                     # 图片与结尾章节素材
+│   ├── *.mp4                       # 课程视频素材
+│   └── 7月15日 (1).mp3             # 课程配乐
 └── .github/workflows/pages.yml    # GitHub Pages 发布配置
 ```
 
 ## 部署
 
-GitHub Pages 当前从 `gh-pages` 分支根目录发布。线上地址为：
+GitHub Pages 由 `.github/workflows/pages.yml` 在 `main` 分支更新后自动发布 `public/`。线上地址为：
 
 <https://63694963.github.io/ai-coding-course/>
 
@@ -85,16 +85,13 @@ git commit -m "描述本次修改"
 git push origin main
 ```
 
-如果要更新 GitHub Pages 线上内容，需要把对应的发布文件同步到 `gh-pages`，再推送该分支：
+推送到 `main` 后无需手工维护 `gh-pages` 分支。
 
-```bash
-git switch gh-pages
-git add .
-git commit -m "更新线上页面"
-git push origin gh-pages
-```
+### Cloudflare Pages
 
-`main` 用于保存项目源代码，`gh-pages` 用于发布静态网站；只推送 `main` 不会自动更新当前 Pages 版本。
+Cloudflare Pages 如果使用 Git 集成，请将构建输出目录设置为 `public`，构建命令留空；如果使用 `npm run build`，则将输出目录设置为 `dist/client`。构建目录中的 `index.html` 会自动跳转到 `/interactive-lecture.html`。
+
+Cloudflare Workers 使用 Vinext 构建产物，根路径的跳转由 `app/page.tsx` 处理；Workers 和 Pages 是两套独立的部署配置。
 
 ## 许可证与素材说明
 

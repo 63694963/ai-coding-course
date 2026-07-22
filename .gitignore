@@ -6,6 +6,7 @@
 node_modules/
 .next/
 .wrangler/
+dist/
 
 # macOS system files
 .DS_Store

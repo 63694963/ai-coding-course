@@ -1,11 +1,37 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 import test from "node:test";
 
-const htmlFiles = [
-  "AI-Coding-Course/interactive-lecture.html",
-  "public/interactive-lecture.html",
-];
+test("provides a Cloudflare Pages root entry point", async () => {
+  const index = await readFile("public/index.html", "utf8");
+
+  assert.match(index, /url=interactive-lecture\.html/);
+  assert.match(index, /href="interactive-lecture\.html"/);
+});
+
+const htmlFiles = ["public/interactive-lecture.html"];
+
+test("keeps public as the single course source", async () => {
+  await assert.rejects(access("AI-Coding-Course/interactive-lecture.html"), {
+    code: "ENOENT",
+  });
+});
+
+test("keeps every local course asset inside public", async () => {
+  const html = await readFile("public/interactive-lecture.html", "utf8");
+  const references = [...html.matchAll(/(?:src|poster)="([^"]+)"/g)]
+    .map((match) => match[1])
+    .filter((reference) => !/^(?:https?:|data:|blob:)/.test(reference));
+
+  assert.doesNotMatch(html, /(?:src|poster)="\.\.\//);
+
+  await Promise.all(
+    references.map((reference) =>
+      access(resolve("public", decodeURIComponent(reference))),
+    ),
+  );
+});
 
 function sectionBody(html, id) {
   const marker = `id="${id}"`;
